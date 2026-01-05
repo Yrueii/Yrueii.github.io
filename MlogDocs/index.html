@@ -18,12 +18,6 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="image\micro-processor.png" type="image/png">
     <script defer src="script.js"></script>
-    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script> -->
-
-    <!-- this is a git test -->
 </head>
 <!-- TODO add a top bar for navigate links instead of the right sidebar -->
 <!-- TODO make the table of contents collapseable? -->
@@ -160,6 +154,9 @@
                 <li><a href="MlogLabeler/index.html">Mlog Labeler</a></li>
                 <li><a href="ProcessorUI/index.html">Online Processor GUI</a></li>
             </ul>
+            <ul id="lang-list">
+                <h2>Languages</h2>
+            </ul>
         </aside>
         <main class="main-content" style="font-size: larger;">
             <div class="hamburger-menu" id="hamburger-menu">
@@ -198,10 +195,7 @@
                     <data data-i18n="foreword.content6"></data>
                     <code data-i18n="foreword.content7"></code> 
                     <data data-i18n="foreword.content8"></data> 
-                    
-                    
-                    </p>
-
+                </p>
             </section>
             <section id="introduction" class="subtitle">
                 <h1 data-i18n="introduction.title"></h1>
@@ -221,36 +215,36 @@
                 <h2 data-i18n="glossary.title2"></h2>
                 <ul>
                     <section id="integers">
-                        <li><p><b data-i18n="glossary.integers"></b></p></li>
+                        <li><p><b data-i18n="glossary.integers.title"></b></p></li>
                         <p class="ti">
-                            <a href="https://en.wikipedia.org/wiki/Integer"data-i18n="glossary.integers"></a>
-                            <data data-i18n="glossary.content1"></data>
+                            <a href="https://en.wikipedia.org/wiki/Integer"data-i18n="glossary.integers.title"></a>
+                            <data data-i18n="glossary.integers.content1"></data>
                         </p>
-                        <div style="margin-left: 30px;"><b data-i18n="glossary.intlimit"></b><br>
+                        <div style="margin-left: 30px;"><b data-i18n="glossary.integers.intlimit"></b><br>
                             <p class="ti">
-                                <data data-i18n="glossary.content2"></data>
-                                <span style="color: yellow;" data-i18n="glossary.max-power"></span>
-                                <data data-i18n="glossary.which-equals"></data>
-                                <span style="color: yellow;" data-i18n="glossary.max-value"></span>
-                                <data data-i18n="glossary.range-separator"></data>
-                                <span style="color: yellow;" data-i18n="glossary.min-power"></span>
-                                <data data-i18n="glossary.which-is"></data>
-                                <span style="color: yellow;" data-i18n="glossary.min-value"></span>
-                                <data data-i18n="glossary.content3"></data>
+                                <data data-i18n="glossary.integers.content2"></data>
+                                <span style="color: yellow;" data-i18n="glossary.integers.max-power"></span>
+                                <data data-i18n="glossary.integers.which-equals"></data>
+                                <span style="color: yellow;" data-i18n="glossary.integers.max-value"></span>
+                                <data data-i18n="glossary.integers.range-separator"></data>
+                                <span style="color: yellow;" data-i18n="glossary.integers.min-power"></span>
+                                <data data-i18n="glossary.integers.which-is"></data>
+                                <span style="color: yellow;" data-i18n="glossary.integers.min-value"></span>
+                                <data data-i18n="glossary.integers.content3"></data>
                             </p>
                         </div>
                     </section>
                     <section id="float">
-                        <li><p><b>Float</b></p></li>
-                            <p class="ti">Opposite of integers, decimal numbers, 1.001, are float.</p>
+                        <li><p><b data-i18n="glossary.float.title"></b></p></li>
+                            <p class="ti" data-i18n="glossary.float.content"></p>
                     </section>
                     <section id="boolean">
-                        <li><p><b>Boolean</b></p></li>
-                            <p class="ti">A data type that can have 1 of 2 states, true or false, 0 or 1.</p>
+                        <li><p><b data-i18n="glossary.boolean.title"></b></p></li>
+                            <p class="ti" data-i18n="glossary.boolean.content"></p>
                     </section>
                     <section id="strings">
-                        <li><p><b>Strings</b></p></li>
-                            <p class="ti">a sequence of characters, different from <a href="#variables" >variables</a>, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).</p>
+                        <li><p><b data-i18n="glossary.strings.title"></b></p></li>
+                            <p class="ti" data-i18n="glossary.strings.content"></p>
                     </section>
                     <section id="building-reference">
                         <li><p><b>Block or Unit Reference</b></p></li>

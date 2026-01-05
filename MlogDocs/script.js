@@ -1,13 +1,59 @@
-async function loadLang(lang) {
-  const res = await fetch(`/MlogDocs/Languages/i18n/${lang}.json`);
-  const dict = await res.json();
+function renderTextWithTokens(el, text, tokenResolvers) {
+  const frag = document.createDocumentFragment();
 
-  document.querySelectorAll("[data-i18n]").forEach(el => {
-    const key = el.dataset.i18n.split(".");
-    let val = dict;
-    for (const k of key) val = val?.[k];
-    if (typeof val === "string") el.textContent = val;
-  });
+  const regex = /\{(\w+):(\w+)\}/g;
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text))) {
+    if (match.index > lastIndex) {
+      frag.append(text.slice(lastIndex, match.index));
+    }
+
+    const [, type, name] = match;
+    const resolver = tokenResolvers[type];
+
+    if (resolver) {
+      frag.append(resolver(name));
+    } else {
+      frag.append(match[0]); // fallback: literal
+    }
+
+    lastIndex = regex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    frag.append(text.slice(lastIndex));
+  }
+
+  el.textContent = "";
+  el.append(frag);
+}
+
+const tokenResolvers = {
+  link(name) {
+    const a = document.createElement("a");
+    a.href = `#${name}`;
+    a.textContent = i18n[name];
+    return a;
+  }
+};
+
+async function loadLang(lang) {
+  fetch(`/MlogDocs/Languages/i18n/${lang}.json`)
+    .then(r => r.json())
+    .then(data => {
+      window.i18n = data;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.dataset.i18n;
+        const text = key.split(".").reduce((o, k) => o[k], data);
+
+        if (typeof text === "string") {
+          renderTextWithTokens(el, text, tokenResolvers);
+        }
+      });
+    });
 
   document.body.classList.remove("skeleton");
 }
@@ -136,6 +182,18 @@ document.addEventListener('DOMContentLoaded', function() {
         link.parentNode.insertBefore(copyBtn, link.nextSibling);
       }
     })
+
+  fetch('/MlogDocs/Languages/i18n/index.json')
+    .then(r => r.json())
+    .then(list => {
+      const ul = document.querySelector('#lang-list');
+      for (const { lang_code, language } of list) {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#" onclick="loadLang('${lang_code}')">${language}</a>`;
+        ul.appendChild(li);
+      }
+    });
+
 });
 
 
