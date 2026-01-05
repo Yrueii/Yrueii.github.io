@@ -13,6 +13,8 @@
     <meta name="author" content="Yruei">
     <meta name="robots" content="index, follow">
     <title>Mlog Documentation</title>
+    <link rel="preload" href="./Languages/i18n/en.json" as="fetch" crossorigin>
+    <link rel="preload" href="./script.js" as="script">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="image\micro-processor.png" type="image/png">
     <script defer src="script.js"></script>
@@ -25,8 +27,10 @@
 </head>
 <!-- TODO add a top bar for navigate links instead of the right sidebar -->
 <!-- TODO make the table of contents collapseable? -->
+<!-- TODO add a search bar -->
+<!-- TODO change gifs to video files (more efficient) -->
 <!-- FIX code tidiness -->
-<body>
+<body class="skeleton">
     <div id="imageModal" class="modal">
         <span class="close">&times;</span>
         <img class="modal-content" id="modalImage">
@@ -164,66 +168,75 @@
             <div class="hamburger-menu-right" id="hamburger-menu-right">
                 &#9776;
             </div>
-            <h1 style="font-size: xx-large; text-align: center;">Mlog Documentation</h1><h1 style="text-align: center; font-size: medium; margin-top: -17px;">By Yruei</h1>
+            <h1 class="title" data-i18n="title">Mlog Documentation</h1>
+            <h1 class="title-by" data-i18n="by">By Yruei</h1>
             <section id="foreword" class="subtitle">
-                <h1>Foreword</h1>
+                <h1 data-i18n="foreword.title"></h1>
                 <hr>
-                <p class="ti">This documentation was written mostly by me, so there may be inaccuracies or omissions.
-                    As English is not my first language, I apologize for any spelling or grammar errors. If you have any corrections, additions, or suggestions, 
-                    please feel free to contact me to discuss them.
-                    you can DM me on<br>
+                <p class="ti">
+                    <data data-i18n="foreword.content1"></data>
+                    <br>
                     Discord (Yruei)
-                    <br>Reddit (<a  href="https://www.reddit.com/user/Far_Kale588/" class="cs">u/Far_Kale558<span class="tooltip">asdfasdf</span></a>)
+                    <br>
+                    Reddit (<a  href="https://www.reddit.com/user/Far_Kale588/" class="cs">u/Far_Kale558</a>)
+                    <br>
+                    <data data-i18n="foreword.issue"></data> 
+                    <a href="https://github.com/Yrueii/Yrueii.github.io/issues" data-i18n="foreword.issue_link">Here</a>
+                    <br>
+                    <br>
+                    <data data-i18n="foreword.content2"></data>
+                    <br> 
+                    <a href="https://discord.gg/mindustry">https://discord.gg/mindustry</a>
+                    <data data-i18n="foreword.content3"></data>
+                    <br>
+                    <br>
+                    <data data-i18n="foreword.content4"></data>
+                    <code style="color: yellow;">TO ADD#</code>,
+                    <br>
+                    <data data-i18n="foreword.content5"></data>
+                    <code class="key">CTRL</code> + <code class="key">F</code>
+                    <data data-i18n="foreword.content6"></data>
+                    <code data-i18n="foreword.content7"></code> 
+                    <data data-i18n="foreword.content8"></data> 
                     
-                    <br>or make an issue <a href="https://github.com/Yrueii/Yrueii.github.io/issues">Here</a>
-                    <!-- <br><br><br>this is the new website, images are rendered at 100% resolution, meaning no matter how small you screen is if you zoom in enough it will show its original resolution. -->
-                    <!-- <br>if you prefer the old website for some reason click <a href="https://docs.google.com/document/d/19QCrupPGglPaCuIfajgktu2At5iJLrrSaM2jeXXyuyg/edit?usp=sharing"> here</a> (outdated). -->
-                    <br><br>
-                    if you have any question about mlog, whether it is technical help or general question feel free to ask them in 
-                    <br> <a href="https://discord.gg/mindustry">https://discord.gg/mindustry</a>, people there will be happy to help you,
-                    (just dont ask to ask, just ask)
-                    
-                    <br><br>
-                    There are some missing information in this documentation, which are identified by <code style="color: yellow;">TO ADD#</code>,
-                    <br>for people who want to contribute and complete them you can search for it by pressing <code class="key">CTRL</code> + <code class="key">F</code>
-                    , or <code>Find in page</code> for mobile devices
                     
                     </p>
 
             </section>
             <section id="introduction" class="subtitle">
-                <h1>Introduction</h1>
+                <h1 data-i18n="introduction.title"></h1>
                 <hr>
-                <p style="font-size: x-large;">What is Mindustry logic?</p>
-            <p class="ti"> Mindustry Logic (mlog) is a scripting language added in v6 for the purpose of introducing more advanced automation and 
-                strategy into the game  It is heavily inspired by Assembly languages, therefore the language is a low level language 
-                making it harder to understand (low level being low to machine language (Assembly, C, etc) and far from human language, 
-                high level language example are (Python, javaScript, C#, etc) if you have previous programming experience it's very easy 
-                to learn but people who are entirely new to programming might find this a little confusing.
-                <br><br>
-                Fun fact, it is turing complete (meaning you can literally do anything a real computer can, although the practicality is questionable),
-                it is often used for more advanced automation (telling units what to do, disabling/enabling blocks, and more),
-                For more advanced people, they like to mess around just for fun making stuff that are not actually useful to campaign like games, emulators, renderings, etc.
-                <br><br>
-                mlog is not necessary for the completion of campaign , it is very optional, often the time you spent coding will be more than if you just do it manually..</p>
+                <p style="font-size: x-large;" data-i18n="introduction.title2"></p>
+                <p class="ti">
+                    <data data-i18n="introduction.content1"></data>
+                    <br><br>
+                    <data data-i18n="introduction.content2"></data>
+                    <br><br>
+                    <data data-i18n="introduction.content3"></data>
+                </p>
             </section>
             <section id="glossary" class="subtitle">
-                <h1>Glossary</h1>
+                <h1 data-i18n="glossary.title"></h1>
                 <hr>
-                <h2>Data types</h2>
+                <h2 data-i18n="glossary.title2"></h2>
                 <ul>
                     <section id="integers">
-                        <li><p><b>Integers</b></p></li>
+                        <li><p><b data-i18n="glossary.integers"></b></p></li>
                         <p class="ti">
-                            <a href="https://en.wikipedia.org/wiki/Integer">Integers</a> 
-                            are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not.
+                            <a href="https://en.wikipedia.org/wiki/Integer"data-i18n="glossary.integers"></a>
+                            <data data-i18n="glossary.content1"></data>
                         </p>
-                        <div style="margin-left: 30px;"><b>integer limitations</b><br>
+                        <div style="margin-left: 30px;"><b data-i18n="glossary.intlimit"></b><br>
                             <p class="ti">
-                                The largest integer that can be represented accurately in a single number in mindustry (double-precision floating-point format) 
-                                is <span style="color: yellow;">2^53</span>, which equals <span style="color: yellow;">9007199254740992</span>. 
-                                from <span style="color: yellow;">-2^53</span> , which is <span style="color: yellow;">−9007199254740992</span>. Beyond these limits, 
-                                floating-point representation may lead to inaccuracies due to the way numbers are rounded.
+                                <data data-i18n="glossary.content2"></data>
+                                <span style="color: yellow;" data-i18n="glossary.max-power"></span>
+                                <data data-i18n="glossary.which-equals"></data>
+                                <span style="color: yellow;" data-i18n="glossary.max-value"></span>
+                                <data data-i18n="glossary.range-separator"></data>
+                                <span style="color: yellow;" data-i18n="glossary.min-power"></span>
+                                <data data-i18n="glossary.which-is"></data>
+                                <span style="color: yellow;" data-i18n="glossary.min-value"></span>
+                                <data data-i18n="glossary.content3"></data>
                             </p>
                         </div>
                     </section>

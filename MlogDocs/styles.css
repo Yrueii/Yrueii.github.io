@@ -18,6 +18,124 @@
     color: #d9e3f7;
 }
 
+data{
+    all:unset;
+}
+
+.skeleton {
+    [data-i18n] {
+        background: linear-gradient(90deg, #8888884b 25%, #7777774b 50%, #8888884b 75%);
+        background-size: 200% 100%;
+        color: transparent;
+        /* hide text until loaded */
+        border-radius: 4px;
+        display: inline-block;
+        animation: pulse 1.5s infinite linear;
+        width: 80%;
+        height: 1.5rem;
+    }
+    h1[data-i18n] {
+        height: 2rem;
+    }
+    h1.title[data-i18n] {
+        display: flex;
+        font-size: xx-large;
+        text-align: center;
+        justify-content: center;
+        width:300px;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    h1.title-by[data-i18n] {
+        display: flex;
+        font-size: xx-large;
+        text-align: center;
+        justify-content: center;
+        width:100px;
+        height: 1rem;
+        margin: 0 auto;
+        margin-top: 3px;
+        /* margin-bottom: 24px; */
+    }
+    
+    [data-i18n="foreword.title"]{
+        width: 200px;
+        margin-bottom: 0;
+    }
+    [data-i18n="foreword.issue"]{
+        width: 10%;
+    }
+    [data-i18n="foreword.issue_link"]{
+        width: 5%;
+    }
+    [data-i18n="foreword.content1"]{
+        width: 95%;
+        height: 3rem;
+    }
+    [data-i18n="foreword.content3"]{
+        width: 60%;
+    }
+    [data-i18n="foreword.content4"]{
+        width: 60%;
+    }
+    [data-i18n="foreword.content5"]{
+        width: 60%;
+    }
+    [data-i18n="foreword.content6"]{
+        width: 5%;
+    }
+    [data-i18n="foreword.content7"]{
+        width: 5%;
+    }
+    [data-i18n="foreword.content8"]{
+        width: 5%;
+    }
+    [data-i18n="introduction.title"]{
+        width: 15%;
+        height: 2rem;
+        margin: 0 auto;
+    }
+    [data-i18n="introduction.title2"]{
+        width: 20%;
+        height: 2rem;
+        margin: 0 auto;
+    }
+    [data-i18n="introduction.content1"]{
+        width: 95%;
+        height: 5rem;
+    }
+    [data-i18n="introduction.content2"]{
+        width: 95%;
+        height: 5rem;
+    }
+    [data-i18n="introduction.content3"]{
+        width: 95%;
+        height: 2rem;
+    }
+}
+
+
+@keyframes pulse {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.title {
+    font-size: xx-large;
+    text-align: center;
+}
+
+.title-by {
+    text-align: center;
+    font-size: medium;
+    margin-top: -17px;
+}
+
 html, body {
   overflow-x: hidden;
 }

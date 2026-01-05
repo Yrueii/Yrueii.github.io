@@ -1,3 +1,19 @@
+async function loadLang(lang) {
+  const res = await fetch(`/MlogDocs/Languages/i18n/${lang}.json`);
+  const dict = await res.json();
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n.split(".");
+    let val = dict;
+    for (const k of key) val = val?.[k];
+    if (typeof val === "string") el.textContent = val;
+  });
+
+  document.body.classList.remove("skeleton");
+}
+
+loadLang("en");
+
 document.getElementById('hamburger-menu').addEventListener('click', function() {
     var sidebar = document.getElementById('sidebar');
     var content = document.querySelector('.main-content');
