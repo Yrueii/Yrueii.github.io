@@ -1,6 +1,6 @@
 function renderTextWithTokens(el, text, sectionData) {
   const frag = document.createDocumentFragment();
-  const regex = /\{(\w+):(\w+)(?::#([\w-]+))?\}/g;
+  const regex = /\{(\w+)(?::(\w+)(?::([^}]+))?)?\}/g;
 
   let last = 0;
   let m;
@@ -8,12 +8,13 @@ function renderTextWithTokens(el, text, sectionData) {
   while ((m = regex.exec(text))) {
     frag.append(text.slice(last, m.index));
     const [, type, name, id] = m;
-    // console.log(type, name);
-    if (id) {
-      frag.append(tokenResolvers[type](name, sectionData, id));
-    } else{
-      frag.append(tokenResolvers[type](name, sectionData));
-    }
+    frag.append(
+      tokenResolvers[type](
+        ...(name ? [name] : []),
+        ...(sectionData ? [sectionData] : []),
+        ...(id ? [id] : [])
+      )
+    );
     last = regex.lastIndex;
   }
   frag.append(text.slice(last));
@@ -22,22 +23,41 @@ function renderTextWithTokens(el, text, sectionData) {
 
 const tokenResolvers = {
   link(name, sectionData, id) {
-    const a = document.createElement("a");
-    a.href = `#${id}`;
-    a.textContent = sectionData[name];
-    a.addEventListener('click', triggerGlow);
-    return a;
+    const el = document.createElement("a");
+    el.href = `${id}`;
+    el.textContent = sectionData[name];
+    el.addEventListener('click', triggerGlow);
+    return el;
   },
   hlYel(name, sectionData) {
-    const a = document.createElement("span");
-    a.style.color = "yellow";
-    a.textContent = sectionData[name];
-    return a;
+    const el = document.createElement("span");
+    el.style.color = "yellow";
+    el.textContent = sectionData[name];
+    return el;
   },
-  code(name, sectionData) {
-    const a = document.createElement("code");
-    a.textContent = sectionData[name];
-    return a;
+  code(name, sectionData, id) {
+    const el = document.createElement("code");
+    switch (id) {
+      case "yel":
+        el.style.color = "yellow";
+        break;
+      case "key":
+        el.classList.add("key");
+        break;
+      case 'contentname':
+        el.classList.add("content-name");
+        break;
+    }
+    el.textContent = sectionData[name];
+    return el;
+  },
+  br() {
+    return document.createElement("br");
+  },
+  b(name, sectionData) {
+    const el = document.createElement("b");
+    el.textContent = sectionData[name];
+    return el;
   }
 };
 
@@ -46,28 +66,26 @@ function resolveKey(path, obj) {
 }
 
 async function loadLang(lang) {
-  fetch(`/MlogDocs/Languages/i18n/${lang}.json`)
-    .then(r => r.json())
-    .then(data => {
-      window.i18n = data;
+  const response = await fetch(`/MlogDocs/Languages/i18n/${lang}.yaml`);
+  const yamlText = await response.text();
+  const data = jsyaml.load(yamlText);
+  
+  window.i18n = data;
 
-      document.querySelectorAll("[data-i18n]").forEach(el => {
-        const path = el.dataset.i18n;
-        const sectionKey = path.split(".").slice(0, -1).reduce((o, k) => o?.[k], i18n);
-        const value = resolveKey(path, i18n);
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const path = el.dataset.i18n;
+    const sectionKey = path.split(".").slice(0, -1).reduce((o, k) => o?.[k], i18n);
+    const value = resolveKey(path, i18n);
 
-        if (typeof value === "string") {
-          // console.log(path.split("."));
-          renderTextWithTokens(el, value, sectionKey);
-        }
-      });
-    });
+    if (typeof value === "string") {
+      renderTextWithTokens(el, value, sectionKey);
+    }
+  });
 
   document.body.classList.remove("skeleton");
 }
 
 loadLang("en");
-
 document.getElementById('hamburger-menu').addEventListener('click', function() {
     var sidebar = document.getElementById('sidebar');
     var content = document.querySelector('.main-content');
@@ -211,39 +229,38 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
   
 function triggerGlow(event) {
-
   event.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    const targetTop = target.getBoundingClientRect().top + window.scrollY;
 
-    let scrollToPosition;
-    if (target.offsetHeight > window.innerHeight){
-      scrollToPosition = targetTop
-    } else {
-      scrollToPosition = targetTop - (window.innerHeight / 2) + (target.offsetHeight / 2);
-    }
-      
-    window.scrollTo({
-      top: scrollToPosition,
-      behavior: 'smooth'
-    });
+  const href = this.getAttribute("href"); // "#section"
+  const target = document.querySelector(href);
+  if (!target) return;
 
-  // Get the href attribute and extract the target ID
-  const targetId = event.target.getAttribute('href').substring(1);
-  const targetElement = document.getElementById(targetId);
+  // create history entry
+  history.pushState(null, "", href);
 
+  const targetTop = target.getBoundingClientRect().top + window.scrollY;
 
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        triggerGlow1(targetElement);
-        observer.disconnect();
-      }
-    });
+  const scrollToPosition =
+    target.offsetHeight > window.innerHeight
+      ? targetTop
+      : targetTop - window.innerHeight / 2 + target.offsetHeight / 2;
+
+  window.scrollTo({
+    top: scrollToPosition,
+    behavior: "smooth",
   });
 
-  observer.observe(targetElement);
+  const targetId = href.slice(1);
+  const observer = new IntersectionObserver((entries, observer) => {
+    if (entries[0].isIntersecting) {
+      triggerGlow1(target);
+      observer.disconnect();
+    }
+  });
+
+  observer.observe(target);
 }
+
 
 function triggerGlow1(section) {
   section.classList.remove('glow-section');

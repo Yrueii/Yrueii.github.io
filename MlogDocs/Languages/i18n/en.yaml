@@ -1,0 +1,110 @@
+# Please read README beforehand.
+# Only change values, do not change keys
+# if possible do not hange anything inside { }, only move if needed
+
+# Token format:
+# {type:key:extra}
+#
+# type   > resolver name (determines what is rendered)
+# key    > lookup key or value passed to the resolver
+# extra  > optional modifier (id, class, color, URL, etc.)
+#
+# Examples:
+# {br}                    > line break
+# {link:docs}             > link using key "docs"
+# {link:docs:https://…}   > link with explicit URL
+# {hl:text:yel}           > highlight "text" in yellow
+
+title: Mlog Documentation
+by: By Yruei
+
+foreword:
+    title: Foreword
+    content1: |
+        This documentation was written mostly by me, so there may be inaccuracies or omissions. 
+        As English is not my first language, I apologize for any spelling or grammar errors. 
+        If you have any corrections, additions, or suggestions, please feel free to contact me to discuss them.
+        you can DM me on 
+        {br} Discord (Yruei) 
+        {br} Reddit ({link:redditlink:https://www.reddit.com/user/Far_Kale588/}) 
+        {br} or make an issue {link:linkhere:https://github.com/Yrueii/Yrueii.github.io/issues}
+        {br}
+        {br} if you have any question about mlog, whether it is technical help or general question feel free to ask them in 
+        {br} {link:discordlink:https://discord.gg/mindustry} 
+        people there will be happy to help you, (just dont ask to ask, just ask) 
+        {br}
+        {br} There are some missing information in this documentation, which are identified by {code:toadd:yel}, 
+        {br} for people who want to contribute and complete them you can search for it by pressing 
+        {code:ctrl:key} + {code:f:key}, or {code:findinpage:yel} for mobile devices
+    redditlink: u/Far_Kale558
+    discordlink: https://discord.gg/mindustry
+    toadd: "TO ADD#"
+    ctrl: CTRL
+    linkhere: Here
+    f: f
+    findinpage: Find in page
+
+introduction:
+    title: Introduction
+    title2: What is Mindustry logic?
+    content1: |
+        Mindustry Logic (mlog) is a scripting language added in v6 for the purpose of introducing more advanced automation and strategy into the game.
+        It is heavily inspired by Assembly languages, therefore the language is a low level language making it harder to understand (low level being low to machine language (Assembly, C, etc) and far from human language,
+        high level language example are (Python, javaScript, C#, etc). 
+        if you have previous programming experience it's very easy to learn but people who are entirely new to programming might find this a little confusing."
+    content2: |
+        Fun fact, it is turing complete (meaning you can literally do anything a real computer can, although the practicality is questionable), 
+        it is often used for more advanced automation (telling units what to do, disabling/enabling blocks, and more), 
+        For more advanced people, they like to mess around just for fun making stuff that are not actually useful to campaign like games, emulators, renderings, etc."
+    content3: "mlog is not necessary for the completion of campaign , it is very optional, often the time you spent coding will be more than if you just do it manually.."
+
+glossary:
+    title: Glossary
+    title2: Data types
+    integers:
+        title: Integers
+        content1: "are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not. {hlYel:max-value}"
+        intlimit: integer limitations
+        content2: |
+            The largest integer that can be represented accurately in a single number in Mindustry (double-precision floating-point format) is {hlYel:maxpower}, which equals to {hlYel:maxvalue}
+            from {hlYel:minpower}, which is {hlYel:minvalue}.
+            Beyond these limits, floating-point representation may lead to inaccuracies due to the way numbers are rounded."
+        maxpower: 2^53
+        maxvalue: "9007199254740992"
+        minpower: -2^53
+        minvalue: "-9007199254740992"
+    float:
+        title: Float
+        content: "Opposite of integers, decimal numbers, 1.001, are float."
+    boolean:
+        title: Boolean
+        content: "A data type that can have 1 of 2 states, true or false, 0 or 1."
+    strings:
+        title: Strings
+        content: "a sequence of characters, different from {link:variables:#variables}, in mlog strings are enclosed by \" (quotation mark) (\"Hello, world\" is a string)."
+        variables: Variables
+    blreference:
+        title: Block or Unit Reference
+        content: |
+            every block and unit has a unique reference, so every block and unit can be differentiated from each other, 
+            internally they look like {code:messagere_ference} or {code:poly_reference}, 
+            these are not viewable without modifying the game. 
+            in game these references are stored in a variable like {link:building_variable:#links},
+            or {link:unit:#unit}, 
+            they can also be written to a normal variable"
+        messagere_ference: message#98257
+        poly_reference: poly#49178
+        building_variable: Building Variable
+        unit: "@unit"
+    contentname: 
+        title: Content name
+        content: |
+            in-game content/item names, like {code:copper:contentname}, {code:surge:contentname}, {code:antumbra:contentname} kebab case naming, and case sensitive {br}these are {b:not} variables, these are {b:values} that can be stored in variables 
+            {br}
+            {br}content name can be found in the {link:appendix:#appendix}
+        copper: "@copper"
+        surge: "@surge-alloy"
+        antumbra: "@antumbra"
+        not: not
+        values: values
+        appendix: appendix

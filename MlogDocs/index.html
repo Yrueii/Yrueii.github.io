@@ -13,16 +13,18 @@
     <meta name="author" content="Yruei">
     <meta name="robots" content="index, follow">
     <title>Mlog Documentation</title>
-    <link rel="preload" href="./Languages/i18n/en.json" as="fetch" crossorigin>
+    <link rel="preload" href="./Languages/i18n/en.yaml" as="fetch" crossorigin>
     <link rel="preload" href="./script.js" as="script">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="image\micro-processor.png" type="image/png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
     <script defer src="script.js"></script>
 </head>
 <!-- TODO add a top bar for navigate links instead of the right sidebar -->
 <!-- TODO make the table of contents collapseable? -->
 <!-- TODO add a search bar -->
 <!-- TODO change gifs to video files (more efficient) -->
+<!-- local storage to store prefered language across instance -->
 <!-- FIX code tidiness -->
 <body class="skeleton">
     <div id="imageModal" class="modal">
@@ -171,29 +173,6 @@
                 <hr>
                 <p class="ti">
                     <data data-i18n="foreword.content1"></data>
-                    <br>
-                    Discord (Yruei)
-                    <br>
-                    Reddit (<a  href="https://www.reddit.com/user/Far_Kale588/" class="cs">u/Far_Kale558</a>)
-                    <br>
-                    <data data-i18n="foreword.issue"></data> 
-                    <a href="https://github.com/Yrueii/Yrueii.github.io/issues" data-i18n="foreword.issue_link">Here</a>
-                    <br>
-                    <br>
-                    <data data-i18n="foreword.content2"></data>
-                    <br> 
-                    <a href="https://discord.gg/mindustry">https://discord.gg/mindustry</a>
-                    <data data-i18n="foreword.content3"></data>
-                    <br>
-                    <br>
-                    <data data-i18n="foreword.content4"></data>
-                    <code style="color: yellow;">TO ADD#</code>,
-                    <br>
-                    <data data-i18n="foreword.content5"></data>
-                    <code class="key">CTRL</code> + <code class="key">F</code>
-                    <data data-i18n="foreword.content6"></data>
-                    <code data-i18n="foreword.content7"></code> 
-                    <data data-i18n="foreword.content8"></data> 
                 </p>
             </section>
             <section id="introduction" class="subtitle">
@@ -238,21 +217,11 @@
                     </section>
                     <section id="building-reference">
                         <li><p><b data-i18n="glossary.blreference.title"></b></p></li>
-                            <p class="ti">
-                                every block and unit has a unique reference, so every block and unit can be differentiated from 
-                                each other , internally they look like <code>message#98257</code> or <code>poly#49178</code>, these are not viewable without modifying the game.
-                                in game these references are stored in a variable like <a href="#links" >Building Variable</a>, or <a href="#unit" >@unit</a>,
-                                they can also be written to a normal variable
-                            </p>
+                            <p class="ti" data-i18n="glossary.blreference.content"></p>
                     </section>
                     <section id="contentname">
-                        <li><p><b>Content name</b></p></li>
-                        <p class="ti">
-                            in-game content/item names, like <code class="content-name">@copper</code>, <code class="content-name">@surge-alloy</code>, <code class="content-name">@antumbra</code> kebab case naming, and case sensitive
-                            <br>these are <b>not</b> variables, these are <b>values</b> that can be stored in variables
-                            <br>
-                            <br>content name can be found in the <a href="#appendix">appendix</a>
-                        </p>
+                        <li><p><b data-i18n="glossary.contentname.title"></b></p></li>
+                        <p class="ti" data-i18n="glossary.contentname.content"></p>
                     </section>
                 </ul>
             </section>

@@ -62,33 +62,9 @@ data{
         width: 200px;
         margin-bottom: 0;
     }
-    [data-i18n="foreword.issue"]{
-        width: 10%;
-    }
-    [data-i18n="foreword.issue_link"]{
-        width: 5%;
-    }
     [data-i18n="foreword.content1"]{
         width: 95%;
-        height: 3rem;
-    }
-    [data-i18n="foreword.content3"]{
-        width: 60%;
-    }
-    [data-i18n="foreword.content4"]{
-        width: 60%;
-    }
-    [data-i18n="foreword.content5"]{
-        width: 60%;
-    }
-    [data-i18n="foreword.content6"]{
-        width: 5%;
-    }
-    [data-i18n="foreword.content7"]{
-        width: 5%;
-    }
-    [data-i18n="foreword.content8"]{
-        width: 5%;
+        height: 16rem;
     }
     [data-i18n="introduction.title"]{
         width: 15%;

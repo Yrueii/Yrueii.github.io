@@ -1,0 +1,102 @@
+title: Mlog ドキュメント
+by: 作成者 Yruei
+
+foreword:
+    title: 前書き
+    content1: |
+        このドキュメントは主に私自身によって書かれているため、不正確な点や不足している情報がある可能性があります。
+        修正点、追加事項、提案などがあれば、ぜひご連絡ください。
+        連絡先:
+        {br} Discord（Yruei）
+        {br} Reddit（{link:redditlink:https://www.reddit.com/user/Far_Kale588/}）
+        {br} または Issue を作成してください {link:linkhere:https://github.com/Yrueii/Yrueii.github.io/issues}
+        {br}
+        {br} mlog に関する質問（技術的なもの、一般的なものを問わず）があれば、
+        {br} {link:discordlink:https://discord.gg/mindustry}
+        に気軽に投稿してください。
+        そこにいる人たちは喜んで助けてくれます（「質問していいですか」と聞かず、直接質問してください）。
+        {br}
+        {br} このドキュメントには未記載の情報がいくつかあり、それらは {code:toadd:yel} で示されています。
+        {br} 貢献して完成させたい人は、
+        {code:ctrl:key} + {code:f:key} を押すか、
+        モバイルデバイスの場合は {code:findinpage:yel} で検索できます。
+    redditlink: u/Far_Kale558
+    discordlink: https://discord.gg/mindustry
+    toadd: "TO ADD#"
+    ctrl: CTRL
+    linkhere: こちら
+    f: f
+    findinpage: ページ内検索
+
+introduction:
+    title: はじめに
+    title2: Mindustry Logic とは？
+    content1: |
+        Mindustry Logic（mlog）は、ゲームにより高度な自動化や戦略性を導入する目的で v6 で追加されたスクリプト言語です。
+        アセンブリ言語に強く影響を受けており、低水準言語に分類されます。
+        （低水準言語とは機械語に近い言語（Assembly、C など）で、人間の言語からは遠いものです。
+        高水準言語の例としては Python、JavaScript、C# などがあります。）
+        プログラミング経験がある人にとっては非常に学びやすいですが、まったくの初心者には少し分かりにくいかもしれません。
+    content2: |
+        豆知識として、mlog はチューリング完全です
+        （理論上は実際のコンピュータができることは何でもできますが、実用性は別問題です）。
+        主に高度な自動化（ユニットの制御、ブロックの有効／無効化など）に使われます。
+        上級者の中には、キャンペーン攻略には直接役立たないものの、
+        ゲームやエミュレータ、描画処理などを作って遊ぶ人もいます。
+    content3: "mlog はキャンペーンをクリアするために必須ではありません。完全に任意要素であり、手動で行うよりもコーディングに時間がかかることも多いです。"
+
+glossary:
+    title: 用語集
+    title2: データ型
+    integers:
+        title: 整数
+        content1: "整数とは異なり、小数点以下を含む数値です。例として 1.001 などがあります。"
+        intlimit: 整数の制限
+        content2: |
+            Mindustry において（倍精度浮動小数点形式で）1つの数値として正確に表現できる最大の整数は {hlYel:maxpower}、
+            つまり {hlYel:maxvalue} です。
+            最小値は {hlYel:minpower}、つまり {hlYel:minvalue} です。
+            これらの範囲を超えると、数値の丸め処理の関係で不正確になる可能性があります。
+        maxpower: 2^53
+        maxvalue: "9007199254740992"
+        minpower: -2^53
+        minvalue: "-9007199254740992"
+    float:
+        title: 浮動小数点数
+        content: "整数とは逆で、小数を含む数値です。1.001 などが該当します。"
+    boolean:
+        title: 真偽値（Boolean）
+        content: "true / false、または 0 / 1 の2つの状態のどちらかを取るデータ型です。"
+    strings:
+        title: 文字列
+        content: "文字の並びです。{link:variables:#variables} とは異なり、mlog では文字列は \"（ダブルクォーテーション）で囲まれます（\"Hello, world\" は文字列です）。"
+        variables: 変数
+    blreference:
+        title: ブロック／ユニット参照
+        content: |
+            すべてのブロックやユニットには一意の参照があり、それによって互いを区別できます。
+            内部的には {code:messagere_ference} や {code:poly_reference} のような形式になっていますが、
+            これはゲームを改造しない限り確認できません。
+            ゲーム内では、これらの参照は {link:building_variable:#links} や
+            {link:unit:#unit} のような変数に格納されます。
+            また、通常の変数に代入することも可能です。
+        messagere_ference: message#98257
+        poly_reference: poly#49178
+        building_variable: 建物変数
+        unit: "@unit"
+    contentname: 
+        title: コンテンツ名
+        content: |
+            ゲーム内のコンテンツやアイテム名のことです。
+            例: {code:copper:contentname}、{code:surge:contentname}、{code:antumbra:contentname}
+            これらはケバブケースで表記され、大文字小文字を区別します。
+            {br}これらは変数{b:not}。
+            変数に格納可能な{b:values}です。
+            {br}
+            {br}コンテンツ名は {link:appendix:#appendix} で確認できます。
+        copper: "@copper"
+        surge: "@surge-alloy"
+        antumbra: "@antumbra"
+        not: ではありません
+        values: 値
+        appendix: 付録

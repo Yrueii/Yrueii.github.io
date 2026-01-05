@@ -16,14 +16,11 @@ Example entry in `index.json`:
 { "lang_code": "fr", "language": "Français" }
 ```
 
-Inline formatting uses the format `{name:key}`
-
-Example in `fr.json`:
-```json
-"strings": {
-    "title": "Strings",
-    "content": "a sequence of characters, different from {link:variables}",
-    "variables": "Variables"
-}
+Translation text data often uses inline formatting, in the form of tokens `{type:key:extra}`, example:
+```yaml
+strings:
+    title: Strings
+    content: "a sequence of characters, different from {link:variables:#variables}."
+    variables: Variables
 ```
-
+if possible do not change the value inside of these, you can move them if needed, if modifying is necessary please read [Formatting & Tokens](Docs/TranslationDocs.md)
