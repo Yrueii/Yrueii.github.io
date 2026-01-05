@@ -1,43 +1,49 @@
-function renderTextWithTokens(el, text, tokenResolvers) {
+function renderTextWithTokens(el, text, sectionData) {
   const frag = document.createDocumentFragment();
+  const regex = /\{(\w+):(\w+)(?::#([\w-]+))?\}/g;
 
-  const regex = /\{(\w+):(\w+)\}/g;
-  let lastIndex = 0;
-  let match;
+  let last = 0;
+  let m;
 
-  while ((match = regex.exec(text))) {
-    if (match.index > lastIndex) {
-      frag.append(text.slice(lastIndex, match.index));
+  while ((m = regex.exec(text))) {
+    frag.append(text.slice(last, m.index));
+    const [, type, name, id] = m;
+    // console.log(type, name);
+    if (id) {
+      frag.append(tokenResolvers[type](name, sectionData, id));
+    } else{
+      frag.append(tokenResolvers[type](name, sectionData));
     }
-
-    const [, type, name] = match;
-    const resolver = tokenResolvers[type];
-
-    if (resolver) {
-      frag.append(resolver(name));
-    } else {
-      frag.append(match[0]); // fallback: literal
-    }
-
-    lastIndex = regex.lastIndex;
+    last = regex.lastIndex;
   }
-
-  if (lastIndex < text.length) {
-    frag.append(text.slice(lastIndex));
-  }
-
-  el.textContent = "";
-  el.append(frag);
+  frag.append(text.slice(last));
+  el.replaceChildren(frag);
 }
 
 const tokenResolvers = {
-  link(name) {
+  link(name, sectionData, id) {
     const a = document.createElement("a");
-    a.href = `#${name}`;
-    a.textContent = i18n[name];
+    a.href = `#${id}`;
+    a.textContent = sectionData[name];
+    a.addEventListener('click', triggerGlow);
+    return a;
+  },
+  hlYel(name, sectionData) {
+    const a = document.createElement("span");
+    a.style.color = "yellow";
+    a.textContent = sectionData[name];
+    return a;
+  },
+  code(name, sectionData) {
+    const a = document.createElement("code");
+    a.textContent = sectionData[name];
     return a;
   }
 };
+
+function resolveKey(path, obj) {
+  return path.split(".").reduce((o, k) => o?.[k], obj);
+}
 
 async function loadLang(lang) {
   fetch(`/MlogDocs/Languages/i18n/${lang}.json`)
@@ -46,11 +52,13 @@ async function loadLang(lang) {
       window.i18n = data;
 
       document.querySelectorAll("[data-i18n]").forEach(el => {
-        const key = el.dataset.i18n;
-        const text = key.split(".").reduce((o, k) => o[k], data);
+        const path = el.dataset.i18n;
+        const sectionKey = path.split(".").slice(0, -1).reduce((o, k) => o?.[k], i18n);
+        const value = resolveKey(path, i18n);
 
-        if (typeof text === "string") {
-          renderTextWithTokens(el, text, tokenResolvers);
+        if (typeof value === "string") {
+          // console.log(path.split("."));
+          renderTextWithTokens(el, value, sectionKey);
         }
       });
     });

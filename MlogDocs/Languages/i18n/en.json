@@ -28,17 +28,13 @@
         "title2": "Data types",
         "integers": {
             "title":"Integers",
-            "content1": "are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not.",
+            "content1": "are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not. {hlYel:max-value}",
             "intlimit": "integer limitations",
-            "content2": "The largest integer that can be represented accurately in a single number in Mindustry (double-precision floating-point format) is",
-            "max-power": "2^53",
-            "which-equals": ", which equals ",
-            "max-value": "9007199254740992",
-            "range-separator": ". from",
-            "min-power": "-2^53",
-            "which-is": ", which is",
-            "min-value": "-9007199254740992",
-            "content3": "Beyond these limits, floating-point representation may lead to inaccuracies due to the way numbers are rounded."
+            "content2": "The largest integer that can be represented accurately in a single number in Mindustry (double-precision floating-point format) is {hlYel:maxpower}, which equals to {hlYel:maxvalue}. from {hlYel:minpower}, which is {hlYel:minvalue} Beyond these limits, floating-point representation may lead to inaccuracies due to the way numbers are rounded.",
+            "maxpower": "2^53",
+            "maxvalue": "9007199254740992",
+            "minpower": "-2^53",
+            "minvalue": "-9007199254740992"
         },
         "float": {
             "title": "Float",
@@ -50,8 +46,13 @@
         },
         "strings": {
             "title": "Strings",
-            "content": "a sequence of characters, different from {link:variables}, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string)."
+            "content": "a sequence of characters, different from {link:variables:#variables}, in mlog strings are enclosed by “ (quotation mark) (“Hello, world” is a string).",
+            "variables": "Variables"
+        },
+        "blreference": {
+            "title":"Block or Unit Reference",
+            "content":"every block and unit has a unique reference, so every block and unit can be differentiated from each other , internally they look like <code>message#98257</code> or <code>poly#49178</code>, these are not viewable without modifying the game. in game these references are stored in a variable like <a href=\"#links\" >Building Variable</a>, or <a href=\"#unit\" >@unit</a>, they can also be written to a normal variable",
+            "buildingvariable": "Building Variable"
         }
-    },
-    "variables": "Variables"
+    }
 }
