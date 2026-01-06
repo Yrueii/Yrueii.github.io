@@ -136,3 +136,35 @@ basic_concept:
         vars: vars
         edit: edit
         more_info: click here for more info
+    how_processor_run_its_code:
+        title: How Processor run its code
+        content: |
+                They Always run Instruction from top to bottom 1 at a time
+                You can only jump and wait, you cannot make it run from bottom to top for example.
+                Here is a visualization:
+                {br} {img:image/print1.gif:width700}
+                {br} with jumps:
+                {br} {img:image/vis jump.gif:_}
+                {br} When the processor reach the end of its instruction it will go back to 0, repeating the loop indefinitely
+    links:
+        title: Links
+        content: | 
+            You can link a building to the processor by clicking the processor 
+            (you can see a circle, this is the processor range) and clicking the building
+            {br} {img:image/link.png:width600}
+
+            {br} {code:display1:variable}
+            is now a variable that can be used in the processor, it stores a <a href="#building-reference" >building reference,</a> 
+            is also sometimes called a “building variable”,
+            {br}building variable cannot be overwritten by any means, 
+            {br}in other words, you cannot use this variable to put in an output of an instruction
+            {br}however you can copy the its contents to another variable, Like {code:example1:op}
+            {br}the variable {code:mybuild:variable} is now the same as {code:display1:variable}, meaning you can use it the same way,
+            {br}however {code:mybuild:variable} is an independent variable (your variable) now, this means it also acts like a normal variable,
+            for example if the display block that is linked to the processor is destroyed the variable {code:display1:variable} will be null, 
+            but {code:mybuild:variable} will still have the last value it was set to, so you can still sensor things like 
+            {code:dead:contentname}from it
+        display1: display1
+        example1: set myBuilding = display1
+        mybuild: myBuilding
+        dead: "@dead"

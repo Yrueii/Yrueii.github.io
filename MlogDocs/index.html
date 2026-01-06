@@ -237,31 +237,12 @@
                     <p class="ti" data-i18n="basic_concept.processors_ui.content"></p>
                 </section>
                 <section id="how-processor-run-its-code">
-                    <h2>How Processor run its code</h2>
-                    <p class="ti">They Always run Instruction from top to bottom 1 at a time
-                        You can only jump and wait, you cannot make it run from bottom to top for example.
-                        Here is a visualization:</p>
-                        <img alt="alt" src="image/print1.gif"  style="width: 700px;">
-                        <p class="ti">with jumps:</p>
-                        <img alt="alt" src="image/vis jump.gif" >
-                        <p>When the processor reach the end of its instruction it will go back to 0, repeating the loop indefinitely </p>
+                    <h2 data-i18n="basic_concept.how_processor_run_its_code.title">How Processor run its code</h2>
+                    <p class="ti" data-i18n="basic_concept.how_processor_run_its_code.content"></p>
                 </section>
                 <section id="links">
-                    <h2>Links</h2>
-                    <p class="ti">You can link a building to the processor by clicking the processor 
-                        (you can see a circle, this is the processor range) and clicking the building
-                    </p>
-                    <img alt="alt" src="image/link.png"  style="width: 600px;">
-                    <p><code class="variable">display1</code> is now a variable that can be used in the processor, it stores a <a href="#building-reference" >building reference,</a> 
-                        is also sometimes called a “building variable”,
-                        <br>building variable cannot be overwritten by any means, 
-                        <br>in other words, you cannot use this variable to put in an output of an instruction
-                        <br>however you can copy the its contents to another variable, Like <code class="op">set myBuilding = display1</code>
-                        <br>the variable <code class="variable">myBuilding</code> is now the same as <code class="variable">display1</code>, meaning you can use it the same way,
-                        <br>however <code class="variable">myBuilding</code> is an independent variable (your variable) now, this means it also acts like a normal variable,
-                        for example if the display block that is linked to the processor is destroyed the variable <code class="variable">display1</code> will be null, 
-                        but <code class="variable">myBuilding</code> will still have the last value it was set to, so you can still sensor things like <code class="content-name">@dead</code> from it
-                    </p>
+                    <h2 data-i18n="basic_concept.links.title"></h2>
+                    <p class="ti" data-i18n="basic_concept.links.content"></p>
                 </section>
                 <section id="variables">
                     <h2>Variables</h2>

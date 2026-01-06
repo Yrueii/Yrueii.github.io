@@ -21,6 +21,9 @@ function renderTextWithTokens(el, text, sectionData) {
   el.replaceChildren(frag);
 }
 
+const modal = document.getElementById('imageModal');
+const modalImg = document.getElementById('modalImage');
+
 const tokenResolvers = {
   link(name, sectionData, extra) {
     const el = document.createElement("a");
@@ -47,6 +50,12 @@ const tokenResolvers = {
       case 'contentname':
         el.classList.add("content-name");
         break;
+      case 'variable':
+        el.classList.add("variable");
+        break;
+      case 'op':
+        el.classList.add("op");
+        break;
     }
     el.textContent = sectionData[name];
     return el;
@@ -63,6 +72,10 @@ const tokenResolvers = {
     const el = document.createElement("img");
     el.src = name
     el.classList.add(...extra.split(' ')) 
+    el.addEventListener('click', function() {
+      modal.style.display = 'flex';
+      modalImg.src = this.src;
+    });
     return el;
   },
   p(name, sectionData, extra){
@@ -280,10 +293,10 @@ function triggerGlow1(section) {
 }
 
 // Get the modal
-const modal = document.getElementById('imageModal');
+// const modal = document.getElementById('imageModal');
 
 // Get the image and insert it inside the modal
-const modalImg = document.getElementById('modalImage');
+// const modalImg = document.getElementById('modalImage');
 
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName('close')[0];

@@ -891,6 +891,12 @@ iframe {
 .width120 {
     width: 120px;
 }
+.width600 {
+    width: 600px;
+}
+.width700 {
+    width: 700px;
+}
 .width800 {
     width: 800px;
 }
