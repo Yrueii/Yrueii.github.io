@@ -1,18 +1,18 @@
 function renderTextWithTokens(el, text, sectionData) {
   const frag = document.createDocumentFragment();
-  const regex = /\{(\w+)(?::(\w+)(?::([^}]+))?)?\}/g;
+  const regex = /\{(\w+)(?::([^:}]+)(?::([^}]+))?)?\}/g;
 
   let last = 0;
   let m;
 
   while ((m = regex.exec(text))) {
     frag.append(text.slice(last, m.index));
-    const [, type, name, id] = m;
+    const [, type, name, extra] = m;
     frag.append(
       tokenResolvers[type](
         ...(name ? [name] : []),
         ...(sectionData ? [sectionData] : []),
-        ...(id ? [id] : [])
+        ...(extra ? [extra] : [])
       )
     );
     last = regex.lastIndex;
@@ -22,9 +22,9 @@ function renderTextWithTokens(el, text, sectionData) {
 }
 
 const tokenResolvers = {
-  link(name, sectionData, id) {
+  link(name, sectionData, extra) {
     const el = document.createElement("a");
-    el.href = `${id}`;
+    el.href = `${extra}`;
     el.textContent = sectionData[name];
     el.addEventListener('click', triggerGlow);
     return el;
@@ -35,9 +35,9 @@ const tokenResolvers = {
     el.textContent = sectionData[name];
     return el;
   },
-  code(name, sectionData, id) {
+  code(name, sectionData, extra) {
     const el = document.createElement("code");
-    switch (id) {
+    switch (extra) {
       case "yel":
         el.style.color = "yellow";
         break;
@@ -58,6 +58,17 @@ const tokenResolvers = {
     const el = document.createElement("b");
     el.textContent = sectionData[name];
     return el;
+  },
+  img(name, sectionData, extra) {
+    const el = document.createElement("img");
+    el.src = name
+    el.classList.add(...extra.split(' ')) 
+    return el;
+  },
+  p(name, sectionData, extra){
+    const el = document.createElement("p");
+    el.textContent = sectionData[name]
+    el.classList.add(...extra.split(' ')) 
   }
 };
 
@@ -66,7 +77,7 @@ function resolveKey(path, obj) {
 }
 
 async function loadLang(lang) {
-  const response = await fetch(`/MlogDocs/Languages/i18n/${lang}.yaml`);
+  const response = await fetch(`./Languages/i18n/${lang}.yaml`);
   const yamlText = await response.text();
   const data = jsyaml.load(yamlText);
   

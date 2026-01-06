@@ -63,7 +63,7 @@ glossary:
     title2: Data types
     integers:
         title: Integers
-        content1: "are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not. {hlYel:max-value}"
+        content1: "are whole numbers, meaning no decimal, 1,2,3, are integers, 1.001, are not."
         intlimit: integer limitations
         content2: |
             The largest integer that can be represented accurately in a single number in Mindustry (double-precision floating-point format) is {hlYel:maxpower}, which equals to {hlYel:maxvalue}
@@ -108,3 +108,31 @@ glossary:
         not: not
         values: values
         appendix: appendix
+
+basic_concept:
+    title: Basic concept
+    processors:
+        title: Processors
+        content: There are 3 types of Logic Processors, Micro processor, Logic processor, and Hyper processor, each have different speeds and range (Information can be found in the game’s info menu). 
+    processors_ui:
+        title: Processor’s UI
+        content: |
+            when opening a processor by clicking the pencil icon: 
+            {br} {img:image/ui3.png:left130} 
+            {br} you will be prompted to this screen:
+            {br} {img:image/ui.png:false}
+            {br} the {code:add} button ({img:image/ui7.png:top15 width120}) opens a menu to add an instruction:
+            {br} {img:image/ui1.png:false}
+            {br} the {code:vars} Vars ({img:image/vars.png:top15 width120}) opens a menu showing all of your variables
+            {br}
+            {br} this menu is very useful for debugging
+            {br} {img:image/data types.png:width800}
+            {br} the {code:edit} button ({img:image/ui5.png:top15 width120}) opens a menu to export/import codes
+            {br} {img:image/ui2.png:width300 left160 mtop20}
+            {br} when clicking “Copy to Clipboard” it will copy the code of the processor to your clipboard, 
+                unlike a schematic, mlog code are plain readable text, {link:more_info:#writing-in-text-editor}
+            {br} this mlog code can be pasted into a processor again using the "import from clipboard"
+        add: add
+        vars: vars
+        edit: edit
+        more_info: click here for more info

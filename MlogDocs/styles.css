@@ -869,12 +869,34 @@ pre {
     flex:1;
 }
 
-
-
 iframe {
     overflow: hidden;
     height: 90px;
     transform: scale(1.2);
     width: 100%;
     transform-origin: left center;
+}
+
+/* Tokens styles */
+
+.left130 {
+    left: 130px;
+}
+.left160 {
+    left: 160px;
+}
+.top15 {
+    top: 15px;
+}
+.width120 {
+    width: 120px;
+}
+.width800 {
+    width: 800px;
+}
+.width300 {
+    width: 300px;
+}
+.mtop20 {
+    margin-top: 20px;
 }
