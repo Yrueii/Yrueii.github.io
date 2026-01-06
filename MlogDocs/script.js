@@ -32,9 +32,16 @@ const tokenResolvers = {
     el.addEventListener('click', triggerGlow);
     return el;
   },
-  hlYel(name, sectionData) {
+  hl(name, sectionData, extra) {
     const el = document.createElement("span");
-    el.style.color = "yellow";
+    switch (extra) {
+      case "yel":
+        el.style.color = "yellow";
+        break;
+      case "red":
+        el.style.color = "red";
+        break;
+    }
     el.textContent = sectionData[name];
     return el;
   },
@@ -52,8 +59,13 @@ const tokenResolvers = {
         break;
       case 'variable':
         el.classList.add("variable");
+        
         break;
       case 'op':
+        el.classList.add("op");
+        break;
+      case 'varop':
+        el.classList.add("variable");
         el.classList.add("op");
         break;
     }
