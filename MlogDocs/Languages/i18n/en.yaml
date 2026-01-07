@@ -3,7 +3,7 @@
 # if possible do not hange anything inside { }, only move if needed
 # on a section there's usually only 'title' and 'content', 
 # if there are others that usually means its a nested key
-# OR if the value is a string then it usually a variable used for tokens
+# OR if the value is a string then it is usually a variable used for tokens
 # Example:
 
 # strings:
@@ -14,6 +14,8 @@
 #   var: Variables
 
 # :var: uses the 'var' key from the same section, this value is the one that appears on the site
+# these value usually do not need to be translated, but depending on language translating them makes more sense.  
+
 # if modifying tokens is needed please read the README Translation section
 
 title: Mlog Documentation
@@ -364,7 +366,7 @@ basic_concept:
         _220: "220"
 
 blocks:
-    title: blocks
+    title: Blocks
     message:
         title: Message
         content: |
@@ -433,7 +435,6 @@ instructions:
         _0: "0"
         _63: "63"
         _10: "10"
-
     write:
         title: Write
         content: |
@@ -453,7 +454,6 @@ instructions:
         title: Draw
         content: Adds a command to the draw {link:buffer:#buffers}
         buffer: buffer
-
         clear:
             title: Clear
             content: |
@@ -462,14 +462,101 @@ instructions:
                 RGB stands for Red,Green,Blue{br}
                 Value can be from 0 (dimmest) to 255 (brightest){br}
                 Example: 255, 255, 255 is White
-
         color:
             title: Color
             content: |
                 Sets the color of the next upcoming draw isntruction{br}
-                {img:image/draw color.png:mwidth80vw }{br}
+                {img:image/draw color.png:mwidth80vw}{br}
                 RGBA stands for Red,Green,Blue,Alpha
                 {br}To put it simply Alpha is Opacity, it is how opaque the next draw instruction will be
                 {br}0 is 0% and 255 is 100% opaque
                 {br}Value can be from 0 (dimmest) to 255 (brightest)
+        col:
+            title: col
+            content: |
+                Same as color, but use hex color code instead of RGB color code
+                {br}Usually used with the {link:Pack Color:#pack-color} instruction
+            
+        stroke:
+            title: Stroke
+            content: Sets the line width for any upcoming draw operations
+        line:
+            title: Line
+            content: |
+                Draws a line from one coordinates to another coordinates{br}
+                {img:image/draw line.png:mwidth80vw}{br}
+                {code:x:field}, {code:y:field} is the first set of coordinates{br}
+                {code:x2:field}, {code:y2:field} is the second sets of coordinates
+            x: x
+            x2: x2
+            y: y2
+            y2: y2
+        rect:
+            title: Rect
+            content: |
+                Draw a rectangle at the specified coordinates with the bottom left of the rectangle as its origin{br}
+                {img:image/draw rect.png:mwidth80vw}{br}
+                {code:x:field}, {code:y:field} is the rectangle coordinates{br}
+                {code:width:field} and {code:height:field} are the rectangle width and height
+            x: x
+            y: y
+            width: width
+            height: height
+        linerect:
+            title: Line Rect
+            content: Same as rect, but only draws the outline of the rectangle
+        poly:
+            title: Poly
+            content: |
+                Draw a polygon with its center as its origin{br}
+                {img:image/draw poly.png:mwidth80vw}{br}
+                {code:x:field}, {code:y:field} is the polygon coordinates{br}
+                {code:sides:field} is the number of sides the polygon will have{br}
+                {code:radius:field} is the radius of the polygon{br}
+                {code:rotation:field} will rotate the polygon, in degrees 
+            x: x
+            y: y
+            sides: sides
+            radius: radius
+            rotation: rotation
+        linepoly:
+            title: Line Poly
+            content: Same as poly, but only draws the outline of the polygon
+        triangle:
+            title: Triangle
+            content: | 
+                Draws a triangle with 3 different sets coordinates as its vertices{br}
+                {img:image/draw triangle.png:mwidth80vw}
+                {br}{code:x:field}, {code:y:field} is the first sets of coordinates{br}
+                {code:x2:field}, {code:y2:field} is the second sets of coordinates{br}
+                {code:x3:field}, {code:y3:field} is the second sets of coordinates
+            x: x
+            x2: x2
+            x3: x3
+            y: y2
+            y2: y2
+            y3: y3
+        image:
+            title: Image
+            content: |
+                Draws an image of something from the game with {link:contentname:#contentname}, such as {code:dagger:content-name} or {code:copper:content-name} with its center as its origin,
+                {br}if it draws a picture of (oh no) that means whatever you're trying to draw either doesn't exist or not supported, the only work around is drawing it manually,
+                though the {link:be:#bleeding-edge} version supports more content
+                {br}{img:image/draw image.png:mwidth80vw}{br}
+                {code:x:field}, {code:y:field} is the of coordinates{br}
+                {code:image:field} is what image it will draw, you put object name here, like {code:dagger:content-name}{br}
+                {code:size:field} is the size of the image{br}
+                {code:rotation:field} will rotate the image, in degrees{br}
+                {b:nomod}
+            contentname: content name
+            nomod: cannot draw modded items!
+            dagger: "@dagger"
+            copper: "@copper"
+            be: Bleeding Edge
+            x: x
+            y: y
+            image: image
+            size: size
+            rotation: rotation
+
 

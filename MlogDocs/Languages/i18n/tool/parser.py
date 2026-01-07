@@ -1,5 +1,7 @@
 import re
+import time
 import pyperclip
+import keyboard
 
 patterns = {
     "<img": (
@@ -18,23 +20,32 @@ patterns = {
         re.compile(r'<a\s+href="([^"]+)"\s*>([^<]+)</a>'),
         lambda m: f'{{link:{m.group(2)}:{m.group(1)}}}'
     ),
-
+    "<b": (
+        re.compile(r'<b>([^<]+)</b>'),
+        lambda m: f'{{b:{m.group(1)}}}'
+    ),
 }
 
-while True:
-    try:
-        s = input().strip()
-    except EOFError:
-        break
-
-    result = s
-
+def transform(s):
     for prefix, (pattern, repl) in patterns.items():
-        if s.startswith(prefix):
+        if s.lstrip().startswith(prefix):
             m = pattern.search(s)
             if m:
-                result = repl(m)
+                return repl(m)
             break
+    return s
 
-    print(result)
+def handler():
+    keyboard.press_and_release("ctrl+c")
+    time.sleep(0.05)
+
+    s = pyperclip.paste()
+    print(s)
+    result = transform(s)
+
     pyperclip.copy(result)
+    time.sleep(0.05)
+    keyboard.press_and_release("ctrl+v")
+
+keyboard.add_hotkey("ctrl+f1", handler)
+keyboard.wait()

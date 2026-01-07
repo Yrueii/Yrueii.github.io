@@ -47,36 +47,6 @@ const tokenResolvers = {
   },
   code(name, sectionData, extra) {
     const el = document.createElement("code");
-    // switch (extra) {
-    //   case "yel":
-    //     el.style.color = "yellow";
-    //     break;
-    //   case "key":
-    //     el.classList.add("key");
-    //     break;
-    //   case 'contentname':
-    //     el.classList.add("content-name");
-    //     break;
-    //   case 'variable':
-    //     el.classList.add("variable");
-    //     break;
-    //   case 'op':
-    //     el.classList.add("op");
-    //     break;
-    //   case 'varop':
-    //     el.classList.add("variable");
-    //     el.classList.add("op");
-    //     break;
-    //   case 'jump':
-    //     el.classList.add("jump");
-    //     break;
-    //   case 'unit':
-    //     el.classList.add("unit");
-    //     break;
-    //   case 'draw':
-    //     el.classList.add("draw");
-    //     break;
-    //   }
     if (extra){
       el.classList.add(...extra.split(' ')) 
     }

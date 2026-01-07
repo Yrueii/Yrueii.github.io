@@ -335,82 +335,33 @@
                         </p>
                     </section>
                     <section id="draw">
-                        <h2><li><b data-i18n="instructions.draw.title">Draw</b></li></h2>
+                        <h2><li><b data-i18n="instructions.draw.title"></b></li></h2>
                         <p data-i18n="instructions.draw.content"></p>
                         <ol style="list-style-type: circle;">
                             <li><b data-i18n="instructions.draw.clear.title"></b></li>
-                            <p class="ti" data-i18n="instructions.draw.clear.content"></p>
-                            <li><b>Color</b></li>
-                            <p class="ti">
-                                Sets the color of the next upcoming draw isntruction<br>
-                                <img alt="alt" src="image/draw color.png"style="max-width: 80vw !important"><br>
-                                RGBA stands for Red,Green,Blue,Alpha
-                                <br>To put it simply Alpha is Opacity, it is how opaque the next draw instruction will be
-                                <br>0 is 0% and 255 is 100% opaque
-                                <br>Value can be from 0 (dimmest) to 255 (brightest)
-                            </p>
+                                <p class="ti" data-i18n="instructions.draw.clear.content"></p>
+                            <li><b data-i18n="instructions.draw.color.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.color.content"></p>
                             <section id="draw-col">
-                            <li><b>col</b></li>
-                            <p class="ti">
-                                Same as color, but use hex color code instead of RGB color code
-                                <br>Usually used with the <a href="#pack-color" >Pack Color</a> instruction
-                            </p>
+                            <li><b data-i18n="instructions.draw.col.title">col</b></li>
+                                <p class="ti" data-i18n="instructions.draw.col.content"></p>
                             </section>
-                            <li><b>Stroke</b></li>
-                            <p class="ti">
-                                Sets the line width for any upcoming draw operations
-                            </p>
-                            <li><b>Line</b></li>
-                            <p class="ti">
-                                Draws a line from one coordinates to another coordinates<br>
-                                <img alt="alt" src="image/draw line.png" style="max-width: 80vw !important;"><br>
-                                <code class="field">x</code>, <code class="field">y</code> is the first set of coordinates<br>
-                                <code class="field">x2</code>, <code class="field">y2</code> is the second sets of coordinates
-                            </p>
-                            <li><b>Rect</b></li>
-                            <p class="ti">
-                                Draw a rectangle at the specified coordinates with the bottom left of the rectangle as its origin<br>
-                                <img alt="alt" src="image/draw rect.png" style="max-width: 80vw !important;"><br>
-                                <code class="field">x</code>, <code class="field">y</code> is the rectangle coordinates<br>
-                                <code class="field">width</code> and <code class="field">height</code> are the rectangle width and height
-                            </p>
-                            <li><b>Line Rect</b></li>
-                            <p class="ti">
-                                Same as rect, but only draws the outline of the rectangle
-                            </p>
-                            <li><b>Poly</b></li>
-                            <p class="ti">
-                                Draw a polygon with its center as its origin<br>
-                                <img alt="alt" src="image/draw poly.png" style="max-width: 80vw !important;"><br>
-                                <code class="field">x</code>, <code class="field">y</code> is the polygon coordinates<br>
-                                <code class="field">sides</code> is the number of sides the polygon will have<br>
-                                <code class="field">radius</code> is the radius of the polygon<br>
-                                <code class="field">rotation</code> will rotate the polygon, in degrees 
-                            </p>
-                            <li><b>Line Poly</b></li>
-                            <p class="ti">
-                                Same as poly, but only draws the outline of the polygon
-                            </p>
-                            <li><b>Triangle</b></li>
-                            <p class="ti">
-                                Draws a triangle with 3 different sets coordinates as its vertices<br>
-                                <img alt="alt" src="image/draw triangle.png" style="max-width: 80vw !important;">
-                                <br><code class="field">x</code>, <code class="field">y</code> is the first sets of coordinates<br>
-                                <code class="field">x2</code>, <code class="field">y2</code> is the second sets of coordinates<br>
-                                <code class="field">x3</code>, <code class="field">y3</code> is the second sets of coordinates
-                            </p>
-                            <li><b>Image</b></li>
-                            <p class="ti">
-                                Draws an image of something from the game with <a href="#contentname">content name</a>, such as <code class="content-name">@dagger</code> or <code class="content-name">@copper</code> with its center as its origin,
-                                <br>if it draws a picture of (oh no) that means whatever you're trying to draw either doesn't exist or not supported, the only work around is drawing it manually,
-                                though the <a href="#bleeding-edge">Bleeding Edge</a> version supports more content
-                                <br><img alt="alt" src="image/draw image.png" style="max-width: 80vw !important;"><br>
-                                <code class="field">x</code>, <code class="field">y</code> is the of coordinates<br>
-                                <code class="field">image</code> is what image it will draw, you put object name here, like <code class="content-name">@dagger</code><br>
-                                <code class="field">size</code> is the size of the image<br>
-                                <code class="field">rotation</code> will rotate the image, in degrees<br>
-                                <b>cannot draw modded items!</b>
-                            </p>
+                            <li><b data-i18n="instructions.draw.stroke.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.stroke.content"></p>
+                            <li><b data-i18n="instructions.draw.line.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.line.content"></p>
+                            <li><b data-i18n="instructions.draw.rect.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.rect.content"></p>
+                            <li><b data-i18n="instructions.draw.linerect.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.linerect.content"></p>
+                            <li><b data-i18n="instructions.draw.poly.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.poly.content"></p>
+                            <li><b data-i18n="instructions.draw.linepoly.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.linepoly.content"></p>
+                            <li><b data-i18n="instructions.draw.triangle.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.triangle.content"></p>
+                            <li><b data-i18n="instructions.draw.image.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.image.content"></p>
                         </ol>
                     </section>
                     <section id="draw-flush">

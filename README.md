@@ -54,4 +54,4 @@ strings:
     variables: Variables
 ```
 if possible do not change the value inside of these, you can move them if needed,  
-if modifying is necessary please read [Formatting & Tokens](Docs/TranslationDocs.md) first
+if modifying is necessary please read [Formatting & Tokens](TRANSLATING.md) first
