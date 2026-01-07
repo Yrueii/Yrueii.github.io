@@ -903,6 +903,14 @@ iframe {
 .width300 {
     width: 300px;
 }
+.mwidth85vw {
+    max-width: 85vw;
+}
+
 .mtop20 {
     margin-top: 20px;
+}
+
+code.yel {
+    color: yellow;
 }

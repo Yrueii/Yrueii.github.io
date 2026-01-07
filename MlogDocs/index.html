@@ -255,184 +255,69 @@
                     </div>
                 </section>
                 <section id="built-in-variables">
-                    <h2>Built in Variables</h2>
-                    <p class="ti">
-                        Built in variables are variables that have their value determined by the game, 
-                        but can also change. they are preceded by “@”, here are lists of built in variables 
-                        (if you’re just starting out you don’t have to read all of this you can always come back):
-                    </p>
+                    <h2 data-i18n="basic_concept.built_in_vars.title"></h2>
+                    <p class="ti" data-i18n="basic_concept.built_in_vars.content"></p>
                     <ol style="list-style-type: disc;">
-                        <li><b>@counter</b></li>
-                        <p style="margin-top: 5px;">
-                            @counter shows the current line number the processor runs at,
-                            <br>other than giving you crucial 
-                            information while debugging you can also use it by writing to it, changing its value, usage example:
-                        </p>
-                        <img alt="alt" src="image/set counter 10.png" style="max-width: 85vw !important;">
-                        <p>
-                            This acts like <code class="jump">jump always</code> where it will jump to instruction 10
-                            If read it will return the next line instead:
-                        </p>
-                        <img alt="alt" src="image/set x @counter.png" style="max-width: 85vw !important;">
-                        <p>
-                            Since this <code class="op">set</code> instruction is at line 10, the <code class="variable op">x</code> variable will be 11.
-                            Another usage example is: <a href="#counter-array" > @counter Array.</a>
-                        </p>
-                        <li><b>@this</b></li>
-                            <p style="margin-top: 5px;" class="ti">
-                                <b>@this</b> shows the <a href="#building-reference" > building reference</a> 
-                                for that processor, example: anything that
-                                uses building reference can be replaced by this, so instead of
-                                <code class="variable">processor1</code> you can write <code class="variable">@this</code> for this processor
-                            </p>
-                        <li><b><a href="#unit" >@unit</a></b></li>
-                        <p style="margin-top: 5px;" class="ti">	
-                            <b>@unit</b> shows the current unit that is stored in the processor as the 
-                            result of the <code class="unit">unit bind</code> instruction. 
-                            For more information go <a href="#controlling-units" >Controlling Units</a>
-                        </p>
-                        <li><b>@thisx and @thisy</b></li>
-                        <p style="margin-top: 5px;" class="ti">
-                            Like the name suggest, both shows the coordinates location of the processor respectively
-                        </p>
-                        <li><b>@mapw and @maph</b></li>
-                        <p style="margin-top: 5px;" class="ti">
-                            These shows the map width and map height, for example if your map width is 300 <code class="variable">@mapw</code> will be equal 300
-                        </p>
-                        <li><b>@links </b></li>
-                        <p style="margin-top: 5px;" class="ti"><b>@links</b> shows the number of links the processor has, example: if you have
-                            3 buildings linked to the processor <code class="variable">display1</code>, <code class="variable">display2</code>, <code class="variable">display3</code>, <code class="variable">@links</code> will be <span  style="color: yellow;">3</span></p>
-                        <li><b>@ipt</b></li>
-                        <p style="margin-top: 5px;" class="ti">
-                            ipt stands for instruction per tick, this shows how many instruction a 
-                            processor run in a single tick 1 second is 60 ticks
-                        </p>
-                        <li><b>@time, @tick, @second and @minute</b></li>
-                        <p style="margin-top: 5px;" class="ti">
-                            Shows the playtime of the current save, this is updated every frame, NOT every time the processor checks for it
-                            <br><code class="variable">@time</code>, in millisecond 
-                            <br><code class="variable">@tick</code>, in tick(1/60th of a second)
-                            <br><code class="variable">@second</code>, in second
-                            <br><code class="variable">@minutes</code>, in minute
-                        </p>
-                        <li><b>Because this list is long you can check the <a href="#appendix" >Appendix</a></b></li>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.counter.title"></b></li>
+                            <p style="margin-top: 5px;" data-i18n="basic_concept.built_in_vars.list.counter.content"></p>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.this.title"></b></li>
+                            <p style="margin-top: 5px;" class="ti" data-i18n="basic_concept.built_in_vars.list.this.content"></p>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.unit.title"></b></li>
+                            <p style="margin-top: 5px;" class="ti"  data-i18n="basic_concept.built_in_vars.list.unit.content"></p>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.thisxy.title"></b></li>
+                            <p style="margin-top: 5px;" class="ti" data-i18n="basic_concept.built_in_vars.list.thisxy.content"></p>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.mapwh.title"></b></li>
+                            <p style="margin-top: 5px;" class="ti" data-i18n="basic_concept.built_in_vars.list.mapwh.content"></p>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.link.title"></b></li>
+                            <p style="margin-top: 5px;" class="ti" data-i18n="basic_concept.built_in_vars.list.link.content"></p>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.ipt.title"></b></li>
+                            <p style="margin-top: 5px;" class="ti" data-i18n="basic_concept.built_in_vars.list.ipt.content"></p>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.time.title"></b></li>
+                            <p style="margin-top: 5px;" class="ti" data-i18n="basic_concept.built_in_vars.list.time.content"></p>
+                        <li><b data-i18n="basic_concept.built_in_vars.list.long.content"></b></li>
                     </ol>
                 </section>
                 <section id="constants">
-                    <h2>Constants</h2>
-                    <p class="ti">
-                        Constant, they are like variable but you can’t write to them, their value are predetermined, 
-                        for example <code class="variable">@pi</code>, like the name suggest it is pi &pi; (  , 3.14159….), here are the list of constant 
-                        (if you’re just starting out you don’t have to read all of this, you can always come back):
-                    </p>
+                    <h2 data-i18n="basic_concept.constant.title"></h2>
+                    <p class="ti" data-i18n="basic_concept.constant.content"></p>
                     <ol start="list-style-type:dics;">
-                        <li><b>Null</b></li>
-                        <p class="ti" style="margin-top: 5px;">
-                            null means none, it has no value
-                        </p>
-                        <li><b>true</b> and <b>false</b></li>
-                        <p class="ti" style="margin-top: 5px;">
-                            true and false are booleans, they are interpreted to 1 and 0
-                        </p>
-                        <li><b>@pi</b></li>
-                        <p class="ti" style="margin-top: 5px;">
-                            π, 3.14159….
-                        </p>
-                        <li><b>@e</b></li>
-                        <p class="ti" style="margin-top: 5px;">
-                            Mathematical constant e (2,71828…)
-                        </p>
-                        <li><b>@degToRad</b></li>
-                        <p class="ti" style="margin-top: 5px;">
-                            To convert degrees to radian, multiply the number with this
-                        </p>
-                        <li><b>@radToDeg</b></li>
-                        <p class="ti" style="margin-top: 5px;">
-                            Opposite of @degToRad
-                        </p>
+                        <li data-i18n="basic_concept.constant.list._null.title"></li>
+                            <p class="ti" style="margin-top: 5px;" data-i18n="basic_concept.constant.list._null.content"></p>
+                        <li data-i18n="basic_concept.constant.list.truefalse.title"></li>
+                            <p class="ti" style="margin-top: 5px;" data-i18n="basic_concept.constant.list.truefalse.content"></p>
+                        <li data-i18n="basic_concept.constant.list.pi.title"></li>
+                            <p class="ti" style="margin-top: 5px;" data-i18n="basic_concept.constant.list.pi.content"></p>
+                        <li data-i18n="basic_concept.constant.list.e.title"></li>
+                            <p class="ti" style="margin-top: 5px;" data-i18n="basic_concept.constant.list.e.content"></p>
+                        <li data-i18n="basic_concept.constant.list.degtorad.title"></li>
+                            <p class="ti" style="margin-top: 5px;" data-i18n="basic_concept.constant.list.degtorad.content"></p>
+                        <li data-i18n="basic_concept.constant.list.radtodeg.title"></li>
+                            <p class="ti" style="margin-top: 5px;" data-i18n="basic_concept.constant.list.radtodeg.content"></p>
                     </ol>
                 </section>
                 <section id="buffers">
-                    <h2>Buffers</h2>
-                    <p class="ti">
-                        Internally there is a Text buffer and a Draw buffer in each processor, 
-                        when you use print or draw, when the processor runs it, it will store it in the buffer.
-                        Example: if you <code class="draw">print "frog"</code> the word <code>frog</code> will be stored in the text buffer, 
-                        then to get that word to a message block you have to use <code class="draw">Print Flush</code> which transfer 
-                        the items in the text buffer to the message block
-                    </p>
-                    <img alt="alt" src="image/print.png"  width="700px"><br>
-                    <img alt="alt" src="image/darw ex.png"  width="700px">
-                    <p>It's the same case with draw.
-                        <br><br>
-                        The draw buffer has a limit of <span style="color: yellow;">256</span> items, meaning you can only queue up <span style="color: yellow;">256</span> draw operations before needing to flush; 
-                        otherwise, any additional draws beyond <span style="color: yellow;">256</span> will be discarded. 
-                        Additionally, displays have a buffer limit of <span style="color: yellow;">1024</span> operations per display update. 
-                        Since the display updates once per tick when visible, 
-                        flushing more than <span style="color: yellow;">1024</span> items in a single tick will result in excess items being lost. 
-                        However, when a display is off-screen (scrolled out of view), it is not updated at all. 
-                        This means if a program continues drawing while the display is off-screen, the buffer can fill up, 
-                        causing some operations to be lost even if the rate remained within the <span style="color: yellow;">1024</span>-per-tick limit while the display was visible
-                        <br><br>
-                        The text buffer has a <span style="color: yellow;">400</span> character limit, for example “frog” is 4 characters. 
-                        Even though the message block has a <span style="color: yellow;">220</span> characters limit you can still print <span style="color: yellow;">400</span> characters to it. 
-                        </p>
+                    <h2 data-i18n="basic_concept.buffers.title"></h2>
+                    <p class="ti" data-i18n="basic_concept.buffers.content"></p>
                 </section>
             </section>
             <section id="blocks" class="subtitle">
-            <h1>Blocks</h1>
+            <h1 data-i18n="blocks.title"></h1>
                 <ol style="list-style-type: disc;">
                     <section id="message">
-                        <li>Message</li>
-                        <p class="ti" style="margin-top: 5px;">
-                            Is used with Print and Print Flush, can also be manually written by clicking it and clicking the pencil icon.
-                            <br>has 220 characters limit (including spaces)
-                            <br>will only show its text when hovered
-                        </p>
+                        <li data-i18n="blocks.message.title"></li>
+                        <p class="ti" style="margin-top: 5px;" data-i18n="blocks.message.content"></p>
                     </section>
                     <section id="switch">
-                        <li>Switch</li>
-                        <p class="ti" style="margin-top: 5px;">
-                            Has 2 states, enabled and disabled / 1 and 0, state can be read using Sensor 
-                            instruction, and can also be controlled with Control instruction.
-                        </p>
+                        <li data-i18n="blocks.switch.title"></li>
+                        <p class="ti" style="margin-top: 5px;" data-i18n="blocks.switch.content"></p>
                     </section>
                     <section id="display">
-                        <li>Logic displays and Large</li>
-                        <p class="ti" style="margin-top: 5px;">
-                            Is used with Draw and Draw Flush, 
-                            <br> Normal display has a 88 * 88 resolution
-                            <br> Large display has a 176 * 176 resolution
-                            <br> the border (Bezel) is 8 pixels
-                        </p>
+                        <li data-i18n="blocks.display.title"></li>
+                        <p class="ti" style="margin-top: 5px;" data-i18n="blocks.switch.content"></p>
                     </section>
                     <section id="cell">
-                        <li>Memory cell and Memory Bank</li>
-                        <p class="ti" style="margin: 5px;">
-                            A cell can store up to 64 values, but only numbers, while Bank can store up to 512 values<br>
-                            How it works:
-                        </p>
-                        <p class="ti" style="margin-top: 0px;">
-                            Let’s use a cell as an example, imagine it is like a numbered storage boxes
-                        </p>
-                        <img alt="alt" src="image/cell.png"style="max-width: 85vw !important">
-                        <p>
-                            the number below are called addresses, since a cell can store up to 
-                            64 values that means there are 64 addresses in a cell, from  #0 to #63
-                            you can then store a number in this line of boxes by an address, for example 
-                            if you want to store a number to box number #3 you would write:
-                        </p>
-                        <img alt="alt" src="image/ex write.png"style="max-width: 85vw !important">
-                        <p>
-                            this will store the number <span style="color: yellow;">1838</span> to box number #3, you then can read it again using <code class="draw">read</code>
-                        </p>
-                        <img alt="alt" src="image/read 1.png"style="max-width: 85vw !important">
-                        <p>
-                            this will read whatever inside box number #3 (<span style="color: yellow;">1838</span>) and put it in a variable 
-                            called <code class="variable draw">result</code>, therefore <code class="variable draw">result</code> is now <span style="color: yellow;">1838</span>
-                            <br><br>
-                            the largest integer that can be stored in a single address is related to <a href="#integers">integer limitations</a>
-                        </p>
+                        <li data-i18n="blocks.cell.title"></li>
+                        <p class="ti" style="margin: 5px;" data-i18n="blocks.cell.content"></p>
                     </section>
                 </ol>
             </section>

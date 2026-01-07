@@ -15,11 +15,11 @@ strings:
     title: Strings
     content: |
         A sequence of characters, 
-        different from {link:variables:#variables}
-    variables: Variables
+        different from {link:var:#variables}
+    var: Variables
 ```
 In this example, `link` is the type of token,  
-`variables` is a key from the same section (in this case `strings:`),  
+`var` is a key from the same section (in this case `strings:`), will get the value of that key and insert it,  
 and `#variables` is the extra argument, in this case (link type) the extra argument are used for href.  
 So in HTML, it is parsed to:
 ```html
@@ -38,19 +38,21 @@ So in HTML, it is parsed to:
 <a href="{extra}">{docs Value}</a>
 
 {code:docs}             > Plain <code> element
-{code:docs:yel}         > <code> with yellow text coloring
-{code:docs:key}         > <code> with 'key' class
--                         Visually makes the text look like a key on 
--                         a keyboard
-{code:docs:contentname} > <code> with 'content-name' class
--                         Applies black background
--                         Mindustry Font
--                         Light yellow coloring
+{code:docs:yel}         > <code> with class of 'yel'
 <code class="{extra}">{docs Value}</code>
+list of common class
+yel = Highlight the text in yellow
+variable = apply mindustry font, black background, light blue text
 
 {b:docs}                > Bold
 <b>{docs Value}<b>
 
 {hl:docs:yel}           > Highlight docs in yellow
 <span style="color:yellow;">{docs Value}</span>
+
+{img:link:class}        > Insert an image
+                          Image token doesn't need a key
+                          link will be directly taken from :link:
+<img src="{link}" class={class}>
+
 ```

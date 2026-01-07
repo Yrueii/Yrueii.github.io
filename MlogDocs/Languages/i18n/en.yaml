@@ -1,19 +1,20 @@
 # Please read README beforehand.
 # Only change values, do not change keys
 # if possible do not hange anything inside { }, only move if needed
+# on a section there's usually only 'title' and 'content', 
+# if there are others that usually means its a nested key
+# OR if the value is a string then it usually a variable used for tokens
+# Example:
 
-# Token format:
-# {type:key:extra}
-#
-# type   > resolver name (determines what is rendered)
-# key    > lookup key or value passed to the resolver
-# extra  > optional modifier (id, class, color, URL, etc.)
-#
-# Examples:
-# {br}                    > line break
-# {link:docs}             > link using key "docs"
-# {link:docs:https://…}   > link with explicit URL
-# {hl:text:yel}           > highlight "text" in yellow
+# strings:
+#   title: Strings
+#   content: |
+#       A sequence of characters, 
+#       different from {link:var:#variables}
+#   var: Variables
+
+# :var: uses the 'var' key from the same section, this value is the one that appears on the site
+# if modifying tokens is needed please read the README Translation section
 
 title: Mlog Documentation
 by: By Yruei
@@ -99,7 +100,7 @@ glossary:
     contentname: 
         title: Content name
         content: |
-            in-game content/item names, like {code:copper:contentname}, {code:surge:contentname}, {code:antumbra:contentname} kebab case naming, and case sensitive {br}these are {b:not} variables, these are {b:values} that can be stored in variables 
+            in-game content/item names, like {code:copper:content-name}, {code:surge:content-name}, {code:antumbra:content-name} kebab case naming, and case sensitive {br}these are {b:not} variables, these are {b:values} that can be stored in variables 
             {br}
             {br}content name can be found in the {link:appendix:#appendix}
         copper: "@copper"
@@ -154,7 +155,7 @@ basic_concept:
             {br} {img:image/link.png:width600}
 
             {br} {code:display1:variable}
-            is now a variable that can be used in the processor, it stores a <a href="#building-reference" >building reference,</a> 
+            is now a variable that can be used in the processor, it stores a {link:builref:#building-reference} 
             is also sometimes called a “building variable”,
             {br}building variable cannot be overwritten by any means, 
             {br}in other words, you cannot use this variable to put in an output of an instruction
@@ -163,7 +164,8 @@ basic_concept:
             {br}however {code:mybuild:variable} is an independent variable (your variable) now, this means it also acts like a normal variable,
             for example if the display block that is linked to the processor is destroyed the variable {code:display1:variable} will be null, 
             but {code:mybuild:variable} will still have the last value it was set to, so you can still sensor things like 
-            {code:dead:contentname}from it
+            {code:dead:conten-tname}from it
+        builref: building reference,
         display1: display1
         example1: set myBuilding = display1
         mybuild: myBuilding
@@ -174,12 +176,15 @@ basic_concept:
             Variables are the fundamental of programming, to put it simply, they are just named 
             “containers” to store data to, for example the {code:set:op} instruction sets a variable:
             {br} {img:image/set x 10.png:_}
+            {br}
             {br} This will make {code:x:variable} a variable, this variable can be used for all 
                 sort of different things, for example, the {code:operation:op} instruction
+            {br}
             {br} {img:image/operation.png:_}
+            {br}
             {br} Because {code:x:variable} is {hl:ten:yel}
             this operation means {hl:ten:yel} + {hl:five:yel}, and the result of it is written to the {code:result:variable} variable, 
-            meaning {code:result:varop} is now {hl:fifteen:yel}. Of course it doesn’t have to be "result", you can write anything for it, 
+            meaning {code:result:variable op} is now {hl:fifteen:yel}. Of course it doesn’t have to be "result", you can write anything for it, 
             different people write their variable differently, some chooses to write arbitrary words/letters like “peach” 
             and others simply write “x+5”, whatever you choose is up to you, just keep in mind you have to remember them.
             {br}
@@ -203,7 +208,209 @@ basic_concept:
             content: |
                 Increment is the act or process of increasing
                 {br} {img:image/increment.png:_}
-                {br} Since processor loops, this will increase {code:x:varop} by {hl:one:yel} every loop, as time goes on x will 
+                {br} Since processor loops, this will increase {code:x:variable op} by {hl:one:yel} every loop, as time goes on x will 
                 get bigger and bigger. This is what’s called incrementing a variable
             x: x
             one: "1"
+
+    built_in_vars:
+        title: Built In Variables
+        content: |
+            Built in variables are variables that have their value determined by the game, 
+            but can also change. they are preceded by “@”, here are lists of built in variables 
+            (if you’re just starting out you don’t have to read all of this you can always come back):
+        list:
+            counter: 
+                title: "@counter"
+                content: |
+                    @counter shows the current line number the processor runs at,
+                    {br}other than giving you crucial 
+                    information while debugging you can also use it by writing to it, changing its value, usage example:
+                    {br} {img:image/set counter 10.png:mwidth85vw}
+                    {br}
+                    {br} This acts like {code:jump_always:jump} where it will jump to instruction 10 If read it will return the next line instead:
+                    {br}
+                    {br} {img:image/set x @counter.png:mwidth85vw}
+                    Since this {code:set:op} instruction is at line 10, the {code:x:variable} variable will be 11.
+                    Another usage example is: {link:counter_array:#counter-array}
+
+                jump_always: jump always
+                set: set
+                x: x
+                counter_array: "@counter Array"
+            this:
+                title: "@this"
+                content: |
+                    {b:this} shows the {link:buil_ref:#building-reference} 
+                    for that processor, example: anything that
+                    uses building reference can be replaced by this, so instead of
+                    {code:proc1:variable} you can write {code:this:variable} for this processor
+                this: "@this"
+                buil_ref: Building Reference
+                proc1: processor1
+            unit:
+                title: "{link:unit:#unit}"
+                unit: "@unit"
+                content: |
+                    {b:unit} shows the current unit that is stored in the processor as the 
+                    result of the {code:unit_bind:unit} instruction. 
+                    For more information go {link:control_unit:#controlling-units}
+                unit_bind: unit bind
+                control_unit: Controlling Units
+            thisxy:
+                title: "@thisx and @thisy"
+                content: Like the name suggest, both shows the coordinates location of the processor respectively
+            mapwh:
+                title: "@mapw and @maph"
+                content: |
+                    These shows the map width and map height, for example if your map width is 300 {code:mapw:variable} will be equal 300
+                mapw: "@mapw"
+            link: 
+                title: "@links"
+                content: |
+                    {b:links} shows the number of links the processor has, example: if you have
+                    3 buildings linked to the processor {code:display1:variable}, {code:display2:variable}, {code:display3:variable}, {code:links:variable} will be {hl:three:yel}
+                links: "@links"
+                display1: display1
+                display2: display2
+                display3: display3
+                three: "3"
+            ipt:
+                title: "@ipt"
+                content: |
+                    ipt stands for instruction per tick, this shows how many instruction a 
+                    processor run in a single tick 1 second is 60 ticks
+            time:
+                title: "@time, @tick, @second and @minute"
+                content: |
+                    Shows the playtime of the current save, this is updated every frame, NOT every time the processor checks for it
+                    {br} {code:time:variable} in millisecond 
+                    {br} {code:tick:variable} in tick(1/60th of a second)
+                    {br} {code:second:variable} in second
+                    {br} {code:minutes:variable} in minute
+                time: "@time"
+                tick: "@tick"
+                second: "@second"
+                minutes: "@minutes"
+            long:
+                content: Because this list is long you can check the {link:appendix:#appendix}
+                appendix: Appendix
+
+    constant:
+        title: Constants
+        content: |
+            Constant, they are like variable but you can’t write to them, their value are predetermined, 
+            for example {code:pi:variable}, like the name suggest it is pi &pi; (  , 3.14159….), here are the list of constant 
+            (if you’re just starting out you don’t have to read all of this, you can always come back):
+        pi: "@pi"
+        list:
+            _null: 
+                title: "{b:__null}"
+                __null: "Null"
+                content: null means none, it has no value
+            truefalse:
+                title: "{b:_true} and {b:_false}"
+                _true: "true"
+                _false: "false"
+                content: true and false are booleans, they are interpreted to 1 and 0
+            pi:
+                title: "{b:_pi}"
+                _pi: "@pi"
+                content: "π, 3.14159…."
+            e:
+                title: "{b:_e}"
+                _e: "@e"
+                content: Mathematical constant e (2,71828…)
+            degtorad:
+                title: "{b:_degtorad}"
+                _degtorad: "@degToRad"
+                content: To convert degrees to radian, multiply the number with this
+            radtodeg:
+                title: "{b:_radtodeg}"
+                _radtodeg: "@radToDeg"
+                content: "Opposite of @degToRad"
+    buffers:
+        title: Buffers
+        content: |
+            Internally there is a Text buffer and a Draw buffer in each processor, 
+            when you use print or draw, when the processor runs it, it will store it in the buffer.
+            Example: if you {code:printfrog:draw} the word {code:frog} will be stored in the text buffer, 
+            then to get that word to a message block you have to use {code:printflush:draw} which transfer 
+            the items in the text buffer to the message block
+            {br}
+            {br} {img:image/print.png:width700}
+            {br} {img:image/darw ex.png:width700}
+            {br} It's the same case with draw.
+            {br}
+            {br}
+            The draw buffer has a limit of {hl:_256:yel} items, meaning you can only queue up {hl:_256:yel} draw operations before needing to flush; 
+            otherwise, any additional draws beyond {hl:_256:yel} will be discarded. 
+            Additionally, displays have a buffer limit of {hl:_1024:yel} operations per display update. 
+            Since the display updates once per tick when visible, 
+            flushing more than {hl:_1024:yel} items in a single tick will result in excess items being lost. 
+            However, when a display is off-screen (scrolled out of view), it is not updated at all. 
+            This means if a program continues drawing while the display is off-screen, the buffer can fill up, 
+            causing some operations to be lost even if the rate remained within the {hl:_1024:yel}-per-tick limit while the display was visible
+            {br}
+            {br}
+            The text buffer has a {hl:_400:yel} character limit, for example “frog” is 4 characters. 
+            Even though the message block has a {hl:_220:yel} characters limit you can still print {hl:_400:yel} characters to it. 
+        printfrog: print "frog"
+        frog: frog
+        printflush: Print Flush
+        _256: "256"
+        _1024: "1024"
+        _400: "400"
+        _220: "220"
+
+blocks:
+    title: blocks
+    message:
+        title: Message
+        content: |
+            Is used with Print and Print Flush, can also be manually written by clicking it and clicking the pencil icon.
+            {br}has 220 characters limit (including spaces)
+            {br}will only show its text when hovered
+
+    switch:
+        title: Switch
+        content: |
+            Has 2 states, enabled and disabled / 1 and 0, state can be read using Sensor 
+            instruction, and can also be controlled with Control instruction.
+
+    display:
+        title: Display and Large Display
+        content: |
+            Is used with Draw and Draw Flush, 
+            {br} Normal display has a 88 * 88 resolution
+            {br} Large display has a 176 * 176 resolution
+            {br} the border (Bezel) is 8 pixels
+
+    cell:
+        title: Memory Cell and Memory Bank
+        content: |
+            A cell can store up to 64 values, but only numbers, while Bank can store up to 512 values
+            {br} How it works:
+            {br} Let’s use a cell as an example, imagine it is like a numbered storage boxes
+            {img:image/cell.png:mwidth85vw}
+            {br} {br}
+                the number below are called addresses, since a cell can store up to 
+                64 values that means there are 64 addresses in a cell, from  #0 to #63
+                you can then store a number in this line of boxes by an address, for example 
+                if you want to store a number to box number #3 you would write:
+            {br} {br}
+            {img:image/ex write.png:mwidth85vw}
+            {br} {br}
+                this will store the number {hl:_1838:yel} to box number #3, you then can read it again using {code:read:draw}
+            {br} {br}
+            {img:image/read 1.png:mwidth85vw}
+            {br} {br}
+                this will read whatever inside box number #3 ({hl:_1838:yel}) and put it in a variable 
+                called {code:result:variable draw}, therefore {code:result:variable draw} is now {hl:_1838:yel}
+                {br} {br}
+                the largest integer that can be stored in a single address is related to {link:integerlimitations:#integers}
+            {br}
+        _1838: "1838"
+        read: read
+        result: result
+        integerlimitations: integer limitation 
