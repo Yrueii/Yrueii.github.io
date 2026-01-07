@@ -322,44 +322,24 @@
                 </ol>
             </section>
             <section id="instructions" class="subtitle">
-                <h1>Instructions</h1>
+                <h1 data-i18n="instructions.title">Instructions</h1>
                 <hr>
                 <ol style="list-style-type: disc; padding-left: 20px" >
                     <section id="read">
-                        <h2><li><b>Read</b></li></h2>
-                        <p class="ti">
-                            Read a value from a cell<br>
-                            <img alt="alt" src="image/read.png"style="max-width: 85vw !important"><br>
-                            <code class="variable draw">result</code> is your variable name
-                            <br><code class="variable draw">cell1</code> is where to get the value from, a <a href="#building-reference">building reference</a>, “bank{number}” for Banks
-                            <br>`<span style="color: yellow;">0</span>` is the cell’s address. like said above, cells can store up to 64 values, this means there are only 64 addresses, starting at <span style="color: yellow;">0</span>, meaning <span style="color: yellow;">0</span> - <span style="color: yellow;">63</span>
-                            <br>Example: there is a value at 0 in <code class="variable draw">cell1</code> that is <span style="color: yellow;">10</span>, then <code class="variable draw">result</code> variable will be <span style="color: yellow;">10</span>
-                        </p>
+                        <h2><li><b data-i18n="instructions.read.title">Read</b></li></h2>
+                        <p class="ti" data-i18n="instructions.read.content"></p>
                     </section>
                     <section id="write">
-                        <h2><li><b>Write</b></li></h2>
-                        <p>
-                            Write a value to a cell<br>
-                            <img alt="alt" src="image/write.png"style="max-width: 85vw !important"><br>
-                            Essentially the same with read but it writes instead<br>
-                            Example: the <code class="variable draw">result</code> variable is <span style="color: yellow;">10</span>, then it will write <span style="color: yellow;">10</span> to <code class="variable draw">cell1</code> at #0<br>
-                            Can also be directly written using a number instead of a variable.
+                        <h2><li><b data-i18n="instructions.write.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.write.content">
                         </p>
                     </section>
                     <section id="draw">
-                        <h2><li><b>Draw</b></li></h2>
-                        <p>
-                            Adds a command to the draw <a href="#buffers">buffer</a>
-                        </p>
+                        <h2><li><b data-i18n="instructions.draw.title">Draw</b></li></h2>
+                        <p data-i18n="instructions.draw.content"></p>
                         <ol style="list-style-type: circle;">
-                            <li><b>Clear</b></li>
-                            <p class="ti">
-                                Sets the entire screen to a specific color<br>
-                                <img alt="alt" src="image/draw clear.png" style="max-width: 80vw !important"><br>
-                                RGB stands for Red,Green,Blue<br>
-                                Value can be from 0 (dimmest) to 255 (brightest)<br>
-                                Example: 255, 255, 255 is White
-                            </p>
+                            <li><b data-i18n="instructions.draw.clear.title"></b></li>
+                            <p class="ti" data-i18n="instructions.draw.clear.content"></p>
                             <li><b>Color</b></li>
                             <p class="ti">
                                 Sets the color of the next upcoming draw isntruction<br>

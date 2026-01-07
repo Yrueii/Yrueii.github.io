@@ -1,12 +1,12 @@
 function renderTextWithTokens(el, text, sectionData) {
   const frag = document.createDocumentFragment();
-  const regex = /\{(\w+)(?::([^:}]+)(?::([^}]+))?)?\}/g;
+  const regex = /(?<!\\)\{(\w+)(?::([^:}]+)(?::([^}]+))?)?\}/g;
 
   let last = 0;
   let m;
 
   while ((m = regex.exec(text))) {
-    frag.append(text.slice(last, m.index));
+    frag.append(text.slice(last, m.index).replace(/\\([{}])/g, '$1'));
     const [, type, name, extra] = m;
     frag.append(
       tokenResolvers[type](
@@ -17,7 +17,7 @@ function renderTextWithTokens(el, text, sectionData) {
     );
     last = regex.lastIndex;
   }
-  frag.append(text.slice(last));
+  frag.append(text.slice(last).replace(/\\([{}])/g, '$1'));
   el.replaceChildren(frag);
 }
 

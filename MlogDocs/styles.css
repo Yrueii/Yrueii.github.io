@@ -906,6 +906,9 @@ iframe {
 .mwidth85vw {
     max-width: 85vw;
 }
+.mwidth80vw {
+    max-width: 80vw;
+}
 
 .mtop20 {
     margin-top: 20px;

@@ -414,3 +414,62 @@ blocks:
         read: read
         result: result
         integerlimitations: integer limitation 
+instructions:
+    title: Instruction
+    read:
+        title: Read
+        content: |
+            Read a value from a cell
+            {br}
+            {img:image/read.png:mwidth85vw}
+            {br}
+            {code:result:variable draw} is your variable name
+            {br} {code:cell1:variable draw} is where to get the value from, a {link:builref:#building-reference}, “bank\{number\}” for Banks
+            {br}`{hl:_0:yel}` is the cell’s address. like said above, cells can store up to 64 values, this means there are only 64 addresses, starting at {hl:_0:yel}, meaning {hl:_0:yel} - {hl:_63:yel}
+            {br} Example: there is a value at 0 in {code:cell1:variable draw} that is {hl:_10:yel}, then {code:result:variable draw} variable will be {hl:_10:yel}
+        result: result
+        cell1: cell1
+        builref: building reference
+        _0: "0"
+        _63: "63"
+        _10: "10"
+
+    write:
+        title: Write
+        content: |
+            Write a value to a cell{br}
+            {img:image/write.png:mwidth85vw}
+            {br}
+            Essentially the same with read but it writes instead
+            {br}
+            Example: the {code:result:variable draw} variable is {hl:_10:yel}, then it will write {hl:_10:yel} to {code:cell1:variable draw} at #0
+            {br}
+            Can also be directly written using a number instead of a variable.
+        result: result
+        _10: "10"
+        cell1: cell1
+        
+    draw:
+        title: Draw
+        content: Adds a command to the draw {link:buffer:#buffers}
+        buffer: buffer
+
+        clear:
+            title: Clear
+            content: |
+                Sets the entire screen to a specific color{br}
+                {img:image/draw clear.png:mwidth80vw}{br}
+                RGB stands for Red,Green,Blue{br}
+                Value can be from 0 (dimmest) to 255 (brightest){br}
+                Example: 255, 255, 255 is White
+
+        color:
+            title: Color
+            content: |
+                Sets the color of the next upcoming draw isntruction{br}
+                {img:image/draw color.png:mwidth80vw }{br}
+                RGBA stands for Red,Green,Blue,Alpha
+                {br}To put it simply Alpha is Opacity, it is how opaque the next draw instruction will be
+                {br}0 is 0% and 255 is 100% opaque
+                {br}Value can be from 0 (dimmest) to 255 (brightest)
+
