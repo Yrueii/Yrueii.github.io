@@ -5,12 +5,26 @@ import keyboard
 
 patterns = {
     "<img": (
-        re.compile(r'<img[^>]*src="([^"]+)"[^>]*style="[^"]*max-width:\s*([^;!"]+)'),
-        lambda m: f'{{img:{m.group(1)}:mwidth{m.group(2)}}}'
+        re.compile(
+            r'<img[^>]*src="([^"]+)"[^>]*'
+            r'(?:style="[^"]*max-width:\s*([^;!"]+))?[^>]*'
+            r'(?:height="(\d+))?'
+        ),
+        lambda m: (
+            f'{{img:{m.group(1)}:mwidth{m.group(2)}}}'
+            if m.group(2)
+            else f'{{img:{m.group(1)}:height{m.group(3)}}}'
+            if m.group(3)
+            else f'{{img:{m.group(1)}}}'
+        )
     ),
     "<code": (
-        re.compile(r'<code\s+class="([^"]+)">([^<]+)</code>'),
-        lambda m: f'{{code:{m.group(2)}:{m.group(1)}}}'
+        re.compile(r'<code(?:\s+class="([^"]+)")?>([^<]+)</code>'),
+        lambda m: (
+            f'{{code:{m.group(2)}:{m.group(1)}}}'
+            if m.group(1)
+            else f'{{code:{m.group(2)}}}'
+        )
     ),
     "<span": (
         re.compile(r'<span[^>]*style="[^"]*color:\s*([^;"]+)[^"]*">([^<]+)</span>'),

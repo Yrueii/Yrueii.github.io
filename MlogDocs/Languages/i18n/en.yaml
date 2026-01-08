@@ -554,9 +554,86 @@ instructions:
             copper: "@copper"
             be: Bleeding Edge
             x: x
-            y: y
+            y: y    
             image: image
             size: size
             rotation: rotation
+    drawflush:
+        title: Draw Flush
+        content: Flush the queued draw instruction(s) from the draw buffer to the specified displays with its building reference
+    print:
+        title: Print
+        content: |
+            Prints the specified value to the text buffer, can print both text and variables
+            {br}however you cannot print text and variable in 1 instruction, you have to use multiple instruction
+        list: 
+            linebreak: 
+                title: "\\n"
+                content: |
+                    Writing \n will write the next text to a new line, example:
+                    {img:image/new line.png:mwidth80vw}
+            colors:
+                title: Printing colors “{b:brackets}"
+                content: |
+                    You can change printed colors with [ ], example{br}
+                    {img:image/print color.png:mwidth80vw}{br}
+                    You can either put color names or hexadecimal color code{br}
+                    Example of HEX color code is {code:FF0000} for red, you can simply search “hex color picker” on google to choose your own color
+                brackets: " [ ] "
+                FF0000: "#FF0000"
+            emoji:
+                title: Emoji/icons
+                content: |
+                    Not really Mlog related but worth mentioning,
+                    {br}
+                    Mindustry utilizes a specific range within the private use area of Unicode, these can be found on 
+                    the source code :
+                    {link:link_text:https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4}
+                    {br}
+                    which are: {br}
+                                                                   
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                                    
+                                                 
+                    {br}
+                    these might just look like boxes to you, but they are actually valid characters when pasted into the game
+                    {br}other than this, Mindustry also supports some public unicode characters, though what of and in what range is unknown
+                    , attempting to paste unsuported characters will just show nothing.
+                    {br}Here what they look like in game:
+                    {br}{img:image/unicode.png:mwidth75vw}
+                link_text: https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4
+    printflush:
+        title: Print Flush
+        content: |
+            Flush the queued print instruction(s) from the text {link:buffer:#buffers} to 
+            the specified message block with its building reference, {b:will_erase} previous message on the message block
+        buffer: buffer
+        will_erase: will erases
+    getlink:
+        title: Get Link
+        content: |
+            {code:getlink:control} gets the link of the processor linked building{br}
+            example : you have 2 buildings linked to the processor, {code:duo1:variable} and {code:duo2:variable}{br}
+            getlink {code:result:variable} #0 will get you {code:duo1:variable} and {br}
+            getlink {code:result:variable} #1 will get you {code:duo2:variable}{br}
+            The order is based on the order you link the buildings{br}
+            The buildings reference is then {code:result:variable}{br}
+            {img:image/getlink.png:height400}{img:image/getlink 2.png:height400}{br}
+            Using it with numbers is pretty useless, they are usually used with incrementing variables as its index, 
+            this way you can get multiple buildings without writing every building reference (message1,2,3….)
+        getlink: Get Link
+        duo1: duo1
+        duo2: duo2
+        result: result
 
 

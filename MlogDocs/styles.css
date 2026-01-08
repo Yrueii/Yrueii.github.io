@@ -903,11 +903,17 @@ iframe {
 .width300 {
     width: 300px;
 }
-.mwidth85vw {
-    max-width: 85vw;
+.height400 {
+    height: 400px;
+}
+.mwidth75vw {
+    max-width: 75vw;
 }
 .mwidth80vw {
     max-width: 80vw;
+}
+.mwidth85vw {
+    max-width: 85vw;
 }
 
 .mtop20 {
@@ -916,4 +922,7 @@ iframe {
 
 code.yel {
     color: yellow;
+}
+[href="https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4"] {
+    overflow-wrap: anywhere;
 }

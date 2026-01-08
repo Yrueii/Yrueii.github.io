@@ -365,82 +365,28 @@
                         </ol>
                     </section>
                     <section id="draw-flush">
-                        <h2><li><b>Draw Flush</b></li></h2>
-                        <p class="ti">
-                            Flush the queued draw instruction(s) from the draw buffer to the specified displays with its building reference
-                        </p>
+                        <h2><li><b data-i18n="instructions.drawflush.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.drawflush.content"></p>
                     </section>
                     <section id="print">
-                        <h2><li><b>Print</b></li></h2>
-                        <p class="ti">
-                            Prints the specified value to the text buffer, can print both text and variables
-                            <br>however you cannot print text and variable in 1 instruction, you have to use multiple instruction
-                        </p>
+                        <h2><li><b data-i18n="instructions.print.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.print.content"></p>
                         <ol style="list-style-type: circle;">
-                            <li><b>\n</b></li>
-                            <p class="ti">Writing \n will write the next text to a new line, example:</p>
-                            <img alt="alt" src="image/new line.png" style="max-width: 80vw !important;">
-                            <li>Printing colors “<b> [ ] </b>"</li>
-                            <p class="ti">
-                                You can change printed colors with [ ], example<br>
-                                <img alt="alt" src="image/print color.png" style="max-width: 80vw !important;"><br>
-                                You can either put color names or hexadecimal color code<br>
-                                Example of HEX color code is <code>#FF0000</code> for red, you can simply search “hex color picker” on google to choose your own color
-                            </p>
-                            <li><b>Emoji/icons</b></li>
-                            <p class="ti">
-                                Not really Mlog related but worth mentioning,
-                                <br>
-                                Mindustry utilizes a specific range within the private use area of Unicode, these can be found on 
-                                the source code :
-                                <a style="overflow-wrap: anywhere;" href="https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4">
-                                    https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4
-                                </a>
-                                <br>
-                                which are: <br>
-                                                                               
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                                                
-                                                             
-                                <br>
-                                these might just look like boxes to you, but they are actually valid characters when pasted into the game
-                                <br>other than this, Mindustry also supports some public unicode characters, though what of and in what range is unknown
-                                , attempting to paste unsuported characters will just show nothing.
-                                <br>Here what they look like in game:
-                                <br><img src="image/unicode.png" alt="" style="max-width: 75vw !important;">
-                            </p>
+                            <li><b data-i18n="instructions.print.list.linebreak.title"></b></li>
+                            <p class="ti" data-i18n="instructions.print.list.linebreak.content"></p>
+                            <li data-i18n="instructions.print.list.colors.title"></li>
+                            <p class="ti" data-i18n="instructions.print.list.colors.content"></p>
+                            <li><b data-i18n="instructions.print.list.emoji.title"></b></li>
+                            <p class="ti" data-i18n="instructions.print.list.emoji.content"></p>
                         </ol>
                     </section>
                     <section id="print-flush">
-                        <h2><li><b>Print Flush</b></li></h2>
-                        <p class="ti">
-                            Flush the queued print instruction(s) from the text <a href="#buffers" >buffer</a> to 
-                            the specified message block with its building reference, <b>will erases</b> previous message on the message block
-                        </p>
+                        <h2><li><b data-i18n="instructions.printflush.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.printflush.content"></p>
                     </section>
                     <section id="get-link">
-                        <h2><li><b>Get link</b></li></h2>
-                        <p class="ti">
-                            <code class="control">Get link</code> gets the link of the processor linked building<br>
-                            example : you have 2 buildings linked to the processor, <code class="variable">duo1</code> and <code class="variable">duo2</code><br>
-                            getlink <code class="variable">result</code> #0 will get you <code class="variable">duo1</code> and <br>
-                            getlink <code class="variable">result</code> #1 will get you <code class="variable">duo2</code><br>
-                            The order is based on the order you link the buildings<br>
-                            The buildings reference is then <code class="variable">result</code><br>
-                            <img alt="alt" src="image/getlink.png"  height="400px"><img alt="alt" src="image/getlink 2.png"  height="400px"><br>
-                            Using it with numbers is pretty useless, they are usually used with incrementing variables as its index, 
-                            this way you can get multiple buildings without writing every building reference (message1,2,3….)
-                        </p>
+                        <h2><li><b data-i18n="instructions.getlink.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.getlink.content"></p>
                     </section>
                     <section id="control">
                         <h2><li><b>Control</b></li></h2>
