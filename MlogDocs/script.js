@@ -64,6 +64,7 @@ const tokenResolvers = {
   img(name, sectionData, extra) {
     const el = document.createElement("img");
     el.src = name
+    console.log(extra);
     el.classList.add(...extra.split(' ')) 
     el.addEventListener('click', function() {
       modal.style.display = 'flex';

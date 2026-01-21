@@ -915,12 +915,18 @@ iframe {
 .mwidth85vw {
     max-width: 85vw;
 }
+.mwidth85vw {
+    max-width: 88vw;
+}
 
 .mtop20 {
     margin-top: 20px;
 }
 
 code.yel {
+    color: yellow;
+}
+code.aqu {
     color: yellow;
 }
 [href="https://github.com/Anuken/Mindustry/blob/9eb8492f4ab8daf15685128229489b7229cc1048/core/assets/icons/icons.properties#L4"] {

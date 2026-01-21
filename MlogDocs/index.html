@@ -389,271 +389,113 @@
                         <p class="ti" data-i18n="instructions.getlink.content"></p>
                     </section>
                     <section id="control">
-                        <h2><li><b>Control</b></li></h2>
-                        <p class="ti">
-                            Controls a building <code class="field">of</code> a <a href="#building-reference">building reference or a unit reference</a>
-                        </p>
+                        <h2><li><b data-i18n="instructions.control.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.control.content"></p>
                         <ol style="list-style-type:circle;">
-                            <li>Enabled</li>
-                            <p class="ti">
-                                Enabled or disable a building, can be 0 or 1 or true and false
-                                <br><img src="image/control enabled.png" alt="" style="max-width: 80vw !important;">
-                                <br><code class="field">of</code> a <a href="#building-reference">block reference</a>
-                                <br><code class="field">to</code> (state), <span style="color: yellow;">1</span> / <span style="color: yellow;">true</span> enable, <span style="color: yellow;">0</span> / <span style="color: yellow;">false</span> disable, 
-                                <br>when disabling a processor it pauses code execution until re-enabled again, resuming at the line number where it was disabled
-                                <br><a href="#dblockbehaviour">here is a list of blocks behaviour when disabled</a>
-                            </p>
-                            <li>Shoot</li>
-                            <p class="ti">
-                                Shoot at a coordinate position, 
-                                <br><img src="image/control.png" alt="" style="max-width: 80vw !important;">
-                                <br><code class="field">x</code> and <code class="field">y</code> is coordinate location where to aim/shoot at
-                                <br><code class="field">shoot</code> <span style="color: yellow;">0</span> or <span style="color: yellow;">1</span>, <span style="color: yellow;">true</span> or <span style="color: yellow;">false</span>, if true tells the turret/unit to shoot, if false stop shooting
-                            </p>
-                            <li>Shootp</li>
-                            <p class="ti">
-                                Shoot at a unit/building but with velocity prediction
-                                <br><img src="image/control shootp.png" alt="" style="max-width: 80vw !important;">
-                                <br><code class="field">unit</code>, what object to aim/shoot at, it says "unit" but you can put a building reference there too.
-                                <br><code class="field">shoot</code> 0 or 1, true or false, if true tells the turret/unit to shoot, if false stop shooting
-                            <li>Config</li>
-                            <p class="ti">  
-                                Change the configuration of buildings, 
-                                <br>for example :
-                                <br>sorter config, by putting <a href="#contentname">item name</a> to the <code class="field">to</code> arguments, eg <code class="content-name">@copper</code>, <code class="content-name">@lead</code>, <code class="content-name">@surge-alloy</code>
-                                <br>unit factory config, by putting <a href="#contentname">unit name</a> to the <code class="field">to</code> arguments, eg <code class="content-name">@flare</code>, <code class="content-name">@dagger</code>, 
-                                and of course it only supports units it meant to create, if you put other unit name that it cant create it will just deselect all unit
-                            </p>
-                            </p>
+                            <li data-i18n="instructions.control.list.enabled.title">Enabled</li>
+                            <p class="ti" data-i18n="instructions.control.list.enabled.content"></p>
+                            <li data-i18n="instructions.control.list.shoot.title">Shoot</li>
+                            <p class="ti" data-i18n="instructions.control.list.shoot.content"></p>
+                            <li data-i18n="instructions.control.list.shootp.title">Shootp</li>
+                            <p class="ti" data-i18n="instructions.control.list.shootp.content"></p>
+                            <li data-i18n="instructions.control.list.config.title">Config</li>
+                            <p class="ti" data-i18n="instructions.control.list.config.content"> </p>
                             <section id="control-color">
-                            <li>Color</li>
-                            <p class="ti">
-                                Change the color of Illuminator block
-                                Usually used with <a href="#pack-color">pack color</a>
-                            </p>
+                            <li data-i18n="instructions.control.list.color.title"></li>
+                            <p class="ti" data-i18n="instructions.control.list.color.content"></p>
                             </section>
                         </ol>
                     </section>
                     <section id="radar">
-                        <h2><li><b>Radar</b></li></h2>
-                        <p class="ti">
-                            Radar a unit in range of the building’s range<br>
-                            <img alt="alt" src="image/radar.png"style="max-width: 88vw !important;"><br>
-                            <code class="field">from</code> is <a href="#building-reference">building reference</a><br>
-                            <code class="field">target</code> is a filter, target enemy means it will only radar enemy units<br>
-                            <code class="field">order</code> is sorting order, ascending or descending, can only be 0 or 1<br>
-                            <code class="field">sort</code> is a metric to sort results by, sort distance means it will get unit by distance
-                            <br>In this example, since <code class="field">order</code> is 1, and <code class="field">sort</code> is distance, 
-                            the unit returned is the closest to that building.
-                            <br>Cannot get multiple units at the same time.
-                            <br><code class="field">Order</code> cannot be change to look for metrics in the middle e.g 0.5
-                            <br>Will output the <a href="#building-reference">unit reference</a> to <code class="variable control">result</code>
-                        </p>
+                        <h2><li><b data-i18n="instructions.radar.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.radar.content"></p>
                     </section>
                     <section id="sensor">
-                        <h2><li><b>Sensor</b></li></h2>
-                        <p class="ti">
-                            Sensor / get / read data from an object, usually buildings or units with their reference<br>
-                            <img alt="alt" src="image/sensor.png"style="max-width: 88vw !important;"><br>
-                            <code class="variable control">result</code> is your named variable<br>
-                            <code class="content-name">@copper</code> is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see <a href="#sensors">Sensors</a> for a list with explanation on each one) <br>
-                            <code class="variable control">block1</code> building reference, it is what object to get the data from, can also be a <a href="#controlling-units">unit reference</a><br>
-                            Example:<br>
-                            <img alt="alt" src="image/sensor 1.png"style="max-width: 88vw !important;"><br>
-                            This will get the amount of copper in <code class="variable control">vault1</code>, the number will be stored in the variable <code class="variable control">result</code>, let’s say the vault has 10 coppers, therefore <code class="variable control">result</code> will be 10
-                        </p>
+                        <h2><li><b data-i18n="instructions.sensor.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.sensor.content"></p>
                     </section>
                     <section id="set">
-                        <h2><li><b>Set</b></li></h2>
-                        <p class="ti">
-                            Set a variable, either with numbers or with another variable (including unit or block reference)
-                        </p>
+                        <h2><li><b data-i18n="instructions.set.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.set.content"></p>
                     </section>
                     <section id="operation">
-                        <h2><li><b>Operation</b></li></h2>
-                        <p class="ti">
-                            Perform a single operation on 2 variables, or just numbers directly, example:
-                            <br><img alt="alt" src="image/operation1.png"style="max-width: 88vw !important;"><br>
-                            Let’s say <code class="variable op">a</code> is <span style="color: yellow;">10</span>, therefore this operation means <span style="color: yellow;">10</span> + <span style="color: yellow;">5</span><br>
-                            <code class="variable op">result</code> will then be <span style="color: yellow;">15</span>
-                        </p>
+                        <h2><li><b data-i18n="instructions.operation.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.operation.content"></p>
                         <ol class="custom-list">
-                            <li><b>+</b></li>
-                            <p class="oplist">
-                              Addition  
-                            </p>
-                            <li><b>-</b></li>
-                            <p class="oplist">
-                                Subtraction
-                            </p>
-                            <li><b>*</b></li>
-                            <p class="oplist">
-                                Multiplication
-                            </p>
-                            <li><b>/</b></li>
-                            <p class="oplist">
-                                Division
-                            </p>
-                            <li><b>//</b></li>
-                            <p class="oplist">
-                                Integer division, like division but it will round down the results
-                            </p>
-                            <li><b>%</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Modulo">Modulo operation</a>, like division but it returns the remainder
-                            </p>
-                            <li><b>^</b></li>
-                            <p class="oplist">
-                                Power / exponentiation
-                            </p>
-                            <li><b>Sqrt</b></li>
-                            <p class="oplist">
-                                Square root
-                            </p>
-                            <li><b>==</b></li>
-                            <p class="oplist">
-                                Check if the 2 variables are equal to each other<br>
-                                Returns 1 or 0 / true or false
-                            </p>
-                            <li><b>Not</b></li>
-                            <p class="oplist">
-                                Logical not, check if the 2 variables are not equal to each other<br>
-                                Returns 1 or 0 / true or false
-                            </p>
-                            <li><b>And</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/AND_gate">Logical AND gate</a><br>
-                                Inputs and output are boolean
-                            </p>
-                            <li><b>&lt;</b></li>
-                            <p class="oplist">
-                                Less than, check if the first variable is less than the second variable<br>
-                                Returns 1 or 0 / true or false
-                            </p>
-                            <li><b>&gt;</b></li>
-                            <p class="oplist">
-                                Less than equal, check if the first variable is less than equal the second variable<br>
-                                Returns 1 or 0 / true or false
-                            </p>
-                            <li><b>&lt;=</b></li>
-                            <p class="oplist">
-                                Greater than, check if the first variable is greater than the second variable<br>
-                                Returns 1 or 0 / true or false
-                            </p>
-                            <li><b>&gt;=</b></li>
-                            <p class="oplist">
-                                Greater than equal, check if the first variable is greater than equal the second variable<br>
-                                Returns 1 or 0 / true or false
-                            </p>
-                            <li><b>log</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Logarithm">Logarithm</a>, return the exponent given the base and the result
-                            </p>
-                            <li><b>log 10</b></li>
-                            <p class="oplist">
-                                Logarithm in base 10
-                            </p>
-                            <li><b>abs</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Absolute_value">Absolute number</a>
-                            </p>
-                            <li><b>floor</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">Floor</a> , Round down the specified number
-                            </p>
-                            <li><b>ceil</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Floor_and_ceiling_functions">Ceiling</a> , Round up the specified number
-                            </p>
-                            <li><b>or</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise</a> or
-                            </p>
-                            <li><b>b-and</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise</a> and
-                            </p>
-                            <li><b>XOR</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise</a> XOR
-                            </p>
-                            <li><b>flip</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Bitwise_operation">Bitwise</a> flip
-                            </p>
-                            <li><b>max</b></li>
-                            <p class="oplist">
-                                return the largest number out of the 2 number
-                            </p>
-                            <li><b>min</b></li>
-                            <p class="oplist">
-                                return the smallest number out of the 2 number
-                            </p>
-                            <li><b>angle</b></li>
-                            <p class="oplist">
-                                Angle of vector in degrees,usually used like: Angle = ((x1-x2) (y1-y2))
-                                <br>internally the code does:
-                                <br>ang1 = atan2(a,b) * 180/&pi; (convert into degrees)
-                                <br><span style="color: aqua;">result</span> = {
-                                    if ang1 < 0 = (<span style="color: yellow;">ang1 + 360</span>),
-                                    otherwise = (<span style="color: yellow;">ang1</span>)
-                                }
-                                <br>where <span style="color: yellow;">a</span> is the first variable and <span style="color: yellow;">b</span> is the second
-                            </p>
-                            <li><b>angle diff</b></li>
-                            <p class="oplist">
-                                Absolute distance between to angles in degrees, usually used like: angdiff = (ang1)(ang2)
-                                <br>innternally the code does:
-                                <br>a = a % 360
-                                <br>b = b % 360
-                                <br>d1 = (a - b + 360) % 360
-                                <br>d2 = (b - a + 360) % 360
-                                <br><span style="color: aqua;">result</span> = min(d1, d2)
-                                <br>where <span style="color: yellow;">a</span> is the first variable and <span style="color: yellow;">b</span> is the second
-                            </p>
-                            <li><b>len</b></li>
-                            <p class="oplist">
-                                Length of vector, usually used like: len = ((x1-x2) (y1-y2)).
-                                <br>internally the code does:
-                                <br><span style="color: aqua;">result</span> = <span style="color: yellow;">&Sqrt; (a * a + b * b)</span>
-                                <br>where <span style="color: yellow;">a</span> is the first variable and <span style="color: yellow;">b</span> is the second
-                            </p>
-                            <li><b>noise</b></li>
-                            <p class="oplist">
-                                2d simplex noise
-                                <br>takes 2 value as coordinates and outputs a value from -1 to 1 
-                                <br>unlike rand, noise is detemernistic, which means a pair of coordinates will always outputs the same result
-                                <br>for more information to how it internally works check <a href="https://github.com/Anuken/Arc/blob/master/arc-core/src/arc/util/noise/Simplex.java">https://github.com/Anuken/Arc/blob/master/arc-core/src/arc/util/noise/Simplex.java</a>
-                                the "raw2d" function/method
-                            </p>
-                            <li><b>rand</b></li>
-                            <p class="oplist">
-                                generate a random float in range of 0 to the specified value
-                            </p>
-                            <li><b>sin</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Sine_and_cosine">Sin</a>, in degrees
-                            </p>
-                            <li><b>cos</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Sine_and_cosine">Cos</a>, in degrees
-                            </p>
-                            <li><b>tan</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Sine_and_cosine">Tan</a>, in degrees
-                            </p>
-                            <li><b>asin</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">Asin</a>, in degrees
-                            </p>
-                            <li><b>acos</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">Acos</a>, in degrees
-                            </p>
-                            <li><b>atan</b></li>
-                            <p class="oplist">
-                                <a href="https://en.wikipedia.org/wiki/Inverse_trigonometric_functions">Atan</a>, in degrees
-                            </p>
+                            <li><b data-i18n="instructions.operation.list.add.title">+</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.add.content"></p>
+                            <li><b data-i18n="instructions.operation.list.sub.title">-</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.sub.content"></p>
+                            <li><b data-i18n="instructions.operation.list.mul.title">*</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.mul.content">
+                            <li><b data-i18n="instructions.operation.list.div.title">/</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.div.content"></p>
+                            <li><b data-i18n="instructions.operation.list.idiv.title">//</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.idiv.content"></p>
+                            <li><b data-i18n="instructions.operation.list.mod.title">%</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.mod.content"></p>
+                            <li><b data-i18n="instructions.operation.list.power.title">^</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.power.content"></p>
+                            <li><b data-i18n="instructions.operation.list.sqrt.title">Sqrt</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.sqrt.content"></p>
+                            <li><b data-i18n="instructions.operation.list.equal.title">==</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.equal.content"></p>
+                            <li><b data-i18n="instructions.operation.list.not.title">Not</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.not.content"></p>
+                            <li><b data-i18n="instructions.operation.list.land.title">And</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.land.content"></p>
+                            <li><b data-i18n="instructions.operation.list.lessThan.title">&lt;</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.lessThan.content"></p>
+                            <li><b data-i18n="instructions.operation.list.lessThanEq.title">&lt;=</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.lessThanEq.content"></p>
+                            <li><b data-i18n="instructions.operation.list.greaterThan.title">&gt;</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.greaterThan.content"></p>
+                            <li><b data-i18n="instructions.operation.list.greaterThanEq.title">&gt;=</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.greaterThanEq.content"></p>
+                            <li><b data-i18n="instructions.operation.list.log.title">log</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.log.content"></p>
+                            <li><b data-i18n="instructions.operation.list.log10.title">log 10</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.10log.content"></p>
+                            <li><b data-i18n="instructions.operation.list.abs.title">abs</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.abs.content"></p>
+                            <li><b data-i18n="instructions.operation.list.floor.title">floor</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.floor.content"></p>
+                            <li><b data-i18n="instructions.operation.list.ceil.title">ceil</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.ceil.content"></p>
+                            <li><b data-i18n="instructions.operation.list.or.title">or</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.or.content"></p>
+                            <li><b data-i18n="instructions.operation.list.land.title">b-and</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.land.content"></p>
+                            <li><b data-i18n="instructions.operation.list.xor.title">XOR</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.xor.content"></p>
+                            <li><b data-i18n="instructions.operation.list.flip.title">flip</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.flip.content"></p>
+                            <li><b data-i18n="instructions.operation.list.max.title">max</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.max.content"></p>
+                            <li><b data-i18n="instructions.operation.list.min.title">min</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.min.content"></p>
+                            <li><b data-i18n="instructions.operation.list.angle.title">angle</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.angle.content"></p>
+                            <li><b data-i18n="instructions.operation.list.angleDiff.title">angle diff</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.angleDiff.content"></p>
+                            <li><b data-i18n="instructions.operation.list.len.title">len</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.len.content"></p>
+                            <li><b data-i18n="instructions.operation.list.noise.title"></b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.noise.content"></p>
+                            <li><b data-i18n="instructions.operation.list.rand.title">rand</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.rand.content"></p>
+                            <li><b data-i18n="instructions.operation.list.sin.title">sin</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.sin.content"></p>
+                            <li><b data-i18n="instructions.operation.list.cos.title">cos</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.cos.content"></p>
+                            <li><b data-i18n="instructions.operation.list.tan.title">tan</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.tan.content"></p>
+                            <li><b data-i18n="instructions.operation.list.asin.title">asin</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.asin.content"></p>
+                            <li><b data-i18n="instructions.operation.list.acos.title">acos</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.acos.content"></p>
+                            <li><b data-i18n="instructions.operation.list.atan.title">atan</b></li>
+                            <p class="oplist" data-i18n="instructions.operation.list.atan.content"></p>
                         </ol>
                     </section>
                     <section id="lookup">

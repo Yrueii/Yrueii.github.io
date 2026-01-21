@@ -571,6 +571,7 @@ instructions:
                 title: "\\n"
                 content: |
                     Writing \n will write the next text to a new line, example:
+                    {br}
                     {img:image/new line.png:mwidth80vw}
             colors:
                 title: Printing colors “{b:brackets}"
@@ -635,5 +636,309 @@ instructions:
         duo1: duo1
         duo2: duo2
         result: result
+    control:
+        title: Control
+        content: |
+            Controls a building {code:of:field} a {link:buildreference:#building-reference}
+        of: of
+        buildreference: building reference or a unit reference
+        list:
+            enabled:
+                title: Enabled
+                content: |
+                    Enabled or disable a building, can be 0 or 1 or true and false
+                    {br}{img:image/control enabled.png:_}
+                    {br}{code:of:field} a {link:blockref:#building-reference}
+                    {br}{code:to:field} (state), {hl:_1:yel} / {hl:_true:yel} enable, {hl:_0:yel} / {hl:_false:yel} disable, 
+                    {br}when disabling a processor it pauses code execution until re-enabled again, resuming at the line number where it was disabled
+                    {br}{link:disabledblocks:#dblockbehaviour}
+                of: of
+                blockref: block reference
+                to: to
+                _1: "1"
+                _true: "true"
+                _0: "0"
+                _false: "false"
+                disabledblocks: here is a list of blocks behaviour when disabled
+            shoot:
+                title: Shoot
+                content: |
+                    Shoot at a coordinate position, 
+                    {br}{img:image/control.png:mwidth80vw}
+                    {br}{code:x:field} and {code:y:field} is coordinate location where to aim/shoot at
+                    {br}{code:shoot:field} {hl:_0:yel} or {hl:_1:yel}, {hl:_true:yel} or {hl:_false:yel}, if true tells the turret/unit to shoot, if false stop shooting
+                x: x
+                y: y
+                shoot: field
+                _0: "0"
+                _1: "1"
+                _true: "true"
+                _false: "false"
+            shootp:
+                title: Shootp
+                content: |
+                    Shoot at a unit/building but with velocity prediction
+                    {br}{img:image/control shootp.png:mwidth80vw}
+                    {br}{code:unit:field}, what object to aim/shoot at, it says "unit" but you can put a building reference there too.
+                    {br}{code:shoot:field} 0 or 1, true or false, if true tells the turret/unit to shoot, if false stop shootin
+                unit: unit
+                shoot: shoot
+            config:
+                title: Config
+                content: |
+                    Change the configuration of buildings, 
+                    {br}for example :
+                    {br}sorter config, by putting {link:itemname:#contentname} to the {code:to:field} arguments, eg {code:copper:content-name}, {code:lead:content-name}, {code:surgealloy:content-name}
+                    {br}unit factory config, by putting {link:unitname:#contentname} to the {code:to:field} arguments, eg {code:flare:content-name}, {code:dagger:content-name}, 
+                    unit factory only supports units it meant to create, if you put other unit name that it cant create it will just deselect all unit
+                itemname: item name
+                to: to
+                copper: "@copper"
+                lead: "@lead"
+                surgealloy : "@surge-alloy"
+                unitname: unit name
+                flare: "@flare"
+                dagger : "@dagger"
+            color:
+                title: Color
+                content: |
+                    Change the color of Illuminator block
+                    Usually used with {link:packcolor:#pack-color}
+                packcolor: pack color
+    radar:
+        title: Radar
+        content: |
+            Radar a unit in range of the building’s range
+            {br}{img:image/radar.png:mwidth88vw}
+            {br}{code:from:field} is {link:builref:#building-reference}
+            {br}{code:target:field} is a filter, target enemy means it will only radar enemy units
+            {br}{code:order:field} is sorting order, ascending or descending, can only be 0 or 1
+            {br}{code:sort:field} is a metric to sort results by, sort distance means it will get unit by distance
+            {br}In this example, since {code:order:field} is 1, and {code:sort:field} is distance, 
+            the unit returned is the closest to that building.
+            {br}Cannot get multiple units at the same time.
+            {br}{code:order:field} cannot be change to look for metrics in the middle e.g 0.5
+            {br}Will output the {link:unitref:#building-reference} to {code:result:variable control}
+        from: from
+        builref: building reference
+        target: target
+        order: order
+        sort: sort
+        unitref: unit reference
+        result: result
+    sensor:
+        title: Sensor
+        content: |
+            Sensor / get / read data from an object, usually buildings or units with their reference
+            {br}{img:image/sensor.png:mwidth88vw}
+            {br}{code:result:variable control} is your named variable
+            {br}{code:copper:content-name} is what data to get from the specified object, can be a unit or a building. (click the pencil icon beside it for a list of sensorable data alternatively see {link:Sensors:#sensors} for a list with explanation on each one) 
+            {br}{code:block1:variable control} building reference, it is what object to get the data from, can also be a {link:unitref:#controlling-units}
+            {br}Example:
+            {br}{img:image/sensor 1.png:mwidth88vw}
+            {br}This will get the amount of copper in {code:vault1:variable control}, the number will be stored in the variable {code:result:variable control}, let’s say the vault has 10 coppers, therefore {code:result:variable control} will be 10
+        result: result
+        copper: "@copper"
+        Sensors: Sensors
+        block1: block1
+        unitref: unit reference
+        vault1: vault1
+    set:
+        title: Set
+        content: Set a variable, either with numbers or with another variable (including unit or block reference)
+    operation:
+        title: Operation
+        content: |
+            Perform a single operation on 2 variables, or just numbers directly, example:
+            {br}{img:image/operation1.png:mwidth88vw}
+            {br}Let’s say {code:a:variable op} is {hl:_10:yel}, therefore this operation means {hl:_10:yel} + {hl:_5:yel}
+            {br}{code:result:variable op} will then be {hl:_15:yel}
+        a: a
+        _10: "10"
+        _5: "5"
+        result: result
+        _15: "15"
+        list:
+            add :
+                title: "+"
+                content: Addition 
+            sub :
+                title: "-"
+                content: Subtraction
+            mul :
+                title: "*"
+                content: Multiplication 
+            div :
+                title: "/"
+                content: Division
+            idiv :
+                title: "//"
+                content: Integer division, like division but it will round down the results
+            mod :
+                title: "%"
+                content: |
+                    {link:modulo:https://en.wikipedia.org/wiki/Modulo}, like division but it returns the remainder
+                modulo: Modulo operation
+            pow :
+                title: "^"
+                content: Power / exponentiation
+            sqrt :
+                title: "Sqrt"
+                content: Square root
+            equal :
+                title: "=="
+                content: |
+                    Check if the 2 variables are equal to each other
+                    {br}Returns 1 or 0 / true or false
+            not :
+                title: "not"
+                content: |
+                    Logical not, check if the 2 variables are not equal to each other
+                    {br}Returns 1 or 0 / true or false
+            land :
+                title: "And"
+                content: |
+                    {link:andgate:https://en.wikipedia.org/wiki/AND_gate}
+                    {br}Inputs and output are boolean
+                andgate: Logical AND Gate
+            lessThan :
+                title: "<"
+                content: |
+                    Less than, check if the first variable is less than the second variable
+                    {br}Returns 1 or 0 / true or false
+            lessThanEq :
+                title: "<="
+                content: |
+                    Less than equal, check if the first variable is less than equal the second variable
+                    {br}Returns 1 or 0 / true or false
+            greaterThan :
+                title: ">"
+                content: |
+                    Greater than, check if the first variable is greater than the second variable
+                    {br}Returns 1 or 0 / true or false
+            greaterThanEq :
+                title: ">="
+                content: |
+                    Greater than equal, check if the first variable is greater than equal the second variable
+                    {br}Returns 1 or 0 / true or false
+            log :
+                title: log
+                content: |
+                    {link:logarithm:https://en.wikipedia.org/wiki/Logarithm}, return the exponent given the base and the result
+                logarithm: Logarithm
+            log10 :
+                title: log 10
+                content: Logarithm in base 10
+            abs :
+                title: abs
+                content: "{link:Absolute:https://en.wikipedia.org/wiki/Absolute_value}"
+                Absolute: Absolute Number
+            floor :
+                title: floor
+                content: "{link:Floor:https://en.wikipedia.org/wiki/Floor_and_ceiling_functions} , Round down the specified number"
+                Floor: Floor
+            ceil :
+                title: ceil
+                content: "{link:Ceiling:https://en.wikipedia.org/wiki/Floor_and_ceiling_functions} , Round up the specified number"
+                Ceiling: Ceiling
+            or :
+                title: or
+                content: "{link:Bitwise:https://en.wikipedia.org/wiki/Bitwise_operation} or"
+                Bitwise: Bitwise
+            and :
+                title: b-and
+                content: "{link:Bitwise:https://en.wikipedia.org/wiki/Bitwise_operation} and"
+                Bitwise: Bitwise
+            xor :
+                title: XOR
+                content: "{link:Bitwise:https://en.wikipedia.org/wiki/Bitwise_operation} XOR"
+                Bitwise: Bitwise
+            flip :
+                title: flip
+                content: "{link:Bitwise:https://en.wikipedia.org/wiki/Bitwise_operation} flip"
+                Bitwise: Bitwise
+            max :
+                title: max
+                content: return the largest number out of the 2 number
+            min :
+                title: min
+                content: return the smallest number out of the 2 number
+            angle :
+                title: angle
+                content: |
+                    Angle of vector in degrees,usually used like: Angle = ((x1-x2) (y1-y2))
+                    {br}internally the code does:
+                    {br}ang1 = atan2(a,b) * 180/pi; (convert into degrees)
+                    {br}{hl:_result:aqu} = {
+                        if ang1 < 0 = ({hl:_ang1360:yel}),
+                        otherwise = ({hl:_ang1:yel})
+                    }
+                    {br}where {hl:_a:yel} is the first variable and {hl:_b:yel} is the second
+                _result: result
+                _ang1360 : ang1 + 360
+                _ang1: ang1
+                _a: a
+                _b: b
 
+            angleDiff :
+                title: angle diff
+                content: |
+                    Absolute distance between to angles in degrees, usually used like: angdiff = (ang1)(ang2)
+                    {br}innternally the code does:
+                    {br}a = a % 360
+                    {br}b = b % 360
+                    {br}d1 = (a - b + 360) % 360
+                    {br}d2 = (b - a + 360) % 360
+                    {br}{hl:_result:aqu} = min(d1, d2)
+                    {br}where {hl:_a:yel} is the first variable and {hl:_b:yel} is the second
+                _result: result
+                _a: a
+                _b: b
+            len :
+                title: len
+                content: |
+                    Length of vector, usually used like: len = ((x1-x2) (y1-y2)).
+                    {br}internally the code does:
+                    {br}{hl:_result:aqu} = {hl:formula:yel}
+                    {br}where {hl:_a:yel} is the first variable and {hl:_b:yel} is the second
+                _result: result
+                formula: "&Sqrt; (a * a + b * b)"
+                _a: a
+                _b: b
 
+            noise :
+                title: noise
+                content: |
+                    2d simplex noise
+                    {br}takes 2 value as coordinates and outputs a value from -1 to 1 
+                    {br}unlike rand, noise is detemernistic, which means a pair of coordinates will always outputs the same result
+                    {br}for more information to how it internally works check {link:link:https://github.com/Anuken/Arc/blob/master/arc-core/src/arc/util/noise/Simplex.java}
+                    the "raw2d" function/method
+                link: https://github.com/Anuken/Arc/blob/master/arc-core/src/arc/util/noise/Simplex.java
+            rand :
+                title: rand
+                content: generate a random float in range of 0 to the specified value
+            sin :
+                title: sin
+                content: "{link:Sin:https://en.wikipedia.org/wiki/Sine_and_cosine}, in degrees"
+                Sin: Sin
+            cos :
+                title: cos
+                content: "{link:Cos:https://en.wikipedia.org/wiki/Sine_and_cosine}, in degrees"
+                Cos: Cos
+            tan :
+                title: tan
+                content: "{link:Tan:https://en.wikipedia.org/wiki/Sine_and_cosine}, in degrees"
+                Tan: Tan
+            asin :
+                title: asin
+                content: "{link:Asin:https://en.wikipedia.org/wiki/Inverse_trigonometric_functions}, in degrees"
+                Asin: Asin
+            acos :
+                title: acos
+                content: "{link:Acos:https://en.wikipedia.org/wiki/Inverse_trigonometric_functions} , in degrees"
+                Acos: Acos
+            atan :
+                title: atan
+                content: "{link:Atan:https://en.wikipedia.org/wiki/Inverse_trigonometric_functions}, in degrees"
+                Atan: Atan

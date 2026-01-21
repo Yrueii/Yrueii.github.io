@@ -43,7 +43,7 @@ To contribute a translation:
 
 Example entry in `index.json`:
 ```json
-{ "lang_code": "fr", "language": "Français" }
+{ "language": "Français", "lang_code": "fr"}
 ```
 
 Translation text data often uses inline formatting, in the form of tokens `{type:key:extra}`, example:
