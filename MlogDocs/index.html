@@ -24,7 +24,8 @@
 <!-- TODO make the table of contents collapseable? -->
 <!-- TODO add a search bar -->
 <!-- TODO change gifs to video files (more efficient) -->
-<!-- local storage to store prefered language across instance -->
+<!-- TODO a secondary repo with automated git workflow to update transpilers data list daily -->
+<!-- TODO local storage to store prefered language across instance -->
 <!-- FIX code tidiness -->
 <body class="skeleton">
     <div id="imageModal" class="modal">
@@ -499,190 +500,79 @@
                         </ol>
                     </section>
                     <section id="lookup">
-                        <h2><li><b>Lookup</b></li></h2>
-                        <p class="ti">
-                            Look up an item/liquid/unit/block type by ID.<br>
-                            Total counts of each type can be accessed with:<br>
-                            <code class="content-name">@unitcount</code> / <code class="content-name">@itemCount</code> / <code class="content-name">@liquidCount</code> / <code class="content-name">@blockCount</code>, which is : <br>
-                            <span style="color: yellow;">56</span> / <span style="color: yellow;">22</span> / <span style="color: yellow;">11</span> / <span style="color: yellow;">254</span> (as of v146), respectively, they are a constant.<br>
-                            For the inverse operation, sensor <code class="content-name">@id</code> of the object<br>
-                            Example:<br>
-                            <img alt="alt" src="image/lookup1.png" style="max-width: 85vw !important;"><br>
-                            This operation is looking up item with an id of 1, which is lead, therefore <code class="variable op">result</code> will then be <code class="content-name">@lead</code>, a <a href="#contentname">content name</a>, which can be used for things like sensor :<br>
-                            <img alt="alt" src="image/lookup.png" style="max-width: 85vw !important;">
-                            <br> <code class="variable control">lead_count</code> is now a variable containing number of lead in <code class="variable control">vault1</code>
-                            <br>Lookup are usually used with an <a href="#incrementing-variable">incrementing variable</a>
-                            <br>Lists of IDs can be found in the <a href="#appendix">Appendix</a>
-                        </p>
+                        <h2><li><b data-i18n="instructions.lookup.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.lookup.content"></p>
                     </section>
                     <section id="pack-color">
-                        <h2><li><b>Pack Color</b></li></h2>
-                        <p class="ti">
-                            Packs RGBA color into a single number, is usually used with <a href="#draw-col"><code class="draw">draw col</code></a> and <a href="#control-color">control color</a><br>
-                            Since it's a single number it can be stored to 1 address on <a href="#cell">cells/banks</a>, 
-                            instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
-                            <img alt="alt" src="image/pack color.png" style="max-width: 85vw !important;"><br>
-                            <a href="#draw">RGBA</a> is their respective color, can also be directly written with a 
-                            number, value is from 0 (dimmest) to 1 (brightest)
-                                
-                            You can unpack a Packed color by dividing it by <span style="color: yellow;">%00000001</span>, this will 
-                            return 32-bit unsigned integer, 8 bits for each value, example : a <span style="color: yellow;">255,255,255,255</span> 
-                            color when unpacked will return <span style="color: yellow;">4294967295</span>, which is the maximum value of 32-bit 
-                            unsigned integer, converting it to binary will return <span style="color: yellow;">11111111111111111111111111111111</span> 
-                            ( 8 bit for each value ), by using the <code class="op">bit shift right operation</code> and 
-                            <code class="op">bitwise and operation</code> you can extract each color value.
-                        </p>
+                        <h2><li><b data-i18n="instructions.packcolor.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.packcolor.content"></p>
                     </section>
                     <section id="wait">
-                        <h2><li><b>Wait</b></li></h2>
-                        <p class="ti">
-                            Wait the specified number of seconds, in other words, pausing the processor for that amount of seconds
-                        </p>
+                        <h2><li><b data-i18n="instructions.wait.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.wait.content"></p>
                     </section>
                     <section id="stop">
-                        <h2><li><b>Stop</b></li></h2>
-                        <p class="ti">
-                            Completely stops the processor from running, cannot be resumed in any way other than rebuilding or refreshing the code, 
-                            to pause a processor disable it instead using <code class="control"><a href="#control">control</a> enable</code>
-                        </p>
+                        <h2><li><b data-i18n="instructions.stop.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.stop.content"></p>
                     </section>
                     <section id="end">
-                        <h2><li><b>End</b></li></h2>
-                        <p class="ti">
-                            End the process, when a processor run this line it will go back to 0 as if it reach the 
-                            <a href="#how-processor-run-its-code">end of the instruction</a>, similar to <code class="jump">jump always 0</code>
-                        </p>
+                        <h2><li><b data-i18n="instructions.end.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.end.content"></p>
                     </section>
                     <section id="jump">
-                        <h2><li><b>Jump</b></li></h2>
-                        <p class="ti">
+                        <h2><li><b data-i18n="instructions.jump.title">Jump</b></li></h2>
+                        <p class="ti" data-i18n="instructions.jump.content">
                             Jump to a line number on the processor with a condition<br>
                             if condition are true jump to the specified line, if false does not jump (continuing to instruction below it
                         </p>
                         <ol style="list-style-type: disc;">
-                            <li><b>==</b></li>
-                            <p class="oplist">
-                                Check if the 2 variables are equal to each other
-                            </p>
-                            <li><b>Not</b></li>
-                            <p class="oplist">
-                                Logical not, check if the 2 variables are not equal to each other
-                            </p>
-                            <li><b>&lt;</b></li>
-                            <p class="oplist">
-                                Less than, check if the first variable is less than the second variable
-                            </p>
-                            <li><b>&lt;=</b></li>
-                            <p class="oplist">
-                                Less than equal, check if the first variable is less than equal the second variable
-                            </p>
-                            <li><b>&gt;</b></li>
-                            <p class="oplist">
-                                Greater than, check if the first variable is greater than the second variable
-                            </p>
-                            <li><b>&gt;=</b></li>
-                            <p class="oplist">
-                                Greater than equal, check if the first variable is greater than equal the second variable
-                            </p>
-                            <li><b>===</b></li>
-                            <p class="oplist">
-                                Strict equal, usually used to check for null, example:<br>
-                                0 == null is true, while 0 === null is false
-                            </p>
-                            <li><b>Always</b></li>
-                            <p class="oplist">
-                                Always jump regardless
-                            </p>
+                            <li><b data-i18n="instructions.jump.list.equal.title">==</b></li>
+                            <p class="oplist" data-i18n="instructions.jump.list.equal.content"></p>
+                            <li><b data-i18n="instructions.jump.list.not.title">Not</b></li>
+                            <p class="oplist" data-i18n="instructions.jump.list.not.content"></p>
+                            <li><b data-i18n="instructions.jump.list.lessThan.title">&lt;</b></li>
+                            <p class="oplist" data-i18n="instructions.jump.list.lessThan.content"></p>
+                            <li><b data-i18n="instructions.jump.list.lessThanEq.title">&lt;=</b></li>
+                            <p class="oplist" data-i18n="instructions.jump.list.lessThanEq.content"></p>
+                            <li><b data-i18n="instructions.jump.list.greaterThan.title">&gt;</b></li>
+                            <p class="oplist" data-i18n="instructions.jump.list.greaterThan.content"></p>
+                            <li><b data-i18n="instructions.jump.list.greaterThanEq.title">&gt;=</b></li>
+                            <p class="oplist" data-i18n="instructions.jump.list.greaterThanEq.content"></p>
+                            <li><b data-i18n="instructions.jump.list.strictEqual.title">===</b></li>
+                            <p class="oplist" data-i18n="instructions.jump.list.strictEqual.content"></p>
+                            <li><b data-i18n="instructions.jump.list.always.title">Always</b></li>
+                            <p class="oplist" data-i18n="instructions.jump.list.always.content"></p>
                         </ol>
                     </section>
                 </ol>
             </section>
             <section id="controlling-units" class="subtitle">
-                <h1>Controlling Units</h1>
+                <h1 data-i18n="controlling_units.title">Controlling Units</h1>
                 <hr>
                 <ol style="list-style-type: disc;">
                     <section id="unit">
-                        <h3><li><b>@unit</b></li></h3>
-                        <p class="ti">
-                            Can only store 1 unit at any given time, stores the unit reference, 
-                            like building reference, unit reference are different from each other, even the same type
-                        </p>
+                        <h3><li><b data-i18n="controlling_units.list.unit.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.list.unit.content"></p>
                     </section>
                     <section id="binding">
-                        <h3><li>Binding</li></h3>
-                        <p class="ti">
-                            unlike the name say, <code class="unit">unit bind</code> instruction itself 
-                            does not bind, <code class="unit">unit control</code>, <code class="unit">unit radar</code>, <code class="unit">unit locate</code> are what binds unit.
-                            <br> <code class="unit">unit bind</code> just gets a unit's <a href="#building-reference">reference</a> and puts it in a variable called <code class="variable">@unit</code>
-                            <br><img alt="alt" src="image/bind.png" style="max-width: 85vw !important;">
-                            <img alt="alt" src="image/bind2.png" style="max-width: 85vw !important;"><br>
-                            If you hover your mouse on either the unit or the 
-                            processor you will see a yellow box showing what unit 
-                            the processor is binding or what processor the unit is 
-                            binded to, this is called Binded, meaning the unit is 
-                            now in full control of the processor, you cannot give 
-                            it commands anymore using the RTS Commands, the only 
-                            way to get the unit back is either control(posses) the 
-                            unit or unbind it which can be done with either destroying 
-                            the processor, or altering the processor code, units will 
-                            also be automatically un-binded after 10 seconds with no 
-                            <code class="unit">unit control</code>, <code class="unit">unit radar</code>, 
-                            and <code class="unit">unit locate</code> instruction received, 
-                            this applies regardless even if the unit is still in the middle of doing something
-                            <br>
-                            A unit that is currently controlled(possesed) by the player can also be "bound" but only to retrieve data from it; controlling is not possible.
-                        </p>
+                        <h3><li data-i18n="controlling_units.list.binding.title"></li></h3>
+                        <p class="ti" data-i18n="controlling_units.list.binding.content"></p>
                     </section>
                     <section id="boosting">
-                        <h3><li>Boosting</li></h3>
-                        <p class="ti">
-                            Some ground units can boost, boosting allows them to fly over anything air units can, albeit slower, these units are: Nova, Pulsar, Quasar, and Vela
-                        </p>
+                        <h3><li data-i18n="controlling_units.list.boosting.title"></li></h3>
+                        <p class="ti" data-i18n="controlling_units.list.boosting.content"></p>
                     </section>
                     <section id="payload">
-                        <h3><li>Payload</li></h3>
-                        <p class="ti">
-                            Payload is a block/unit that is not physically placed in the world, they are either on a conveyor or picked up by unit,
-                            <br>however if you save its reference prior to making it a payload up you can still sensor data from it like <code class="content-name">@x</code> and <code class="content-name">@y</code>, although <code class="content-name">@dead</code> will be true.
-                            <br>unit’s payload capacity can be found in-game’s info menu
-                            <br>Example: 3x3  means the unit can carry 9 of 1x1 blocks, 2 of 2x2 blocks and, 1 of 3x3 blocks
-                            <br>for units its the same, a mace size is 1.25 x 1.25 meaning it will take 1.5625 block worth of space as payload
-                        </p>
+                        <h3><li data-i18n="controlling_units.list.payload.title"></li></h3>
+                        <p class="ti" data-i18n="controlling_units.list.payload.content"></p>
                     </section>
                 <section id="unit-bind">
-                    <h2><li><b>Unit Bind</b></li></h2>
-                    <p class="ti">
-                        Bind 1 unit and put its reference in the <code class="variable">@unit</code> variable,
-                        <br> 
-                        When binding a unit <code class="content-name">@[type]</code> (using <a href="#contentname">content name</a>) it will bind in an order
-                        <br>
-                        the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last<br>
-                        When looped (meaning the <code class="unit">unit bind</code> instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order<br>
-                        Here’s a visualization : the red box indicates that the unit is in the <code class="variable">@unit</code> variable<br>
-                        <img alt="alt" src="image/vis bind.gif" style="max-width: 85vw !important;">
-                        <br>
-                        Don’t worry about instruction line 1,2,3, they are there just to make the code not 1 instruction, to more easily visualize it.<br>
-                        Let’s say the first mega reference <code>mega#1</code>, when <code>mega#1</code> is binded it store the reference in 
-                        <code class="variable">@unit</code> meaning <code class="variable">@unit</code> 
-                        is now <code>mega#1</code>, and so on with <code>mega#2</code>, 3, 4, ... 
-                        <br>
-                        <br>
-                        Unit bind can also be used with a variable that stores a unit reference to bind that specific unit directly,
-                        <br>for example the <code class="control">radar</code> instruction can output a unit reference to a variable, you can 
-                        use that variable for <code class="unit">ubind</code>, 
-                        <br>another example after binding a <code class="content-name">@[type]</code> with <code class="unit">ubind</code> you can save 
-                        <code class="variable">@unit</code> to another variable, then rebind that unit with the variable
-<!-- mark -->
-                    </p>
+                    <h2><li><b data-i18n="controlling_units.unit_bind.title"></b></li></h2>
+                    <p class="ti" data-i18n="controlling_units.unit_bind.content"></p>
                 </section>
                 <section id="unit-control">
-                    <h2><li><b>Unit Control</b></li></h2>
-                    <p class="ti">
-                        Unit control, controls <b>one</b> unit in the <code class="content-name">@unit</code> variable, a common misconception is that it controls all binded unit, this is wrong, 
-                        it might seem that way because processor loops, everytime it loops <code class="unit">ubind</code> it binds a new unit and controls it, it does this very fast that it looks like its controlling all unit at once. 
-                        <br>and a second common misconception is that <code class="unit">Unit control</code> wait for completion before running the next <code class="unit">unit control</code>, this is also wrong,
-                        Like the visualization you see above, the processor doesn’t care what instruction you put in it, it will just run it regardless, it is not smart, you have to specify it yourself.
-                    </p>
+                    <h2><li><b data-i18n="controlling_units.unit_control.title"></b></li></h2>
+                    <p class="ti" data-i18n="controlling_units.unit_control.content"></p>
                         <ul>
                             <section id="move">
                                 <h3><li><b>Move</b></li></h3>

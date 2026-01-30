@@ -8,13 +8,21 @@ function renderTextWithTokens(el, text, sectionData) {
   while ((m = regex.exec(text))) {
     frag.append(text.slice(last, m.index).replace(/\\([{}])/g, '$1'));
     const [, type, name, extra] = m;
-    frag.append(
-      tokenResolvers[type](
-        ...(name ? [name] : []),
-        ...(sectionData ? [sectionData] : []),
-        ...(extra ? [extra] : [])
-      )
+    const resolved = tokenResolvers[type](
+      ...(name ? [name] : []),
+      ...(sectionData ? [sectionData] : []),
+      ...(extra ? [extra] : [])
     );
+
+    if (resolved instanceof Element && resolved.textContent) {
+      const nested = resolved.textContent;
+      const nestedRegex = /(?<!\\)\{(\w+)(?::([^:}]+)(?::([^}]+))?)?\}/;
+      if (nestedRegex.test(nested)) {
+        renderTextWithTokens(resolved, nested, sectionData);
+      }
+    }
+
+    frag.append(resolved);
     last = regex.lastIndex;
   }
   frag.append(text.slice(last).replace(/\\([{}])/g, '$1'));
@@ -47,8 +55,8 @@ const tokenResolvers = {
   },
   code(name, sectionData, extra) {
     const el = document.createElement("code");
-    if (extra){
-      el.classList.add(...extra.split(' ')) 
+    if (extra) {
+      el.classList.add(...extra.split(' '))
     }
     el.textContent = sectionData[name];
     return el;
@@ -63,19 +71,19 @@ const tokenResolvers = {
   },
   img(name, sectionData, extra) {
     const el = document.createElement("img");
-    el.src = name
-    console.log(extra);
-    el.classList.add(...extra.split(' ')) 
-    el.addEventListener('click', function() {
+    el.src = name;
+    el.classList.add(...extra.split(' '));
+    el.addEventListener('click', function () {
       modal.style.display = 'flex';
       modalImg.src = this.src;
     });
     return el;
   },
-  p(name, sectionData, extra){
+  p(name, sectionData, extra) {
     const el = document.createElement("p");
-    el.textContent = sectionData[name]
-    el.classList.add(...extra.split(' ')) 
+    el.textContent = sectionData[name];
+    el.classList.add(...extra.split(' '));
+    return el;
   }
 };
 
@@ -87,7 +95,7 @@ async function loadLang(lang) {
   const response = await fetch(`./Languages/i18n/${lang}.yaml`);
   const yamlText = await response.text();
   const data = jsyaml.load(yamlText);
-  
+
   window.i18n = data;
 
   document.querySelectorAll("[data-i18n]").forEach(el => {

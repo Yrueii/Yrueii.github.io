@@ -942,3 +942,272 @@ instructions:
                 title: atan
                 content: "{link:Atan:https://en.wikipedia.org/wiki/Inverse_trigonometric_functions}, in degrees"
                 Atan: Atan
+    lookup:
+        title: Lookup
+        content: |
+            Look up an item/liquid/unit/block type by ID.
+            {br}Total counts of each type can be accessed with:
+            {br}{code:unitcount:content-name} / {code:itemCount:content-name} / {code:liquidCount:content-name} / {code:blockCount:content-name}, which is : 
+            {br}{hl:_56:yel} / {hl:_22:yel} / {hl:_11:yel} / {hl:_254:yel} (as of v146), respectively, they are a constant.
+            {br}For the inverse operation, sensor {code:id:content-name} of the object
+            {br}Example:
+            {br}{img:image/lookup1.png:mwidth85vw}
+            {br}This operation is looking up item with an id of 1, which is lead, therefore {code:result:variable op} will then be {code:lead:content-name}, a {link:contentname:#contentname}, which can be used for things like sensor :
+            {br}{img:image/lookup.png:mwidth85vw}
+            {br} {code:lead_count:variable control} is now a variable containing number of lead in {code:vault1:variable control}
+            {br}Lookup are usually used with an {link:incremetvar:#incrementing-variable}
+            {br}Lists of IDs can be found in the {link:appendix:#appendix}
+        unitcount: "@unitcount"
+        itemCount: "@itemCount"
+        liquidCount: "@liquidCount"
+        blockCount: "@blockCount"
+        _56: "56"
+        _22: "22"
+        _11: "11"
+        _254: "254"
+        id: "@id"
+        result: result
+        lead: "@lead"
+        contentname: content name
+        lead_count: lead_count
+        vault1: vault1
+        incremetvar: incrementing variable
+        appendix: Appendix
+    packcolor:
+        title: Pack Color
+        content: |
+            Packs RGBA color into a single number, is usually used with {link:drawcollink:#draw-col} and {link:controlcolor:#control-color}
+            {br} Since it's a single number it can be stored to 1 address on {link:cells:#cell}, 
+            instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
+            {img:image/pack color.png:mwidth85vw}
+            {br} {link:RGBA:#draw} is their respective color, can also be directly written with a 
+            number, value is from 0 (dimmest) to 1 (brightest)
+            You can unpack a Packed color by dividing it by {hl:_00000001:yel}, this will 
+            return 32-bit unsigned integer, 8 bits for each value, example : a {hl:_255:yel} 
+            color when unpacked will return {hl:_4294967295:yel}, which is the maximum value of 32-bit 
+            unsigned integer, converting it to binary will return {hl:_1:yel} 
+            ( 8 bit for each value ), by using the {code:shr:op} and 
+            {code:bitnop:op} you can extract each color value.
+        drawcollink: "{code:drawcol:draw}" #nested token
+        drawcol: draw col
+        controlcolor: control color
+        cells: cells/bank
+        RGBA: RGBA
+        _00000001: "%00000001"
+        _255: "255,255,255,255"
+        _4294967295: "4294967295"
+        _1: "11111111111111111111111111111111"
+        shr: "bit shift right operation"
+        bitnop: "bitwise and operation"
+    wait:
+        title: Wait
+        content: Wait the specified number of seconds, in other words, pausing the processor for that amount of seconds
+    stop:
+        title: Stop
+        content: |
+            Completely stops the processor from running, cannot be resumed in any way other than rebuilding or refreshing the code, 
+            to pause a processor disable it instead using {code:link:control}
+        link: "{link:control:#control} enable" #nested token
+        control: control
+    end:
+        title: End
+        content: |
+            End the process, when a processor run this line it will go back to 0 as if it reach the 
+            {link:eoi:#how-processor-run-its-code}, similar to {code:jump0:jump}
+        eoi: end of the instruction
+        jump0: jump always 0
+    jump:
+        title: Jump
+        content: |
+            Jump to a line number on the processor with a condition
+            {br}if condition are true jump to the specified line, if false does not jump (continuing to instruction below it
+
+        list:
+            equal:
+                title: ==
+                content: Check if the 2 variables are equal to each other
+            not:
+                title: Not
+                content: Logical not, check if the 2 variables are not equal to each other
+            lessThan: 
+                title: "<"
+                content: Less than, check if the first variable is less than the second variable
+            lessThanEq:
+                title: "<="
+                content: Less than equal, check if the first variable is less than equal the second variable
+            greaterThan:
+                title: ">"
+                content: Greater than, check if the first variable is greater than the second variable
+            greaterThanEq:
+                title: ">="
+                content: Greater than equal, check if the first variable is greater than equal the second variable
+            strictEqual:
+                title: "==="
+                content: |
+                    Strict equal, usually used to check for null, example:
+                    {br}0 == null is true, while 0 === null is false
+            always:
+                title: Always
+                content: Always jump regardless
+
+controlling_units:
+    title: Controlling Units
+    list:
+        unit:
+            title: "@unit"
+            content: |
+                Can only store 1 unit at any given time, stores the unit reference, 
+                like building reference, unit reference are different from each other, even the same type
+                {br} {code:unit:variable} are the unit that the processor use when using {code:ucontrol:unit}, more explanation in the {link:ucontrol:#unit-control} section
+            ucontrol: unit control
+            unit: "@unit"
+        binding:
+            title: Binding
+            content: |
+                unlike the name say, {code:ubind:unit} instruction itself 
+                does not bind, {code:ucontrol:unit}, {code:uradar:unit}, {code:ulocate:unit} are what binds unit.
+                
+                {br}{code:ubind:unit} just gets a unit's {link:reference:#building-reference} and puts it in a variable called {code:unit:variable}
+                
+                {br}{img:image/bind.png:mwidth85vw}
+                {img:image/bind2.png:mwidth85vw}
+                
+                {br}If you hover your mouse on either the unit or the 
+                processor you will see a yellow box showing what unit 
+                the processor is binding or what processor the unit is 
+                binded to, this is called Binded.
+                {br}Being Binded is different from being in the {code:unit:variable} variable.
+                {br}A processor can have multiple units binded but can ONLY have one unit in the {code:unit:variable} variable.
+                {br}A binded unit means the processor is now in full control of the unit, you cannot give it commands anymore using the RTS Commands, the only 
+                way to get the unit back is either control(posses) the 
+                unit or unbind it which can be done with either destroying 
+                the processor, or refreshing/altering the processor code, units will 
+                also be automatically un-binded after 10 seconds with no 
+                {code:ucontrol:unit}, {code:uradar:unit}, 
+                and {code:ulocate:unit} instruction received, 
+                this applies regardless even if the unit is still in the middle of doing something.
+                
+                {br}A unit that is currently controlled(possesed) by the player can also be "bound" but only to retrieve data from it; controlling is not possible.
+            ubind: unit bind
+            ucontrol: unit control
+            uradar: unit radar
+            ulocate: unit locate
+            reference: reference
+            unit: "@unit"
+        boosting:
+            title: Boosting
+            content: |
+                Some ground units can boost, boosting allows them to fly over anything air units can, albeit slower, these units are: Nova, Pulsar, Quasar, and Vela
+        payload:
+            title: Payload
+            content: |
+                Payload is a block/unit that is not physically placed in the world, they are either on a conveyor or picked up by unit,
+                {br}however if you save its reference prior to making it a payload up you can still sensor data from it like {code:x:content-name} and {code:y:content-name}, although {code:dead:content-name} will be true.
+                {br}unit's payload capacity can be found in-game's info menu
+                {br}Example: 3x3  means the unit can carry 9 of 1x1 blocks, 2 of 2x2 blocks and, 1 of 3x3 blocks
+                {br}for units its the same, a mace size is 1.25 x 1.25 meaning it will take 1.5625 block worth of space as payload
+            x: "@x"
+            y: "@y"
+            dead: "@dead"
+    unit_bind:
+        title: Unit Bind
+        content: |
+            Bind 1 unit and put its reference in the {code:unit:variable} variable,
+            {br} When binding a unit {code:type:content-name} (using {link:contentname:#contentname}) it will bind in an order
+            {br}the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last
+            {br}When looped (meaning the {code:unitbind:unit} instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order
+            {br}Here’s a visualization : the red box indicates that the unit is in the {code:unit:variable} variable
+            {br}{img:image/vis bind.gif:mwidth85vw}
+            {br}Don’t worry about instruction line 1,2,3, they are there just to make the code not 1 instruction, to more easily visualize it.
+            {br}Let’s say the first mega reference {code:mega1}, when {code:mega1} is binded it store the reference in 
+            {code:unit:variable} meaning {code:unit:variable} 
+            is now {code:mega1}, and so on with {code:mega2}, 3, 4, ... 
+            {br}
+            {br}Unit bind can also be used with a variable that stores a unit reference to bind that specific unit directly,
+            {br}for example the {code:radar:control} instruction can output a unit reference to a variable, you can 
+            use that variable for {code:ubind:unit}, 
+            {br}another example after binding a {code:type:content-name} with {code:ubind:unit} you can save 
+            {code:unit:variable} to another variable, then rebind that unit with the variable
+        unit: "@unit"
+        type: "@[type]"
+        contentname: content name
+        unitbind: unit bind
+        mega1: mega#1
+        mega2: mega#2
+        radar: radar
+        ubind: ubind
+    unit_control:
+        title: Unit Control
+        content: |
+            Unit control, controls exactly {b:one} unit in the {code:unit:variable} variable, 
+            it does NOT controls all binded units.
+            {br}It might seem that way because processor loops, everytime it loops {code:ubind:unit} it binds a new unit and controls it, it does this very fast that it looks like its controlling all unit at once. 
+            {br}it also does NOT wait for task completion before running the next {code:unitcontrol:unit} instruction (for example using move and expecting the instructions after that move to only be executed after the unit arrives at the destination),
+            Like the visualization you see above, the processor doesn’t care what instruction you put in it, it will just run it regardless, it is not smart, you have to specify it yourself.
+        one: one
+        unit: "@unit"
+        ubind: ubind
+        unitcontrol: Unit control
+
+        list:
+            move:
+                title:
+                content:
+            approach:
+                title:
+                content:
+            pathFind:
+                title:
+                content:
+            autoPathFind:
+                title:
+                content:
+            idle:
+                title:
+                content:
+            stop:
+                title:
+                content:
+            boost:
+                title:
+                content:
+            target:
+                title:
+                content:
+            targetP:
+                title:
+                content:
+            itemDrop:
+                title:
+                content:
+            itemTake:
+                title:
+                content:
+            payDrop:
+                title:
+                content:
+            payEnter:
+                title:
+                content:
+            mine:
+                title:
+                content:
+            build:
+                title:
+                content:
+            getBlock:
+                title:
+                content:
+            within:
+                title:
+                content:
+            unbind:
+                title:
+                content:
+            flag:
+                title:
+                content:
+                
+    unit:
+        title:
+        content:
