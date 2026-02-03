@@ -575,153 +575,52 @@
                 <section id="unit-control">
                     <h2><li><b data-i18n="controlling_units.unit_control.title"></b></li></h2>
                     <p class="ti" data-i18n="controlling_units.unit_control.content"></p>
-                        <ul>
-                            <section id="move">
-                                <h3><li><b>Move</b></li></h3>
-                                    <p class="ti">
-                                        Move the unit to the specified coordinates in a straight line 
-                                        Once the instruction is run it will move to that coordinates even if you immediately remove the instruction, its similar to RTS controls (shift clicking and left click to move unit to the cursor location)
-                                        <br><img alt="alt" src="image/ucontrol move.png" style="max-width: 80vw !important;">
-                                    </p>
-                            </section>
-                            <section id="approach">
-                                <h3><li><b>Approach</b></li></h3>
-                                <p class="ti">
-                                    Similar to move but it has a radius, the unit will stop at the radius<br>
-                                    <video src="image/approach.mp4" style="max-width: 80vw !important;" autoplay loop muted playsinline></video><br>
-                                    <img alt="alt" src="image/unit control1.png" style="max-width: 80vw !important;">
-                                </p>
-                            </section>
-                            <h3><li><b>pathFind</b></li></h3>
-                            <p class="ti">
-                                Path find to the specified location
-                                Usually used with grounded units as <code class="unit">Move</code> moves the unit in a straight line and grounded units can get stuck in buildings
-                                If the specified location is inside a building or invalid the unit will not move, they will stay in place
-                            </p>
-                            <h3><li><b>autoPathFind</b></li></h3>
-                            <p class="ti">
-                                Automatically pathfinds to the nearest enemy core or drop point.<br>
-                                This is the same as standard wave enemy pathfinding
-                            </p>
-                            <h3><li><b>Idle</b></li></h3>
-                            <p class="ti">
-                                Stop moving, but keep building/mining, the default state
-                            </p>
-                            <h3><li>Stop<b></b></li></h3>
-                            <p class="ti">
-                                Stop moving, mining, and building
-                            </p>
-                            <h3><li><b>Boost</b></li></h3>
-                            <p class="ti">
-                                Enable <a href="#boosting" style="max-width: 80vw !important;">boosting</a>, boolean, 1 = boost, 0 = don’t boost. cannot be disabled if boosted unit cannot land (on top of blocks/buildings)
-                            </p>
-                            <h3><li><b>Target</b></li></h3>
-                            <p class="ti">
-                                Shoot a coordinate position, boolean, 1 = shoot, 0 = stop shooting<br>
-                                <img alt="alt" src="image/unit control.png" style="max-width: 80vw !important;" >
-                            </p>
-                            <h3><li><b>TargetP</b></li></h3>
-                            <p class="ti">
-                                Same as target but shoot a unit reference instead and with velocity prediction
-                            </p>
-                            <h3><li><b>ItemDrop</b></li></h3>
-                            <p class="ti">
-                                Drops items the unit is currently carrying to the specified location	
-                                <br>
-                                <img alt="alt" src="image/unit control itemdrop.png" style="max-width: 80vw !important;" ><br>
-                                <code class="field">to</code> a <a href="#building-reference">building reference</a><br>
-                                <code class="field">amount</code> is how many to drop<br>
-                                Unit have to be within (<span style="color: yellow;">5.625 + [block size] / 2</span>) tiles of the targeted block (from the middle), else it does nothing<br>
-                                Can also drop to <code class="content-name">@air</code> which will discard the item anywhere<br>
-                                to drop everything just put a large number like 999<br>
-                                Unit has an interaction limit of 1,5 seconds, meaning it can only take/drop item every 1,5 seconds
-                            </p>
-                            <h3><li><b>ItemTake</b></li></h3>
-                            <p class="ti">
-                                Takes items from the specified building to the unit, unit’s item capacity can be found in-game’s info menu,
-                                <br><code class="field">from</code> a <a href="#building-reference">building reference</a>
-                                <br><code class="field">amount</code> is how many to take
-                                <br>a unit can only carry 1 type item at a time
-                                <br>Unit have to be within <span style="color: yellow;">5.625 + [block size] / 2</span> tiles of the targeted block (from the middle), else it does nothing,
-                                <br>to take the maximum amount the unit can take just put a large number like 999,
-                                <br>Unit has an interaction limit of 1.5 seconds, meaning it can only take/drop item every 1.5 seconds.
-                            </p>
-                            <h3><li><b>PayDrop</b></li></h3>
-                            <p class="ti">
-                                Drop <a href="#payload">payload</a> at current location.
-                            </p>
-                            <h3><li><b>PayTake</b></li></h3>
-                            <p class="ti">
-                                Pick up a block or a unit at current location and turn it into a <a href="#payload">payload</a>
-                                <br>if multiple blocks/unit is below the taker location it will take block/unit that is closest to the taker location (taker <code class="content-name">@x</code> and <code class="content-name">@y</code>)
-                                <br>for example a unit taker location is exactly at 10,10 , there's 2 unit below it at 9.8,10 and 9.9,10 , when using paytake it will take the 9.9,10 unit
-                            </p>
-                            <h3><li><b>PayEnter</b></li></h3>
-                            <p class="ti">
-                                Land/enter on a building directly below the unit, that accept payload, like reconstructor
-                            </p>
-                            <h3><li><b>Mine</b></li></h3>
-                            <p class="ti">
-                                Mine a coordinate position, if out of range or not mineable will do nothing
-                            </p>
-                            <h3><li><b>Build</b></li></h3>
-                            <p class="ti">
-                                Build a block at specified location, if out of range or invalid will do nothing<br>
-                                <img alt="alt" src="image/unit control build.png" style="max-width: 80vw !important;" ><br>
-                                <code class="field">x</code>, <code class="field">y</code> is build location<br>
-                                <code class="field">block</code> is what block to build, <a href="#contentname">Content name</a><br>
-                                <code class="field">rotation</code> is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down<br>
-                                <code class="field">Config</code>, configuration of blocks, eg, if <code class="content-name">@copper</code> when building a sorter will set the sorter to <code class="content-name">@copper</code>. 
-                                Additionally can be a building reference, eg, if <code class="content-name">@this</code> when building a processor will copy <code class="content-name">@this</code> processor’s code to the built processor
-                            </p>
-                            <h3><li><b>getBlock</b></li></h3>
-                            <p class="ti">
-                                Gets a block at a specified location, outputs will be null if out of range<br>
-                                <img alt="alt" src="image/ucontrol getblock.png" style="max-width: 80vw !important;" ><br>
-                                <code class="field">x</code>, <code class="field">y</code> is coordinate location to get the block<br>
-                                <code class="field">type</code> is an output, it will output the type of block to the variable<br>
-                                <code class="field">building</code> is an output, it will output the <a href="#building-reference">building reference</a> to the variable<br>
-                                <code class="field">floor</code> is an output, it will output the type of floor to the variable
-                                <br>
-                                <br>the range of getblock is max(27.5, {unit's range})
-                                <br>which means takes the highest number between the two 
-                                <br>
-                                <br>when getBlock-ing a cell,bank, or a display you can still write/draw to them even if the unit is no longer present, 
-                                only the building reference is needed for these blocks, this means you can get them once and then unbind/move the unit
-                                your variable of <code class="variable unit">building</code> will remain until either you overwrite it or the processor is refreshed.
-                                <br>however you can't enable/disable or config getBlock-ed buildings,
-                            </p>
-                            <h3><li><b>Within</b></li></h3>
-                            <p class="ti">
-                                Check if unit is within a position with a radius<br>
-                                <img alt="alt" src="image/unit control within.png" style="max-width: 80vw !important;" ><br>
-                                <code class="field">x</code>,<code class="field">y</code> is coordinate location to check if unit is within that coordinate<br>
-                                <code class="field">radius</code> is the radius of the within<br>
-                                returns boolean<br>
-                                <code class="field">result</code> is the result, 0 / 1, true / false<br>
-                                Example: (the @unit variable is mega shown on the picture)<br>
-                                <img alt="alt" src="image/ucontrol within.png" style="max-width: 80vw !important;" ><br>
-                                <img alt="alt" src="image/vis ucontrol within.png" style="max-width: 80vw !important;" >
-                                <img alt="alt" src="image/vis ucontrol within 1.png" style="max-width: 80vw !important;" ><br>
-                                In this two scenario, the first picture will have the 
-                                variable <code class="variable">result</code> true because the unit is within the circle, 
-                                while the second picture is false because it is outside the circle
-                            </p>
-                            <h3><li><b>Unbind</b></li></h3>
-                            <p class="ti">
-                                Immediately <a href="#binding">unbind</a> unit
-                            </p>
-                            <h3><li><b>Flag</b></li></h3>
-                            <p class="ti">
-                                Gives the unit a numeric flag, essentially assigning a 
-                                number to a unit, this number serves no purpose other 
-                                than being read, what you do with the number is up to you
-                                <br>the flag "lives" in the unit, meaning a unit will permanently retains its flag until written again, even if the processor is destroyed
-                                <br>Unit default flag is 0
-                                <br>a unit can only store 1 numeric flag
-                                <br>The largest integer that can be stored in a single flag is related to <a href="#integers">integer limitations</a>
-                            </p>
-                        </ul>
+                    <ul>
+                        <section id="move">
+                            <h3><li><b data-i18n="controlling_units.unit_control.list.move.title"></b></li></h3>
+                            <p class="ti" data-i18n="controlling_units.unit_control.list.move.content"></p>
+                        </section>
+                        <section id="approach">
+                            <h3><li><b data-i18n="controlling_units.unit_control.list.approach.title"></b></li></h3>
+                            <p class="ti" data-i18n="controlling_units.unit_control.list.approach.content"></p>
+                        </section>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.pathfind.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.pathfind.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.autoPathFind.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.autoPathFind.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.idle.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.idle.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.stop.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.stop.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.boost.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.boost.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.target.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.target.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.targetP.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.targetP.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.itemDrop.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.itemDrop.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.itemTake.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.itemTake.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.payDrop.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.payDrop.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.payTake.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.payTake.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.payEnter.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.payEnter.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.mine.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.mine.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.build.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.build.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.getBlock.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.getBlock.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.within.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.within.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.unbind.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.unbind.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_control.list.flag.title"></b></li></h3>
+                        <p class="ti" data-i18n="controlling_units.unit_control.list.flag.content"></p>
+                    </ul>
                 </section>
                 <section id="unit-radar">
                     <h2><li><b>Unit Radar</b></li></h2>

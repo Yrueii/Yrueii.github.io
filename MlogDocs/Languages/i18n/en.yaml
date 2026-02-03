@@ -13,7 +13,7 @@
 #       different from {link:var:#variables}
 #   var: Variables
 
-# :var: uses the 'var' key from the same section, this value is the one that appears on the site
+# :var: uses the 'var' key from the same level as 'content', this value is the one that appears on the site
 # these value usually do not need to be translated, but depending on language translating them makes more sense.  
 
 # if modifying tokens is needed please read the README Translation section
@@ -1151,62 +1151,182 @@ controlling_units:
 
         list:
             move:
-                title:
-                content:
+                title: Move
+                content: |
+                    Move the unit to the specified coordinates in a straight line 
+                    Once the instruction is run it will move to that coordinates even if you immediately remove the instruction, its similar to RTS controls (shift clicking and left click to move unit to the cursor location)
+                    {br}{img:image/ucontrol move.png:mwidth80vw}
+
             approach:
-                title:
-                content:
+                title: Approach
+                content: |
+                    Similar to move but it has a radius, the unit will stop at the radius
+                    {br}{img:image/approach.gif:mwidth80vw}
+                    {br}{img:image/unit control1.png:mwidth80vw}
+
             pathFind:
-                title:
-                content:
+                title: pathFind
+                content: |
+                    Path find to the specified location
+                    Usually used with grounded units as {code:Move:unit} moves the unit in a straight line and grounded units can get stuck in buildings
+                    If the specified location is inside a building or invalid the unit will not move, they will stay in place
+                Move: Move
             autoPathFind:
-                title:
-                content:
+                title: autoPathFind
+                content: |
+                    Automatically pathfinds to the nearest enemy core or drop point.{br}
+                    This is the same as standard wave enemy pathfinding
+
             idle:
-                title:
-                content:
+                title: Idle
+                content: Stop moving, but keep building/mining, the default state
             stop:
-                title:
-                content:
+                title: Stop
+                content: Stop moving, mining, and building
             boost:
-                title:
-                content:
+                title: Boost
+                content: |
+                    Enable {link:boosting:#boosting}, boolean, 1 = boost, 0 = don’t boost. cannot be disabled if boosted unit cannot land (on top of blocks/buildings)
+                boosting: boosting
             target:
-                title:
-                content:
+                title: Target
+                content: |
+                    Shoot a coordinate position, boolean, 1 = shoot, 0 = stop shooting
+                    {br}{img:image/unit control.png:mwidth80vw}
+
             targetP:
-                title:
-                content:
+                title: TargetP
+                content: Same as target but shoot a unit reference instead and with velocity prediction
             itemDrop:
-                title:
-                content:
+                title: ItemDrop
+                content: |
+                    Drops items the unit is currently carrying to the specified location	
+                    {br}{img:image/unit control itemdrop.png:mwidth80vw}
+                    {br}{code:to:field} a {link:builref:#building-reference}
+                    {br}{code:amount:field} is how many to drop
+                    {br}Unit have to be within ({hl:within_range:yel}) tiles of the targeted block (from the middle), else it does nothing
+                    {br}Can also drop to {code:air:content-name} which will discard the item anywhere
+                    {br}to drop everything just put a large number like 999
+                    {br}Unit has an interaction limit of 1,5 seconds, meaning it can only take/drop item every 1,5 seconds
+                to: to
+                builref: building reference
+                amount: amount
+                within_range: "5.625 + [block size] / 2"
+                air: "@air"
             itemTake:
-                title:
-                content:
+                title: ItemTake
+                content: |
+                    Takes items from the specified building to the unit, unit’s item capacity can be found in-game’s info menu,
+                    {br}{code:from:field} a {link:builref:#building-reference}
+                    {br}{code:amount:field} is how many to take
+                    {br}a unit can only carry 1 type item at a time
+                    {br}Unit have to be within {hl:within_range:yel} tiles of the targeted block (from the middle), else it does nothing,
+                    {br}to take the maximum amount the unit can take just put a large number like 999,
+                    {br}Unit has an interaction limit of 1.5 seconds, meaning it can only take/drop item every 1.5 seconds.
+                from: from
+                amount: amount
+                builref: building reference
+                within_range: "5.625 + [block size] / 2"
+
             payDrop:
-                title:
-                content:
+                title: PayDrop
+                content: | 
+                    Drop {link:payload:#payload} at current location.
+                payload: payload
+            payTake:
+                title: PayTake
+                content: |
+                    Pick up a block or a unit at current location and turn it into a {link:payload:#payload}
+                    {br}if multiple blocks/unit is below the taker location it will take block/unit that is closest to the taker location (taker {code:@x:content-name} and {code:y:content-name})
+                    {br}for example a unit taker location is exactly at 10,10 , there's 2 unit below it at 9.8,10 and 9.9,10 , when using paytake it will take the 9.9,10 unit
+                payload: payload
+                x: "@x"
+                y: "@y"
+
             payEnter:
-                title:
-                content:
+                title: PayEnter
+                content: Land/enter on a building directly below the unit, that accept payload, like reconstructor
             mine:
-                title:
-                content:
-            build:
-                title:
-                content:
+                title: Mine
+                content: Mine a coordinate position, if out of range or not mineable will do nothing
+            build: 
+                title: Build
+                content: |
+                    Build a block at specified location, if out of range or invalid will do nothing
+                    {br}{img:image/unit control build.png:mwidth80vw}
+                    {br}{code:x:field}, {code:y:field} is build location
+                    {br}{code:block:field} is what block to build, <a href="#contentname">Content name</a>
+                    {br}{code:rotation:field} is what orientation the block is built, 0 is right, 1 is up, 2 is left, and 3 is down
+                    {br}{code:Config:field}, configuration of blocks, eg, if {code:copper:content-name} when building a sorter will set the sorter to {code:copper:content-name}. 
+                    Additionally can be a building reference, eg, if {code:this:content-name} when building a processor will copy {code:this:content-name} processor’s code to the built processor
+                x: x
+                y: y
+                block: block
+                rotation: rotation
+                Config: Config
+                copper: "@copper" 
+                this: "@this"
+
             getBlock:
-                title:
-                content:
+                title: getBlock
+                content: |
+                    Gets a block at a specified location, outputs will be null if out of range
+                    {br}{img:image/ucontrol getblock.png:mwidth80vw}
+                    {br}{code:x:field}, {code:y:field} is coordinate location to get the block
+                    {br}{code:type:field} is an output, it will output the type of block to the variable
+                    {br}{code:building:field} is an output, it will output the {link:builref:#building-reference} to the variable
+                    {br}{code:floor:field} is an output, it will output the type of floor to the variable
+                    {br}
+                    {br}the range of getblock is max(27.5, {unit's range})
+                    {br}which means takes the highest number between the two 
+                    {br}
+                    {br}when getBlock-ing a cell,bank, or a display you can still write/draw to them even if the unit is no longer present, 
+                    only the building reference is needed for these blocks, this means you can get them once and then unbind/move the unit
+                    your variable of {code:building:variable unit} will remain until either you overwrite it or the processor is refreshed.
+                    {br}however you can't enable/disable or config getBlock-ed buildings,
+                x: x
+                y: y
+                type: type
+                building: building
+                builref: building reference
+                floor: floor
+
             within:
-                title:
-                content:
+                title: Within
+                content: |
+                    Check if unit is within a position with a radius
+                    {br}{img:image/unit control within.png:mwidth80vw}
+                    {br}{code:x:field},{code:y:field} is coordinate location to check if unit is within that coordinate
+                    {br}{code:radius:field} is the radius of the within
+                    {br}returns boolean
+                    {br}{code:result:field} is the result, 0 / 1, true / false
+                    {br}Example: (the @unit variable is mega shown on the picture)
+                    {br}{img:image/ucontrol within.png:mwidth80vw}
+                    {br}{img:image/vis ucontrol within.png:mwidth80vw}
+                    {img:image/vis ucontrol within 1.png:mwidth80vw}
+                    {br}In this two scenario, the first picture will have the 
+                    variable {code:result:variable} true because the unit is within the circle, 
+                    while the second picture is false because it is outside the circle
+                x: x
+                y: y
+                radius: radius
+                result: result
+
             unbind:
-                title:
-                content:
+                title: Unbind
+                content: Immediately {link:unbind:#binding} unit
+                unbind: unbind
             flag:
-                title:
-                content:
+                title: Flag
+                content: |
+                    Gives the unit a numeric flag, essentially assigning a 
+                    number to a unit, this number serves no purpose other 
+                    than being read, what you do with the number is up to you
+                    {br}the flag "lives" in the unit, meaning a unit will permanently retains its flag until written again, even if the processor is destroyed
+                    {br}Unit default flag is 0
+                    {br}a unit can only store 1 numeric flag
+                    {br}The largest integer that can be stored in a single flag is related to {link:intlimit:#integers}
+                intlimit: integer limitations
                 
     unit:
         title:

@@ -31,6 +31,7 @@ function renderTextWithTokens(el, text, sectionData) {
 
 const modal = document.getElementById('imageModal');
 const modalImg = document.getElementById('modalImage');
+const modalVideo = document.getElementById('modalVideo');
 
 const tokenResolvers = {
   link(name, sectionData, extra) {
@@ -298,12 +299,6 @@ function triggerGlow1(section) {
 // const modal = document.getElementById('imageModal');
 
 // Get the image and insert it inside the modal
-<<<<<<< HEAD
-// const modalImg = document.getElementById('modalImage');
-=======
-const modalImg = document.getElementById('modalImage');
-const modalVideo = document.getElementById('modalVideo');
->>>>>>> origin/main
 
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName('close')[0];
