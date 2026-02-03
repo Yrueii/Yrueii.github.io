@@ -298,7 +298,12 @@ function triggerGlow1(section) {
 // const modal = document.getElementById('imageModal');
 
 // Get the image and insert it inside the modal
+<<<<<<< HEAD
 // const modalImg = document.getElementById('modalImage');
+=======
+const modalImg = document.getElementById('modalImage');
+const modalVideo = document.getElementById('modalVideo');
+>>>>>>> origin/main
 
 // Get the <span> element that closes the modal
 const span = document.getElementsByClassName('close')[0];
@@ -308,6 +313,20 @@ document.querySelectorAll('img').forEach(img => {
   img.addEventListener('click', function() {
     modal.style.display = 'flex';
     modalImg.src = this.src;
+    modalVideo.style.display = 'none';
+    modalImg.style.display = 'Block';
+  });
+});
+
+// Add click event to all videos
+document.querySelectorAll('video').forEach(video => {
+  video.addEventListener('click', function() {
+    if (this.id === 'modalVideo') return; // Prevent re-opening the modal when clicking on the modal video itself
+    modal.style.display = 'flex';
+    modalVideo.src = this.src;
+    modalImg.style.display = 'none';
+    modalVideo.style.display = 'Block';
+    console.log('asdfasfdasdfasdfasdfsdfasd')
   });
 });
 
@@ -320,6 +339,10 @@ span.onclick = function() {
 modalImg.addEventListener('click', function() {
   this.classList.toggle('zoom');
 });
+
+// modalVideo.addEventListener('click', function() {
+//   this.classList.toggle('zoom');
+// });
 
 modal.addEventListener('click', function(event) {
   if (event.target === modal) {
