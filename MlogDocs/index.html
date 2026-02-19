@@ -623,54 +623,21 @@
                     </ul>
                 </section>
                 <section id="unit-radar">
-                    <h2><li><b>Unit Radar</b></li></h2>
-                    <p class="ti">
-                        <img alt="alt" src="image/unit radar.png" style="max-width: 80vw !important;">
-                        <br><code class="unit">Unit radar</code> locates other unit around the <code class="content-name">@unit</code> unit within the unit’s range (information can be found in-game’s info menu)
-                        <br><code class="field">target</code> is a filter of what category of unit it will radar, enemy means it will radar enemy units
-                        <br><code class="field">Order</code> is sorting order, ascending or descending, can only be 0 or 1
-                        <br><code class="field">sort</code> is a metric to sort results by, distance means it will get unit by distance
-                        <br>Since order is 1, the unit gotten is the closest to that <code class="content-name">@unit</code>’s unit
-                        <br>Will output the unit reference to <code class="variable unit">result</code>.
-                        <br>sort distance order 1 = closest, 0 = furthest
-                        <br>sort health, maxHealth, armor, shield order 1 = highest, 0 = lowest
-                    </p>
+                    <h2><li><b data-i18n="controlling_units.unit_radar.title"></b></li></h2>
+                    <p class="ti" data-i18n="controlling_units.unit_radar.content"></p>
                 </section>
                 <section id="unit-locate">
-                    <h2><li><b>Unit Locate</b></li></h2>
-                    <p class="ti">
-                        Locates the nearest building/ore/spawn to the unit without needing to be in the unit’s range, but limited to what it can locates
-                    </p>
+                    <h2><li><b data-i18n="controlling_units.unit_locate.title"></b></li></h2>
+                    <p class="ti" data-i18n="controlling_units.unit_locate.content"></p>
                     <ol style="list-style-type: disc;">
-                        <h3><li><b>Building</b></li></h3>
-                        <p>
-                            Will locate a building of the selected group, in this case, core,
-                            <br><img alt="alt" src="image/unit locate.png" style="max-width: 80vw !important;">
-                            <br><code class="field">Find</code> what group to find, <span class="toadd">TO ADD#</span><!-- (in each group state every blocks that are in that group) -->
-                            <br><code class="field">Enemy</code> is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
-                            <br><code class="field">outX</code> and <code class="field">outY</code> are the building’s output coordinates
-                            <br><code class="field">Found</code> is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
-                            <br><code class="field">Building</code> is an output of that building reference, if locating for enemy blocks, will only return if that building is within <span style="color: yellow;">max(27.5,{unit's range})</span> of the unit,
-                            if locating for ally blocks, will return that building regardless, else will return null instead
-                        </p>
-                        <h3><li><b>Ore</b></li></h3>
-                        <p>
-                            Will locate an ore of the selected type, in this case <code class="content-name">@copper</code>
-                            <br><img alt="alt" src="image/unit locate 2.png" style="max-width: 80vw !important;">
-                            <br><code class="field">Find</code> what group to find
-                            <br><code class="field">Ore</code> what ore to find, takes <a href="#contentname">Content name</a>
-                            <br><code class="field">outX</code> and <code class="field">outY</code> are the tile's output coordinates
-                            <br><code class="field">Found</code> is an output on whether the tile is found(exist in the map) or not, true means it is found, false means it is not found
-                            <br>May not consistently return the closest tile, but will always return the closest "vein"
-                        </p>
-                        <h3><li><b>Spawn</b></li></h3>
-                        <p>
-                            Will locate an enemy spawn point, may be a core or a position
-                        </p>
-                        <h3><li><b>Damaged</b></li></h3>
-                        <p>
-                            Will locate an ally damaged building
-                        </p>
+                        <h3><li><b data-i18n="controlling_units.unit_locate.list.building.title"></b></li></h3>
+                        <p data-i18n="controlling_units.unit_locate.list.building.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_locate.list.ore.title"></b></li></h3>
+                        <p data-i18n="controlling_units.unit_locate.list.ore.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_locate.list.spawn.title"></b></li></h3>
+                        <p data-i18n="controlling_units.unit_locate.list.spawn.content"></p>
+                        <h3><li><b data-i18n="controlling_units.unit_locate.list.damaged.title"></b></li></h3>
+                        <p data-i18n="controlling_units.unit_locate.list.damaged.content"></p></p>
                     </ol>
                 </section>
                 </ol>

@@ -85,6 +85,12 @@ const tokenResolvers = {
     el.textContent = sectionData[name];
     el.classList.add(...extra.split(' '));
     return el;
+  },
+  span(name, sectionData, extra) {
+    const el = document.createElement("span");
+    el.textContent = sectionData[name];
+    el.classList.add(...extra.split(' '));
+    return el;
   }
 };
 

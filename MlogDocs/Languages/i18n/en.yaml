@@ -1328,6 +1328,68 @@ controlling_units:
                     {br}The largest integer that can be stored in a single flag is related to {link:intlimit:#integers}
                 intlimit: integer limitations
                 
-    unit:
-        title:
-        content:
+    unit_radar:
+        title: Unit Radar
+        content: |
+            {img:image/unit radar.png:_}
+            {br}{code:Unit_radar:unit} locates other unit around the {code:unit:content-name} unit within the unit’s range (information can be found in-game’s info menu)
+            {br}{code:target:field} is a filter of what category of unit it will radar, enemy means it will radar enemy units
+            {br}{code:Order:field} is sorting order, ascending or descending, can only be 0 or 1
+            {br}{code:sort:field} is a metric to sort results by, distance means it will get unit by distance
+            {br}Since order is 1, the unit gotten is the closest to that {code:unit:content-name}’s unit
+            {br}Will output the unit reference to {code:result:variable unit}.
+            {br}sort distance order 1 = closest, 0 = furthest
+            {br}sort health, maxHealth, armor, shield order 1 = highest, 0 = lowest
+        Unit_radar: Unit radar
+        unit: "@unit"
+        target: target
+        order: Order
+        sort: sort
+        result: result
+    unit_locate: 
+        title: Unit Locate
+        content: |
+            Locates the nearest building/ore/spawn to the unit without needing to be in the unit’s range, but limited to what it can locates
+        list:
+            building:
+                title: Building
+                content: |
+                    Will locate a building of the selected group, in this case, core,
+                    {br}{img:image/unit locate.png:_}
+                    {br}{code:Find:field} what group to find, {span:TOADD:toadd}
+                    {br}{code:Enemy:field} is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
+                    {br}{code:outX:field} and {code:outY:field} are the building’s output coordinates
+                    {br}{code:Found:field} is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
+                    {br}{code:Building:field} is an output of that building reference, if locating for enemy blocks, will only return if that building is within {hl:formula:yel} of the unit,
+                    if locating for ally blocks, will return that building regardless, else will return null instead
+                Find: find
+                TOADD: "TO ADD#"
+                Enemy: Enemy
+                outX: outX
+                outY: outY
+                Found: Found
+                Building: Building
+                formula: "max(27.5, {unit's range})"
+            ore: 
+                title: ore
+                content: |
+                    Will locate an ore of the selected type, in this case {code:@copper:content-name}
+                    {br}{img:image/unit locate 2.png:mwidth80vw}
+                    {br}{code:Find:field} what group to find
+                    {br}{code:Ore:field} what ore to find, takes {link:Content_name:#contentname}
+                    {br}{code:outX:field} and {code:outY:field}are the tile's output coordinates
+                    {br}{code:Found:field} is an output on whether the tile is found(exist in the map) or not, true means it is found, false means it is not found
+                    {br}May not consistently return the closest tile, but will always return the closest "vein"
+                copper: "@copper"
+                Find: Find
+                Ore: Ore
+                outX: outX
+                outY: outY
+                Found: Found
+                Content_name: Content name
+            spawn: 
+                title: spawn
+                content: Will locate an enemy spawn point, may be a core or a position
+            damaged: 
+                title: Damaged
+                content: Will locate an ally damaged building

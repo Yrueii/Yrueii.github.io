@@ -6,18 +6,23 @@ import keyboard
 patterns = {
     "<img": (
         re.compile(
-            r'<img[^>]*src="([^"]+)"[^>]*'
-            r'(?:style="[^"]*max-width:\s*([^;!"]+))?[^>]*'
-            r'(?:height="(\d+))?'
+            r'<img[^>]*src="([^"]+)"[^>]*>',
         ),
         lambda m: (
-            f'{{img:{m.group(1)}:mwidth{m.group(2)}}}'
-            if m.group(2)
-            else f'{{img:{m.group(1)}:height{m.group(3)}}}'
-            if m.group(3)
-            else f'{{img:{m.group(1)}}}'
-        )
+            lambda tag: (
+                (
+                    f'{{img:{m.group(1)}:mwidth{mw.group(1)}}}'
+                    if (mw := re.search(r'max-width:\s*([^;!"]+)', tag))
+                    else (
+                        f'{{img:{m.group(1)}:height{h.group(1)}}}'
+                        if (h := re.search(r'height="(\d+)"', tag))
+                        else f'{{img:{m.group(1)}:_}}'
+                    )
+                )
+            )
+        )(m.group(0))
     ),
+
     "<code": (
         re.compile(r'<code(?:\s+class="([^"]+)")?>([^<]+)</code>'),
         lambda m: (
@@ -27,8 +32,17 @@ patterns = {
         )
     ),
     "<span": (
-        re.compile(r'<span[^>]*style="[^"]*color:\s*([^;"]+)[^"]*">([^<]+)</span>'),
-        lambda m: f'{{hl:_{m.group(2)}:{m.group(1)[:3]}}}'
+        re.compile(
+            r'<span[^>]*(?:'
+            r'style="[^"]*color:\s*([^;"]+)[^"]*"'
+            r'|class="([^"]+)"'
+            r')[^>]*>([^<]+)</span>'
+        ),
+        lambda m: (
+            f'{{hl:_{m.group(3)}:{m.group(1)[:3]}}}'
+            if m.group(1)  # style=color case
+            else f'{{span:_{m.group(3)}:{m.group(2)}}}'
+        )
     ),
     "<a": (
         re.compile(r'<a\s+href="([^"]+)"\s*>([^<]+)</a>'),
