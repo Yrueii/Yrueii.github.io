@@ -118,7 +118,24 @@ async function loadLang(lang) {
   document.body.classList.remove("skeleton");
 }
 
-loadLang("en");
+// Load default language (English)
+loadLang("en").then(() => {
+  // Optional operations needed to be done after loading
+  let img = document.querySelector('img[src="image/ui1.png"]');
+  let elementsToWrap = []
+  console.log(img.nextSibling)
+  for (let i = 0; i < 48; i++) {
+    img = img.nextSibling;
+    elementsToWrap.push(img);
+  }
+  console.log(elementsToWrap)
+
+  section = document.createElement('section');
+  section.id = 'vars-tab'
+  elementsToWrap[0].parentNode.insertBefore(section, elementsToWrap[0]);
+  elementsToWrap.forEach(el => section.appendChild(el));
+});
+
 document.getElementById('hamburger-menu').addEventListener('click', function() {
     var sidebar = document.getElementById('sidebar');
     var content = document.querySelector('.main-content');

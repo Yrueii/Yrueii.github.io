@@ -240,7 +240,7 @@
                     <p class="ti" data-i18n="basic_concept.processors_ui.content"></p>
                 </section>
                 <section id="how-processor-run-its-code">
-                    <h2 data-i18n="basic_concept.how_processor_run_its_code.title">How Processor run its code</h2>
+                    <h2 data-i18n="basic_concept.how_processor_run_its_code.title"></h2>
                     <p class="ti" data-i18n="basic_concept.how_processor_run_its_code.content"></p>
                 </section>
                 <section id="links">
@@ -1681,10 +1681,36 @@
                         <br>
                         Also Returns total string/characters length when used on a message block, but not length of text buffer
                     </p>
-                    <br>
                     <h2><li>@operations</li></h2>
                     <p>
                         Returns the number of drawflush operations on a display since map reload (allows detecting the display needs to be redrawn).
+                    </p>
+                    <h2><li>@buildX</li></h2>
+                    <p>
+                        Returns the x coordinate of the current building tile of a unit, if the unit is building something, otherwise returns null
+                    </p>
+                    <h2><li>@buildY</li></h2>
+                    <p>
+                        Returns the y coordinate of the current building tile of a unit, if the unit is building something, otherwise returns null
+                    </p>
+                    <h2><li>@building</li></h2>
+                    <p>
+                        If used on a unit, returns the <a href="#building-reference">block reference</a> of the building currently being constructed (<code class="field">build1#1234</code>, <code class="field">build2#3456</code>, etc), if the unit is building something.
+                        <br>If used on a building (a <a href="#building-reference">block reference</a>, eg <code class="field">build1#1234</code>), returns <a href="#contentname">content name</a> of what type the block will become once it's built (<code class="content-name">@conveyor</code>, <code class="content-name">@router</code>, etc).
+                        This is different from @type, which just returns the <a href="#contentname">content name</a> of the block, if @type is used for build#1234 it will just return <code class="content-name">@build1</code>
+                        <br>example:
+                        <br><code class="control">sensor bRef @unit @building</code>
+                        <br><code class="control">sensor bType bRef @building</code>
+                        <br>when <code class="variable">@unit</code> is building a router, will return the block reference of that building in <code class="variable">bRef</code>, and then return <code class="content-name">@router</code> in <code class="variable">bType</code>
+                    </p>
+                    <h2><li>@breaking</li></h2>
+                    <p>
+                        If used on a unit, returns the <a href="#building-reference">block reference</a> of the building currently being deconstructed (<code class="field">build1#1234</code>, <code class="field">build2#3456</code>, etc), if the unit is breaking something.
+                        <br>If used on a building (a <a href="#building-reference">block reference</a>, eg <code class="field">build1#1234</code>), returns boolean of whether the building is currently being deconstructed or not.
+                        <br>example:
+                        <br><code class="control">sensor bRef @unit @breaking</code>
+                        <br><code class="control">sensor isBreaking @building @breaking</code>
+                        <br>when <code class="variable">@unit</code> is deconstructing a router, will return the block reference of that building in <code class="variable">bRef</code>, and then return true in <code class="variable">isBreaking</code>
                     </p>
                     <br>
                     <h2><li>Technical</li></h2>

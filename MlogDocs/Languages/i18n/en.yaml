@@ -91,12 +91,14 @@ glossary:
         content: |
             every block and unit has a unique reference, so every block and unit can be differentiated from each other, 
             internally they look like {code:messagere_ference} or {code:poly_reference}, 
-            these are not viewable without modifying the game. 
-            in game these references are stored in a variable like {link:building_variable:#links},
+            these are not normally viewable in vanilla, but they do appear in the {link:vars_tab:#vars-tab}, indicated by the keyboard "building" on the right column, but you cannot see the exact reference number (the {code:refnum} part).
+            {br}in game these references are stored in a variable like {link:building_variable:#links},
             or {link:unit:#unit}, 
             they can also be written to a normal variable"
         messagere_ference: message#98257
         poly_reference: poly#49178
+        vars_tab: vars tab
+        refnum: "#982..."
         building_variable: Building Variable
         unit: "@unit"
     contentname: 
@@ -126,10 +128,15 @@ basic_concept:
             {br} {img:image/ui.png:false}
             {br} the {code:add} button ({img:image/ui7.png:top15 width120}) opens a menu to add an instruction:
             {br} {img:image/ui1.png:false}
-            {br} the {code:vars} Vars ({img:image/vars.png:top15 width120}) opens a menu showing all of your variables
+            {br} the {code:vars} Vars ({img:image/vars.png:top15 width120}) opens a menu showing all of your variables and its type
             {br}
             {br} this menu is very useful for debugging
             {br} {img:image/data types.png:width800}
+            {br} {code:Number:field} is either an {link:integer:#integers} or a {link:float:#float}
+            {br} {code:String:field} is a {link:string:#strings} of characters
+            {br} {code:Content:field} is a {link:Content_name:#contentname}
+            {br} {code:Building:field} is a {link:Building_Reference:#building-reference}
+            {br} {code:Building:field} is a {link:Unit_Reference:#building-reference}
             {br} the {code:edit} button ({img:image/ui5.png:top15 width120}) opens a menu to export/import codes
             {br} {img:image/ui2.png:width300 left160 mtop20}
             {br} when clicking “Copy to Clipboard” it will copy the code of the processor to your clipboard, 
@@ -139,6 +146,16 @@ basic_concept:
         vars: vars
         edit: edit
         more_info: click here for more info
+        integer: integer
+        float: float
+        Number: Number
+        String: String
+        string: string
+        Content: Content
+        Content_name: Content name
+        Building: Building
+        Building_Reference: Building Reference
+        Unit_Reference: Unit Reference
     how_processor_run_its_code:
         title: How Processor run its code
         content: |
