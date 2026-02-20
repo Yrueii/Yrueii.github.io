@@ -22,7 +22,24 @@ patterns = {
             )
         )(m.group(0))
     ),
+<<<<<<< Updated upstream
 
+=======
+    "<video": (
+        re.compile(
+            r'<video[^>]*src="([^"]+)"[^>]*'
+            r'(?:style="[^"]*max-width:\s*([^;!"]+))?[^>]*'
+            r'(?:height="(\d+))?'
+        ),
+        lambda m: (
+            f'{{video:{m.group(1)}:mwidth{m.group(2)}}}'
+            if m.group(2)
+            else f'{{video:{m.group(1)}:height{m.group(3)}}}'
+            if m.group(3)
+            else f'{{video:{m.group(1)}}}'
+        )
+    ),
+>>>>>>> Stashed changes
     "<code": (
         re.compile(r'<code(?:\s+class="([^"]+)")?>([^<]+)</code>'),
         lambda m: (

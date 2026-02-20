@@ -77,7 +77,26 @@ const tokenResolvers = {
     el.addEventListener('click', function () {
       modal.style.display = 'flex';
       modalImg.src = this.src;
+      modalVideo.style.display = 'none';
+      modalImg.style.display = 'Block';
     });
+    return el;
+  },
+  video(name, sectionData, extra) {
+    const el = document.createElement("video");
+    el.src = name;
+    el.classList.add(...extra.split(' '));
+    el.addEventListener('click', function () {
+      if (this.id === 'modalVideo') return; // Prevent re-opening the modal when clicking on the modal video itself
+      modal.style.display = 'flex';
+      modalVideo.src = this.src;
+      modalImg.style.display = 'none';
+      modalVideo.style.display = 'Block';
+    });
+    el.setAttribute('autoplay', '');
+    el.setAttribute('loop', '');
+    el.setAttribute('muted', '');
+    el.setAttribute('playsinline', '');
     return el;
   },
   p(name, sectionData, extra) {
@@ -344,7 +363,6 @@ document.querySelectorAll('video').forEach(video => {
     modalVideo.src = this.src;
     modalImg.style.display = 'none';
     modalVideo.style.display = 'Block';
-    console.log('asdfasfdasdfasdfasdfsdfasd')
   });
 });
 

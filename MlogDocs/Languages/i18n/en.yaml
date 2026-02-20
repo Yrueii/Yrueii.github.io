@@ -162,9 +162,9 @@ basic_concept:
                 They Always run Instruction from top to bottom 1 at a time
                 You can only jump and wait, you cannot make it run from bottom to top for example.
                 Here is a visualization:
-                {br} {img:image/print1.gif:width700}
+                {br} {video:image/print1.mp4:width700}
                 {br} with jumps:
-                {br} {img:image/vis jump.gif:_}
+                {br} {video:image/vis jump.mp4:_}
                 {br} When the processor reach the end of its instruction it will go back to 0, repeating the loop indefinitely
     links:
         title: Links
@@ -1134,7 +1134,7 @@ controlling_units:
             {br}the order of bind is determined by how old it is, the first unit alive will be binded first and the most recent unit is last
             {br}When looped (meaning the {code:unitbind:unit} instruction is run again) it will bind the next unit in the order, when it reach the end it will go back and bind the first order
             {br}Here’s a visualization : the red box indicates that the unit is in the {code:unit:variable} variable
-            {br}{img:image/vis bind.gif:mwidth85vw}
+            {br}{video:image/vis bind.mp4:mwidth85vw}
             {br}Don’t worry about instruction line 1,2,3, they are there just to make the code not 1 instruction, to more easily visualize it.
             {br}Let’s say the first mega reference {code:mega1}, when {code:mega1} is binded it store the reference in 
             {code:unit:variable} meaning {code:unit:variable} 
@@ -1178,7 +1178,7 @@ controlling_units:
                 title: Approach
                 content: |
                     Similar to move but it has a radius, the unit will stop at the radius
-                    {br}{img:image/approach.gif:mwidth80vw}
+                    {br}{video:image/approach.mp4:mwidth80vw}
                     {br}{img:image/unit control1.png:mwidth80vw}
 
             pathFind:
