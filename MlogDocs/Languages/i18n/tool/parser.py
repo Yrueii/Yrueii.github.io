@@ -22,9 +22,6 @@ patterns = {
             )
         )(m.group(0))
     ),
-<<<<<<< Updated upstream
-
-=======
     "<video": (
         re.compile(
             r'<video[^>]*src="([^"]+)"[^>]*'
@@ -39,7 +36,6 @@ patterns = {
             else f'{{video:{m.group(1)}}}'
         )
     ),
->>>>>>> Stashed changes
     "<code": (
         re.compile(r'<code(?:\s+class="([^"]+)")?>([^<]+)</code>'),
         lambda m: (

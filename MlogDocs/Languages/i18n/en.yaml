@@ -1410,3 +1410,57 @@ controlling_units:
             damaged: 
                 title: Damaged
                 content: Will locate an ally damaged building
+
+
+logic-examples:
+    title: Simple Logic examples
+    content: 
+    list:
+        universal-switch:
+            title: Universal Switch
+            content: |
+                {video:image/vis getlink.mp4} {img:image/getlink ex.jpg:_}
+                {br} line 0 : {link:sensor:#sensor} for @enabled in {code:switch1:variable}, stores the state in the {code:switch:variable} variable
+                {br} line 1 : {link:getlink:#get-link} with {code:link:variable}, which is an <a href="#incrementing-variable">incrementing variable</a>
+                {br} line 2 : {link:sensor:#sensor} for @type in {code:block:variable} for later
+                {br} line 3 : {link:increment:#incrementing-variable} the variable {code:link:variable}
+                {br} line 4 : resets the variable {code:link:variable} when it reached @links using the % operator
+                {br} line 5 : {link:jump:#jump} if {code:type:variable} is @switch, this ensures that the switch building does not get controlled
+                {br} line 6 : {link:control:#control} the enabled of {code:block:variable}, which is the results of getlink, to {code:switch:variable}
+            sensor: sensor
+            switch1: switch1
+            switch: switch
+            getlink: getlink
+            link: link
+            increment: increment
+            jump: jump
+            type: type
+            control: control
+            block: block
+        shuttle-logic:
+            title: Shuttle Logic
+            content: |
+                {video:image/vis shuttle.mp4}
+                {br} Line 0 : {link:bind:#unit-bind} a flare
+                {br} Line 1 : {link:locate:#unit-locate} an ally core, outputs its coordinates to {code:cx:variable},{code:cy:variable}, and building reference to {code:core:variable}
+                {br} Line 2 - 3 : get the coordinates of the linked vault using {link:sensor:#sensor}
+                {br} Line 4 : {link:sensoring:#sensor} the {link:totalItems:#totalitems} from {code:unit:content-name} to get the amount of items the unit are currently carrying
+                {br} Line 5 : a conditional {link:jump:#jump}, jump to (move to core) and take item if the item the unit are currently carrying is 0
+                {br} Else jump to move to (vault and drop item)
+                {br} Line 6-7: {link:move:#move} to vault and take item from vault
+                {br} Line 8 : <a href="#end">end</a>, to make sure both (move to core) and (move to vault) cannot run in the same time
+                {br} Line 9-10 : {link:move:#move} to core and take @copper from core
+                {br}
+                {br} The key is to not put 2 or more move that the processor can run “simultaneously”, in other words don’t make the unit move to 2 location or more “simultaneously”.
+                {br} Either move to core or move to vault based on a condition
+            bind: bind
+            locate: locate
+            cx: cx
+            cy: cy
+            core: core
+            sensor: sensor
+            sensoring: sensoring
+            totalItems: "@totalItems"
+            unit : "@unit"
+            jump: jump
+            move: move

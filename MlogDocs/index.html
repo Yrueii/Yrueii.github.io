@@ -23,7 +23,6 @@
 <!-- TODO add a top bar for navigate links instead of the right sidebar -->
 <!-- TODO make the table of contents collapseable? -->
 <!-- TODO add a search bar -->
-<!-- TODO change gifs to video files (more efficient) -->
 <!-- TODO a secondary repo with automated git workflow to update transpilers data list daily -->
 <!-- TODO local storage to store prefered language across instance -->
 <!-- FIX code tidiness -->
@@ -650,35 +649,12 @@
                     <br> if you have a logic schematic/program/invention you want to be documented here feel free to dm me
                 </div>
                 <section id="universal-switch">
-                    <h2>Universal Switch</h2>
-                    <p>
-                        <video src="image/vis getlink.mp4" style="width: 600px;" autoplay loop muted playsinline></video> <img alt="alt" src="image/getlink ex.jpg">
-                        <br>line 0 : <a href="#sensor">sensor</a> for @enabled in <code class="variable">switch1</code>, stores the state in the <code class="variable">switch</code> variable
-                        <br>line 1 : <a href="#get-link">getlink</a> with <code class="variable">link</code>, which is an <a href="#incrementing-variable">incrementing variable</a>
-                        <br>line 2 : <a href="#sensor">sensor</a> for @type in <code class="variable">block</code> for later
-                        <br>line 3 : <a href="#incrementing-variable">increment</a> the variable <code class="variable">link</code>
-                        <br>line 4 : resets the variable <code class="variable">link</code> when it reached @links using the % operator
-                        <br>line 5 : <a href="#jump">jump</a> if <code class="variable">type</code> is @switch, this ensures that the switch building does not get controlled
-                        <br>line 6 : <a href="#control">control</a> the enabled of <code class="variable">block</code>, which is the results of getlink, to <code class="variable">switch</code>
-                    </p>
+                    <h2 data-i18n="logic-examples.list.universal-switch.title"></h2>
+                    <p data-i18n="logic-examples.list.universal-switch.content"></p>
                 </section>
                 <section id="shuttle-logic">
-                    <h2>Shuttle Logic</h2>
-                    <video src="image/vis shuttle.mp4" autoplay loop muted playsinline></video>
-                    <p>
-                        Line 0 : <a href="#unit-bind">bind</a> a flare
-                        <br>Line 1 : <a href="#unit-locate">locate</a> an ally core, outputs its coordinates to <code class="variable">cx</code>,<code class="variable">cy</code>, and building reference to <code class="variable">core</code>
-                        <br>Line 2 - 3 : get the coordinates of the linked vault using <a href="#sensor">sensor</a>
-                        <br>Line 4 : <a href="#sensor">sensoring</a> the <a href="#totalitems">@totalItems</a> from <code class="content-name">@unit</code> to get the amount of items the unit are currently carrying
-                        <br>Line 5 : a conditional <a href="#jump">jump</a>, jump to (move to core) and take item if the item the unit are currently carrying is 0
-                        <br>Else jump to move to (vault and drop item)</span>
-                        <br>Line 6-7: <a href="#move">move</a> to vault and take item from vault
-                        <br>Line 8 : <a href="#end">end</a>, to make sure both (move to core) and (move to vault) cannot run in the same time
-                        <br>Line 9-10 : <a href="#move">move</a> to core and take @copper from core
-                        <br><br>
-                            <span style="margin-left: 20px;">The key is to not put 2 or more move that the processor can run “simultaneously”, in other words don’t make the unit move to 2 location or more “simultaneously”
-                        Either move to core or move to vault based on a condition</span>
-                    </p>
+                    <h2 data-i18n="logic-examples.list.shuttle-logic.title"></h2>
+                    <p data-i18n="logic-examples.list.shuttle-logic.content"></p>
                 </section>
                     <section id="thorium-reactor-fail-safe">
                     <h2>Thorium Reactor Fail Safe</h2>
