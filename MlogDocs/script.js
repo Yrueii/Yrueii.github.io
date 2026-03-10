@@ -50,6 +50,9 @@ const tokenResolvers = {
       case "red":
         el.style.color = "red";
         break;
+      case "lig":
+        el.style.color = "lightblue";
+        break;
     }
     el.textContent = sectionData[name];
     return el;

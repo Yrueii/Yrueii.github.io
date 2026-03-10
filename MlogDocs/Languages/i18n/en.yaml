@@ -1412,14 +1412,15 @@ controlling_units:
                 content: Will locate an ally damaged building
 
 
-logic-examples:
+logic_examples:
     title: Simple Logic examples
     content: 
     list:
-        universal-switch:
+        universal_switch:
             title: Universal Switch
             content: |
-                {video:image/vis getlink.mp4} {img:image/getlink ex.jpg:_}
+                {video:image/vis getlink.mp4:width600} 
+                {img:image/getlink ex.jpg:_}
                 {br} line 0 : {link:sensor:#sensor} for @enabled in {code:switch1:variable}, stores the state in the {code:switch:variable} variable
                 {br} line 1 : {link:getlink:#get-link} with {code:link:variable}, which is an <a href="#incrementing-variable">incrementing variable</a>
                 {br} line 2 : {link:sensor:#sensor} for @type in {code:block:variable} for later
@@ -1437,10 +1438,10 @@ logic-examples:
             type: type
             control: control
             block: block
-        shuttle-logic:
+        shuttle_logic:
             title: Shuttle Logic
             content: |
-                {video:image/vis shuttle.mp4}
+                {video:image/vis shuttle.mp4:_}
                 {br} Line 0 : {link:bind:#unit-bind} a flare
                 {br} Line 1 : {link:locate:#unit-locate} an ally core, outputs its coordinates to {code:cx:variable},{code:cy:variable}, and building reference to {code:core:variable}
                 {br} Line 2 - 3 : get the coordinates of the linked vault using {link:sensor:#sensor}
@@ -1464,3 +1465,98 @@ logic-examples:
             unit : "@unit"
             jump: jump
             move: move
+        thorium_reactor_fail_safe: 
+            title: Thorium Reactor Fail Safe
+            content: |
+                {video:image/reactor fail safe.mp4:width600}
+                {img:image/reactor faiil safe ex.png:width500}
+                {br}line 0 : {link:getlink:#get-link} with {code:i:variable}, which is an {link:incrementing_variable:#incrementing-variable}, writes the result to {code:block:variable}
+                {br}line 1 : {link:sensor:#sensor} for cryofluid in {code:block:variable}, writes the result to {code:cryo:variable}
+                {br}line 2 : {link:compare:#jump} if {code:cryo:variable} > (greater than) {code:_15:yel}, if it is {code:fail:variable} will be true, else {code:fail:variable} will be false
+                {br}line 3 : {link:control:#control} {code:block:variable} to {code:fail:variable} which controls the thorium reactors to {code:fail:variable}, if line 2 is true then {code:fail:variable} is true, thus enabling the thorium reactor
+                {br}line 4 : {link:incrementing_the_variable:#incrementing-variable} {code:i:variable}
+                {br}line 5 : resets the variable {code:i:variable} when it reached {code:links:content-name} using the % operator
+            getlink: getlink 
+            i: i
+            incrementing_variable: incrementing variable
+            incrementing_the_variable: incrementing the variable
+            block: block
+            cryo: cryo
+            sensor: sensor
+            compare: compare
+            control: control
+            _15: "15"
+            fail: fail
+            links: "@links"
+        counter_array:
+            title: "@counter Array"
+            content: |
+                This is a bit more advanced than previous examples but it is very useful especially for unit multibind, assuming you already know what an array is you can simulate it using the @counter variable
+                {br}
+                {video:image/Counter_Array.mp4:width700}
+                {br}The variable ‘array’ is now an array, this is a static array, meaning the size of the array is fixed, you can however expand the size of the array to how many you want
+
+advanced:
+    title: Advanced
+    writing_in_text_editor:
+        title: Writing in text editor
+        content: |
+            Mlog are essentially plain text, this means you can use any text editor to write mlog, including Notepad
+            {br}Here are some things that makes it easier to write in plain text:
+            {br}In these example i will be using Visual Studio Code with “Mindustry Logic” extension
+            {br}
+            {br}a new VS Code extension for Mlog is available at “{link:ext:https://marketplace.visualstudio.com/items?itemName=JeanJPNM.mlogls-vscode}”, made by {hl:_JeanJPNM:lig}
+            . This extension brings actual support for mlog, like syntax highlighting, intellisense, diagnostic messages, and more, if you’re writing with VSCode I recommend checking this out.
+        ext: Mindustry Logic for VSCode
+        list:
+            labels:
+                title: Lables
+                content: |
+                    {img:image/labels.png:_}
+                    {br}Labels are replacement for jumps number, this way you can write freely without needing to worry about jump numbers
+            comment:
+                title: Comment
+                content: |
+                    {img:image/comments.png:_}
+                    {br}Comments will be removed when importing the code to the game
+            combining_lines:
+                title: Combining lines
+                content: |
+                    {img:image/seperate.png:_}
+                    {br}You can combine lines with  “ ; “
+            tabs_newline:
+                title: Tabs and newlines
+                content: |
+                    {img:image/labels.png:_}
+                    Tabs and newlines will also be removed when importing the code to the game, this is just for better readability
+        text_form: |
+            List of mlog {link:instruction in text form:#text-form-instruction}
+
+    transpiler:
+        title: Transpiler
+        content: Transpiler is a program that translate programming language to another programming language
+        # need a better way to list this, currently skipped
+        # list
+
+    mods:
+        title: Mods
+        list:
+            content: these mods add little to none new content, their purpose is to enhance logic, not add to them
+            yr2:
+                title: yr2 Logic Debugger
+                content: |
+                    a common and popular choice, can be found in the game's mod browser
+                    <br>a very comprehensive mod that enchance the ui of logic, gives many excellent extra feature like:
+                list1: viewing memory cells content in real time
+                list2: viewing all processor's variables in real time 
+                list3: view currently binded unit with a red line trace to the unit
+                list4: and much more
+            debugger:
+                title: Logic Debugger By DeltaNedas
+                content: can be found in the game's mod browser
+
+                    
+
+
+
+

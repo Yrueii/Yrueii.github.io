@@ -642,75 +642,48 @@
                 </ol>
             </section>
             <section id="simple-logic-examples" class="subtitle">
-                <h1>Simple Logic examples</h1>
+                <h1 data-i18n="logic_examples.title">Simple Logic examples</h1>
                 <hr>
-                <div style="font-size: larger; color: yellow;">
+                <!-- <div style="font-size: larger; color: yellow;">
                     From now on i will start documenting logic invention, <a href="MlogInvention/index.html">Mlog Invention</a>
                     <br> if you have a logic schematic/program/invention you want to be documented here feel free to dm me
-                </div>
+                </div> -->
                 <section id="universal-switch">
-                    <h2 data-i18n="logic-examples.list.universal-switch.title"></h2>
-                    <p data-i18n="logic-examples.list.universal-switch.content"></p>
+                    <h2 data-i18n="logic_examples.list.universal_switch.title"></h2>
+                    <p data-i18n="logic_examples.list.universal_switch.content"></p>
                 </section>
                 <section id="shuttle-logic">
-                    <h2 data-i18n="logic-examples.list.shuttle-logic.title"></h2>
-                    <p data-i18n="logic-examples.list.shuttle-logic.content"></p>
+                    <h2 data-i18n="logic_examples.list.shuttle_logic.title"></h2>
+                    <p data-i18n="logic_examples.list.shuttle_logic.content"></p>
                 </section>
-                    <section id="thorium-reactor-fail-safe">
-                    <h2>Thorium Reactor Fail Safe</h2>
-                    <video src="image/reactor fail safe.mp4" class="image" autoplay loop muted playsinline></video>
-                    <img alt="alt" src="image/reactor faiil safe ex.png" style="width: 500px;">
-                    <p>
-                        line 0 : <a href="#get-link">getlink</a> with <code class="variable">i</code>, which is an <a href="#incrementing-variable">incrementing variable</a>, writes the result to <code class="variable">block</code>
-                        <br>line 1 : <a href="#sensor">sensor</a> for cryofluid in <code class="variable">block</code>, writes the result to <code class="variable">cryo</code>
-                        <br>line 2 : <a href="#jump">compare</a> if <code class="variable">cryo</code> > (greater than) <code style="color: yellow;">15</code>, if it is <code class="variable">fail</code> will be true, else <code class="variable">fail</code> will be false
-                        <br>line 3 : <a href="#control">control</a> <code class="variable">block</code> to <code class="variable">fail</code> which controls the thorium reactors to <code class="variable">fail</code>, if line 2 is true then <code class="variable">fail</code> is true, thus enabling the thorium reactor
-                        <br>line 4 : <a href="#incrementing-variable">incrementing the variable</a> <code class="variable">i</code>
-                        <br>line 5 : resets the variable <code class="variable">i</code> when it reached <code class="content-name">@links</code> using the % operator
-                    </p>
+                <section id="thorium-reactor-fail-safe">
+                    <h2 data-i18n="logic_examples.list.thorium_reactor_fail_safe.title">Thorium Reactor Fail Safe</h2>
+                    <p data-i18n="logic_examples.list.thorium_reactor_fail_safe.content"></p>
                 </section>
                 <section id="counter-array">
-                    <h2>@counter Array</h2>
-                    <p>
-                        This is a bit more advanced than previous examples but it is very useful especially for unit multibind, assuming you already know what an array is you can simulate it using the @counter variable
-                    <br>
-                    <video alt="alt" style="width: 700px;" controls autoplay muted loop playsinline>
-                        <source src="image/Counter_Array.mp4">
-                    </video>
-                    <br>The variable ‘array’ is now an array, this is a static array, meaning the size of the array is fixed, you can however expand the size of the array to how many you want
-                    </p>
+                    <h2 data-i18n="logic_examples.list.counter_array.title">@counter Array</h2>
+                    <p data-i18n="logic_examples.list.counter_array.content"></p>
                 </section>
             </section>
             <section id="advanced" class="subtitle">
                 <h1>Advanced</h1>
                 <hr>
                 <section id="writing-in-text-editor">
-                    <h2>Writing in text editor</h2>
-                    <p class="ti">
-                        Mlog are essentially plain text, this means you can use any text editor to write mlog, including Notepad
-                        <br>Here are some things that makes it easier to write in plain text:
-                        <br>In these example i will be using Visual Studio Code with “Mindustry Logic” extension
-                        <br>
-                        <br>a new VS Code extension for Mlog is available at “<a href="https://marketplace.visualstudio.com/items?itemName=JeanJPNM.mlogls-vscode">Mindustry Logic for VSCode</a>”, made by <span style="color: lightblue;">JeanJPNM</span>
-                        . This extension brings actual support for mlog, like syntax highlighting, intellisense, diagnostic messages, and more, if you’re writing with VSCode I recommend checking this out.
-                    </p>
-                    <h3>Lables</h3>
-                    <img alt="alt" src="image/labels.png" >
-                    <p>Labels are replacement for jumps number, this way you can write freely without needing to worry about jump numbers</p>
-                    <h3>Comments</h3>
-                    <img src="image/comments.png" alt="">
-                    <p>Comments will be removed when importing the code to the game</p>
-                    <h3>Combining lines</h3>
-                    <img alt="alt" src="image/seperate.png" >
-                    <p>You can combine lines with  “ ; “</p>
-                    <h3>Tabs and newlines</h3>
-                    <img alt="alt" src="image/labels.png" >
-                    <p>Tabs and newlines will also be removed when importing the code to the game, this is just for better readability</p>
-                    <p>List of mlog <a href="#text-form-instruction">instruction in text form</a></p>
+                    <h2 data-i18n="advanced.writing_in_text_editor.title">Writing in text editor</h2>
+                    <p class="ti" data-i18n="advanced.writing_in_text_editor.content"></p>
+                    <h3 data-i18n="advanced.writing_in_text_editor.labels.title"></h3>
+                    <p data-i18n="advanced.writing_in_text_editor.labels.content"></p>
+                    <h3 data-i18n="advanced.writing_in_text_editor.comment.title"></h3>
+                    <p data-i18n="advanced.writing_in_text_editor.comment.content"></p>
+                    <h3 data-i18n="advanced.writing_in_text_editor.combining_lines.title"></h3>
+                    <p data-i18n="advanced.writing_in_text_editor.comment.title"></p>
+                    <h3 data-i18n="advanced.writing_in_text_editor.tab_newline.title">Tabs and newlines</h3>
+                    <p data-i18n="advanced.writing_in_text_editor.tab_newline.content"></p>
+                    <p data-i18n="advanced.writing_in_text_editor.text_form"></p>
                 </section>
                 <section id="transpiler">
-                    <h1>Transpiler</h1>
-                    Transpiler is a program that translate programming language to another programming language 
+                    <h1 data-i18n="advanced.transpiler.title">Transpiler</h1>
+                    <p data-i18n="advanced.transpiler.content"></p>
                     <br>
                     <br>List of compiler:  (Last updated: 3 June 2025) (Information gathered by <span style="color: lightblue;">Varxalaxiacis</span>)
                     <br>(Sorted by Stars)
@@ -835,24 +808,24 @@
                             <li>Stars : 0</li>
                         </ul>
                         <br>
-
                     </ol>
                 </section>
                 <section id="mods">
-                    <h1>Mods</h1>
+                    <h1 data-i18n="advanced.mods.title">Mods</h1>
                     <div>
-                        <ul><span style="font-size: larger;">these mods add little to none new content, their purpose is to enhance logic, not add to them</span>
-                            <br><br>
-                            <li style="font-size: larger;"><b>yr2 Logic Debugger</b></li>
-                            a common and popular choice, can be found in the game's mod browser
-                            <br>a very comprehensive mod that enchance the ui of logic, gives many excellent extra feature like:
+                        <ul><span style="font-size: larger;" data-i18n="advanced.mods.list.content"></span>
+                            <br>
+                            <br>
+                            <li style="font-size: larger;"><b data-i18n="advanced.mods.list.yr2.title">yr2 Logic Debugger</b></li>
+                            <p data-i18n="advanced.mods.list.yr2.content">
                                 <ul>
-                                    <li>viewing memory cells content in real time</li>
-                                    <li>viewing all processor's variables in real time</li>
-                                    <li>view currently binded unit with a red line trace to the unit</li>
-                                    <li>and much more</li>
+                                    <li data-i18n="advanced.mods.list.yr2.list1"></li>
+                                    <li data-i18n="advanced.mods.list.yr2.list2"></li>
+                                    <li data-i18n="advanced.mods.list.yr2.list3"></li>
+                                    <li data-i18n="advanced.mods.list.yr2.list4"></li>
                                 </ul>
                                 <br>
+                            </p>
                             <li style="font-size: larger;"><b>Logic Debugger By DeltaNedas</b></li>
                             can be found in the game's mod browser
                             <br>features :
