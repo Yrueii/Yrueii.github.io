@@ -1688,7 +1688,13 @@
                         <br><code class="control">sensor isBreaking @building @breaking</code>
                         <br>when <code class="variable">@unit</code> is deconstructing a router, will return the block reference of that building in <code class="variable">bRef</code>, and then return true in <code class="variable">isBreaking</code>
                     </p>
-                    <br>
+                    <section id="max-units">
+                        <h2><li>@maxUnits</li></h2>
+                        <p>
+                            Returns the maximum number of units a team can have. Can only be sensed from cores.
+                            <br><code class="control">sensor cap core1 @maxUnits</code>
+                        <br>
+                    </section>
                     <h2><li>Technical</li></h2>
                     <ul>
                         <li>@counter</li>
@@ -1772,7 +1778,8 @@
                     <h2>Getting unit cap</h2>
                     <p>
                         There currently no way of getting the unit cap consistently, there are workarounds however, assuming the default cap isn’t changed you can count how many cores there are in the map and what type it is, if you know both of those you can get the unit cap by summing up all of those core(s) ‘Max Active Unit’
-                        Shard has a unit cap of 8, foundation is 16, and nucleus is 24, info of which can be found in the game’s info menu
+                        Shard has a unit cap of 8, foundation is 16, and nucleus is 24, info of which can be found in the game’s info menu.
+                        <br>on <a href="#bleeding-edge">Bleeding edge version</a> however, there is a new sensor property <a href="#max-units"><code class="field">@maxUnits</code></a> that returns the unit cap directly, but it is not available in the stable version yet.
                     </p>
                 </section>
                 <section id="v6-unit-control-with-logic" style="margin-bottom: 40px;">
