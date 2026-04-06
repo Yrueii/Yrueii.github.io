@@ -1358,22 +1358,31 @@ function subSensorMenu(type,event){
     }
     items = document.getElementById('items')
     liquids = document.getElementById('liquids')
+    units = document.getElementById('units')
     switch (type){
         case 0:
             variables.style.display = 'block'
             items.style.display = 'none'
             liquids.style.display = 'none'
+            units.style.display = 'none'
             break;
         case 1:
             variables.style.display = 'none'
             items.style.display = 'block'
             liquids.style.display = 'none'
+            units.style.display = 'none'
             break;
         case 2:
             variables.style.display = 'none'
             items.style.display = 'none'
             liquids.style.display = 'block'
+            units.style.display = 'none'
             break;
+        case 3:
+            variables.style.display = 'none'
+            items.style.display = 'none'
+            liquids.style.display = 'none'
+            units.style.display = 'block'
     }
     positionPopUpMenu(event, 'sensorMenu', true)
 }

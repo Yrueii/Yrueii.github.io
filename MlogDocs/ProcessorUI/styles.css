@@ -542,8 +542,9 @@ input[type="checkbox"]:checked {
         background-color:#3c2f2f; /* Make the thumb background transparent */
     }
     .popUpMenu img {
-        max-width: 27%;
-        min-width: 27%;
+        /* idk how these values were decided so i just changed it from 27% when adding units tab*/
+        max-width: 21%;
+        min-width: 21%;
         padding: 10px;
         box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
         transition: transform 0.3s ease; /* Add transition for smooth scaling */
@@ -563,7 +564,11 @@ input[type="checkbox"]:checked {
         justify-content: initial;
         align-items: initial;
     }
-    .popUpMenu #variables div, .popUpMenu #liquids div, .popUpMenu #items div, .popUpMenu #setProp div {
+    .popUpMenu #variables div,
+    .popUpMenu #liquids div,
+    .popUpMenu #items div,
+    .popUpMenu #units div,
+    .popUpMenu #setProp div {
         display: flex;
         justify-content: center;
         align-items: center;
