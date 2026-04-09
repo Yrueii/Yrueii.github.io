@@ -1,3 +1,20 @@
+async function loadJSON(filePath){
+    const response = await fetch(filePath);
+    if (!response.ok) throw new Error(`JSON file not found at ${filePath}.`);
+    const data = await response.json();
+    return data;
+}
+
+function fillTemplateJSON(jsonData){
+    const template = jsonData["template"];
+    return jsonData["data"].map(e => template.replace(/\{\}/g, e));
+}
+
+loadJSON("./json/payloads.json").then(payloadData => {
+    payloadHTML = fillTemplateJSON(payloadData);
+    document.getElementById("payloads").innerHTML = payloadHTML.join("\n");
+});
+
 //####################################################################################################################################
 // add instruction function
 //####################################################################################################################################
@@ -1316,8 +1333,10 @@ function popUpMenu(event,id,from){
             })
     if (from == 'prop'){
         const variablesDisplay = document.getElementById('variables').style.display
-        if (variablesDisplay == 'block') {
+        const payloadsDisplay = document.getElementById('payloads').style.display
+        if (variablesDisplay == 'block'||payloadsDisplay == 'block') {
             document.getElementById('variables').style.display = 'none'
+            document.getElementById('payloads').style.display = 'none'
             document.getElementById('setProp').style.display = 'block'
         }
         document.getElementById('sensorMenuButtons').style.display = ''
@@ -1325,6 +1344,7 @@ function popUpMenu(event,id,from){
         const propDisplay = document.getElementById('setProp').style.display
         if (propDisplay == 'block') {
             document.getElementById('variables').style.display = 'block'
+            document.getElementById('payloads').style.display = 'block'
             document.getElementById('setProp').style.display = 'none'
         }
         document.getElementById('sensorMenuButtons').style.display = ''
@@ -1349,40 +1369,45 @@ function popUpMenu(event,id,from){
 function subSensorMenu(type,event){
     const from = event.target.id
     console.log(from);
+
+    items = document.getElementById('items')
+    liquids = document.getElementById('liquids')
+    payloads = document.getElementById('payloads')
+
     if (from == 'sensor'){
         variables = document.getElementById('variables')
         document.getElementById('setProp').style.display = 'none'
+        payloads.style.display = 'block'
     }else if (from == 'prop'){
         variables = document.getElementById('setProp')
         document.getElementById('variables').style.display = 'none'
+        payloads.style.display = 'none'
     }
-    items = document.getElementById('items')
-    liquids = document.getElementById('liquids')
-    units = document.getElementById('units')
+
     switch (type){
         case 0:
             variables.style.display = 'block'
             items.style.display = 'none'
             liquids.style.display = 'none'
-            units.style.display = 'none'
+            payloads.style.display = 'none'
             break;
         case 1:
             variables.style.display = 'none'
             items.style.display = 'block'
             liquids.style.display = 'none'
-            units.style.display = 'none'
+            payloads.style.display = 'none'
             break;
         case 2:
             variables.style.display = 'none'
             items.style.display = 'none'
             liquids.style.display = 'block'
-            units.style.display = 'none'
+            payloads.style.display = 'none'
             break;
         case 3:
             variables.style.display = 'none'
             items.style.display = 'none'
             liquids.style.display = 'none'
-            units.style.display = 'block'
+            payloads.style.display = 'block'
     }
     positionPopUpMenu(event, 'sensorMenu', true)
 }
@@ -1546,6 +1571,7 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
     function main(which,textWhich){
         fields.forEach(field => {
             if (which){
+                console.log(Number(field.getAttribute('order')));
                 if (which.includes(Number(field.getAttribute('order')))){
                     field.style.display = 'block';
                 } else {

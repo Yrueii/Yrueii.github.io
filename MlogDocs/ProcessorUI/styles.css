@@ -567,7 +567,7 @@ input[type="checkbox"]:checked {
     .popUpMenu #variables div,
     .popUpMenu #liquids div,
     .popUpMenu #items div,
-    .popUpMenu #units div,
+    .popUpMenu #payloads div,
     .popUpMenu #setProp div {
         display: flex;
         justify-content: center;
