@@ -542,9 +542,8 @@ input[type="checkbox"]:checked {
         background-color:#3c2f2f; /* Make the thumb background transparent */
     }
     .popUpMenu img {
-        /* idk how these values were decided so i just changed it from 27% when adding units tab*/
-        max-width: 21%;
-        min-width: 21%;
+        /* width modified in javascript*/
+        width: 21%;
         padding: 10px;
         box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
         transition: transform 0.3s ease; /* Add transition for smooth scaling */

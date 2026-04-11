@@ -1299,6 +1299,20 @@ document.addEventListener('touchend',handleEnd)
 // instruction fields popupmenu
 // this whole section is an absolute fucking mess
 //####################################################################################################################################
+function getContentSize(element){
+    const style = getComputedStyle(element);
+
+    console.log(element.clientWidth);
+    console.log(element.clientHeight);
+    const width = element.clientWidth 
+    - parseFloat(style.paddingLeft)
+    - parseFloat(style.paddingRight);
+    const height = element.clientHeight
+    - parseFloat(style.paddingTop)
+    - parseFloat(style.paddingBottom);
+
+    return [width, height];
+}
 var clickedMenu;
 var bgclickedMenu;
 var popUpMenuElement;
@@ -1327,27 +1341,35 @@ function popUpMenu(event,id,from){
 
     popUpMenuElement = document.getElementById(id);
     sensorMenuButtons = document.getElementById('sensorMenuButtons')
-    let buttons = sensorMenuButtons.childNodes
+    //use children instead of childNodes to only include HTML elements
+    let buttons = Array.from(sensorMenuButtons.children)
     buttons.forEach(button => {
         button.id = from
-            })
+    })
+
+    let payloadsDisplay = document.getElementById('payloads').style.display
+
     if (from == 'prop'){
-        const variablesDisplay = document.getElementById('variables').style.display
-        const payloadsDisplay = document.getElementById('payloads').style.display
-        if (variablesDisplay == 'block'||payloadsDisplay == 'block') {
-            document.getElementById('variables').style.display = 'none'
-            document.getElementById('payloads').style.display = 'none'
+        let variablesDisplay = document.getElementById('variables').style.display
+        if (variablesDisplay == 'block' || payloadsDisplay == 'block') {
+            variablesDisplay = 'none'
+            payloadsDisplay = 'none'
             document.getElementById('setProp').style.display = 'block'
         }
-        document.getElementById('sensorMenuButtons').style.display = ''
+        document.querySelector('.payloadImg').style.display = 'none';
+        sensorMenuButtons.style.display = '';
+        buttons.forEach(button => button.style.width = '27%');
+        
     }else if (from == 'sensor'){
-        const propDisplay = document.getElementById('setProp').style.display
+        let propDisplay = document.getElementById('setProp').style.display
         if (propDisplay == 'block') {
             document.getElementById('variables').style.display = 'block'
-            document.getElementById('payloads').style.display = 'block'
-            document.getElementById('setProp').style.display = 'none'
+            payloadsDisplay = 'block'
+            propDisplay = 'none'
         }
-        document.getElementById('sensorMenuButtons').style.display = ''
+        document.querySelector('.payloadImg').style.display = '';
+        sensorMenuButtons.style.display = '';
+        buttons.forEach(button => button.style.width = '21%');
     }
 
     // console.log(sensorMenu)
@@ -1370,9 +1392,9 @@ function subSensorMenu(type,event){
     const from = event.target.id
     console.log(from);
 
-    items = document.getElementById('items')
-    liquids = document.getElementById('liquids')
-    payloads = document.getElementById('payloads')
+    const items = document.getElementById('items')
+    const liquids = document.getElementById('liquids')
+    const payloads = document.getElementById('payloads')
 
     if (from == 'sensor'){
         variables = document.getElementById('variables')
@@ -1459,8 +1481,10 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
 
             if (from == 'prop'){
                 const variablesDisplay = document.getElementById('variables').style.display
-                if (variablesDisplay == 'block') {
+                const payloadsDisplay = document.getElementById('payloads').style.display
+                if (variablesDisplay == 'block' || payloadsDisplay == 'block') {
                     document.getElementById('variables').style.display = 'none'
+                    payloadsDisplay = 'none'
                     document.getElementById('setProp').style.display = 'block'
                 }
                 
@@ -1469,6 +1493,7 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 const propDisplay = document.getElementById('setProp').style.display
                 if (propDisplay == 'block') {
                     document.getElementById('variables').style.display = 'block'
+                    document.getElementById('payloads').style.display = 'block'
                     document.getElementById('setProp').style.display = 'none'
                 }
             }
@@ -1571,7 +1596,6 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
     function main(which,textWhich){
         fields.forEach(field => {
             if (which){
-                console.log(Number(field.getAttribute('order')));
                 if (which.includes(Number(field.getAttribute('order')))){
                     field.style.display = 'block';
                 } else {
