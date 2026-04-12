@@ -143,7 +143,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span>=</span>
                     <span class="editable operation" contenteditable="true" order="3">${field3 || 'a'}</span>
                     <span class="editable operation" id="operation" order="2" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
-                    <span class="editable operation toggleableField" contenteditable="true" order="4">${field4 || 'b'}</span>`
+                    <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'b'}</span>`
             break;
         case 'Lookup':
             code = `<span class="editable operation" contenteditable="true" id="field1Value">${field2 || 'result'}</span>
