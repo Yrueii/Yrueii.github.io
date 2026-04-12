@@ -143,7 +143,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span>=</span>
                     <span class="editable operation" contenteditable="true" order="3">${field3 || 'a'}</span>
                     <span class="editable operation" id="operation" order="2" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
-                    <span class="editable operation" contenteditable="true" order="4">${field4 || 'b'}</span>`
+                    <span class="editable operation toggleableField" contenteditable="true" order="4">${field4 || 'b'}</span>`
             break;
         case 'Lookup':
             code = `<span class="editable operation" contenteditable="true" id="field1Value">${field2 || 'result'}</span>
@@ -1612,6 +1612,32 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
         })
     }
     switch(id){
+        case 'opMenu':
+            switch (option){
+                case 'flip':
+                case 'abs':
+                case 'sign':
+                case 'log':
+                case 'log10':
+                case 'floor':
+                case 'ceil':
+                case 'round':
+                case 'sqrt':
+                case 'rand':
+                case 'sin':
+                case 'cos':
+                case 'tan':
+                case 'asin':
+                case 'acos':
+                case 'atan':
+                    main([1,2,3]);
+                    break;
+
+                default: //for all operations with the format result=a<op>b
+                    main([1,2,3,4]);
+                    break;
+            }
+            break;
         case 'setRuleMenu':
             switch(option){
                 case 'mapArea':
@@ -2300,11 +2326,13 @@ const operatorMap = {
     "len"       : 'len',
     "noise"     : 'noise',
     "abs"       : 'abs',
+    "sign"      : 'sign',
     "log"       : 'log',
     "logn"      : 'logn',
     "log10"     : 'log10',
     "floor"     : 'floor',
     "ceil"      : 'ceil',
+    "round"     : 'round',
     "sqrt"      : 'sqrt',
     "rand"      : 'rand',
     "sin"       : 'sin',
@@ -2344,11 +2372,13 @@ const operatorMap = {
     'len'               : 'len',
     'noise'             : 'noise',
     'abs'               : 'abs',
+    'sign'              : 'sign',
     'log'               : 'log',
     'logn'              : 'logn',
     'log10'             : 'log10',
     'floor'             : 'floor',
     'ceil'              : 'ceil',
+    'round'             : 'round',
     'sqrt'              : 'sqrt',
     'rand'              : 'rand',
     'sin'               : 'sin',
