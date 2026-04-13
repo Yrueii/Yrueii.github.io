@@ -1574,7 +1574,8 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
         option = importSelectionValue
     }
     
-    const fields = clickedMenu.parentElement.querySelectorAll('.toggleableField')
+    const fieldsParent = clickedMenu.parentElement
+    const fields = fieldsParent.querySelectorAll('.toggleableField')
 
 
 
@@ -1599,6 +1600,10 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
     }
     switch(id){
         case 'opMenu':
+            //first value i.e. "a" in "op add result a b"
+            //find this for reordering i.e. "result = a + b" --> "result = min a b"
+            const firstVal = fieldsParent.querySelector('[order = "3"]');
+            const operator = fieldsParent.querySelector('[order = "2"]');
             switch (option){
                 case 'flip':
                 case 'abs':
@@ -1617,6 +1622,7 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'acos':
                 case 'atan':
                     main([1,2,3]);
+                    firstVal.parentElement.insertBefore(operator, firstVal);
                     break;
                 case 'max':
                 case 'min':
@@ -1624,10 +1630,13 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'anglediff':
                 case 'len':
                 case 'noise':
-                    //WIP; no idea how to implement this yet
-                    break;
-                default: //for all operations with the format result=a<op>b
                     main([1,2,3,4]);
+                    firstVal.parentElement.insertBefore(operator, firstVal);
+                    break;
+                //for all operations with the format result = a <op> b
+                default:
+                    main([1,2,3,4]);
+                    firstVal.after(operator);
                     break;
             }
             break;
