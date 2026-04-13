@@ -1299,20 +1299,6 @@ document.addEventListener('touchend',handleEnd)
 // instruction fields popupmenu
 // this whole section is an absolute fucking mess
 //####################################################################################################################################
-function getContentSize(element){
-    const style = getComputedStyle(element);
-
-    console.log(element.clientWidth);
-    console.log(element.clientHeight);
-    const width = element.clientWidth 
-    - parseFloat(style.paddingLeft)
-    - parseFloat(style.paddingRight);
-    const height = element.clientHeight
-    - parseFloat(style.paddingTop)
-    - parseFloat(style.paddingBottom);
-
-    return [width, height];
-}
 var clickedMenu;
 var bgclickedMenu;
 var popUpMenuElement;
@@ -1632,7 +1618,14 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'atan':
                     main([1,2,3]);
                     break;
-
+                case 'max':
+                case 'min':
+                case 'angle':
+                case 'anglediff':
+                case 'len':
+                case 'noise':
+                    //WIP; no idea how to implement this yet
+                    break;
                 default: //for all operations with the format result=a<op>b
                     main([1,2,3,4]);
                     break;
