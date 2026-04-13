@@ -189,17 +189,17 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable unitControl" contenteditable="true" onclick="popUpMenu(event,'ubindMenu')" oninput="selectOption(event,'ubindMenu', null, null, 1)">${field1 || '@poly'}</span>`
             break;
         case 'Unit Control':
-            code = `<span class="editable unitControl selectionValue" contenteditable="true" onclick="popUpMenu(event,'ucontrolMenu')" oninput="selectOption(event,'ucontrolMenu', null, null, 1)">${field1 || 'move'}</span>
-                    <span class="toggleableField" id="field1" style="display:block;">x</span>
-                    <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style="display:block;">${field2 || '0'}</span>
-                    <span class="toggleableField" id="field2" style="display:block;">y</span>
-                    <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style="display:block;">${field3 || '0'}</span>
-                    <span class="toggleableField" id="field3">x</span>
-                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true">${field4 || '0'}</span>
-                    <span class="toggleableField" id="field4">y</span>
-                    <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true">${field5 || '0'}</span>
-                    <span class="toggleableField" id="field5">y</span>
-                    <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true">${field6 || '0'}</span>`
+            code = `<span class="editable unitControl selectionValue" contenteditable="true" order="1" onclick="popUpMenu(event,'ucontrolMenu')" oninput="selectOption(event,'ucontrolMenu', null, null, 1)">${field1 || 'move'}</span>
+                    <span class="toggleableField" id="field1" style="display:block;" order="11">x</span>
+                    <span class="editable unitControl toggleableField" id="field1Value" contenteditable="true" style="display:block;" order="2">${field2 || '0'}</span>
+                    <span class="toggleableField" id="field2" style="display:block;" order="22">y</span>
+                    <span class="editable unitControl toggleableField" id="field2Value" contenteditable="true" style="display:block;" order="3">${field3 || '0'}</span>
+                    <span class="toggleableField" id="field3" order="33">x</span>
+                    <span class="editable unitControl toggleableField" id="field3Value" contenteditable="true" order="4">${field4 || '0'}</span>
+                    <span class="toggleableField" id="field4" order="44">y</span>
+                    <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true" order="5">${field5 || '0'}</span>
+                    <span class="toggleableField" id="field5" order="55">y</span>
+                    <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true" order="6">${field6 || '0'}</span>`
             break;
         case 'Unit Radar':
             code = `<span>target</span>
@@ -1880,43 +1880,43 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'move':
                 case 'pathfind':
                 case 'mine':
-                    main([11,22,1,2], {11:'x',22:'y'})
+                    main([11,22,1,2,3], {11:'x',22:'y'})
                     break;
                 case 'approach':
-                    main([11,22,33,1,2,3], {11:'x',22:'y',33:'radius'})
+                    main([11,22,33,1,2,3,4], {11:'x',22:'y',33:'radius'})
                     break;
                 case 'boost':
-                    main([11,1], {11:'enable'})
+                    main([11,1,2], {11:'enable'})
                     break;
                 case 'target':
-                    main([11,22,33,1,2,3], {11:'x',22:'y',33:'shoot'})
+                    main([11,22,33,1,2,3,4], {11:'x',22:'y',33:'shoot'})
                     break;
                 case 'targetp':
-                    main([11,22,1,2], {11:'unit',22:'shoot'})
+                    main([11,22,1,2,3], {11:'unit',22:'shoot'})
                     break;
                 case 'itemDrop':
-                    main([11,22,1,2], {11:'to',22:'amount'})
+                    main([11,22,1,2,3], {11:'to',22:'amount'})
                     break;
                 case 'itemTake':
-                    main([11,22,33,1,2,3], {11:'from',22:'item',33:'amount'})
+                    main([11,22,33,1,2,3,4], {11:'from',22:'item',33:'amount'})
                     break;
                 case 'payTake':
-                    main([11,1], {11:'takeUnits'})
+                    main([11,1,2], {11:'takeUnits'})
                     break;
                 case 'itemTake':
-                    main([11,22,33,1,2,3], {11:'from',22:'item',33:'amount',})
+                    main([11,22,33,1,2,3,4], {11:'from',22:'item',33:'amount',})
                     break;
                 case 'flag':
-                    main([11,1], {11:'value'})
+                    main([11,1,2], {11:'value'})
                     break;
                 case 'build':
-                    main([11,22,33,44,55,1,2,3,4,5], {11:'x',22:'y',33:'block',44:'rotation',55:'config'})
+                    main([11,22,33,44,55,1,2,3,4,5,6], {11:'x',22:'y',33:'block',44:'rotation',55:'config'})
                     break;
                 case 'getBlock':
-                    main([11,22,33,44,55,1,2,3,4,5], {11:'x',22:'y',33:'type',44:'building',55:'floor'})
+                    main([11,22,33,44,55,1,2,3,4,5,6], {11:'x',22:'y',33:'type',44:'building',55:'floor'})
                     break;
                 case 'within':
-                    main([11,22,33,44,1,2,3,4], {11:'x',22:'y',33:'radius',44:'result'})
+                    main([11,22,33,44,1,2,3,4,5], {11:'x',22:'y',33:'radius',44:'result'})
                     break;
             }
             break;
