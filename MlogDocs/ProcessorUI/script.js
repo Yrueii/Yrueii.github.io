@@ -145,10 +145,10 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable operation" contenteditable="true">${field2 || 'a'}</span>`
             break;
         case 'Operation':
-            code = `<span class="editable operation" contenteditable="true" order="1">${field2 || 'result'}</span>
+            code = `<span class="editable operation" contenteditable="true" order="2">${field2 || 'result'}</span>
                     <span>=</span>
                     <span class="editable operation" contenteditable="true" order="3">${field3 || 'a'}</span>
-                    <span class="editable operation" id="operation" order="2" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
+                    <span class="editable operation" id="operation" order="1" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
                     <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'b'}</span>`
             break;
         case 'Lookup':
@@ -1609,7 +1609,7 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
             //first value i.e. "a" in "op add result a b"
             //find this for reordering i.e. "result = a + b" --> "result = min a b"
             const firstVal = fieldsParent.querySelector('[order = "3"]');
-            const operator = fieldsParent.querySelector('[order = "2"]');
+            const operator = fieldsParent.querySelector('[order = "1"]');
             switch (option){
                 case 'flip':
                 case 'abs':
