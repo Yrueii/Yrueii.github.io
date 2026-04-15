@@ -7,12 +7,17 @@ async function loadJSON(filePath){
 
 function fillTemplateJSON(jsonData){
     const template = jsonData["template"];
-    return jsonData["data"].map(e => template.replace(/\{\}/g, e));
+    const data = jsonData["data"];
+    return data?.map(e => template?.replace(/\{\}/g, e));
 }
 
 loadJSON("./json/payloads.json").then(payloadData => {
-    payloadHTML = fillTemplateJSON(payloadData);
+    const payloadHTML = fillTemplateJSON(payloadData);
     document.getElementById("payloads").innerHTML = payloadHTML.join("\n");
+});
+loadJSON("./json/characters.json").then(characterData => {
+    const printCharHTML = fillTemplateJSON(characterData);
+    document.getElementById("printCharMenu").innerHTML = printCharHTML.join("\n");
 });
 
 //####################################################################################################################################
@@ -78,7 +83,8 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span class="editable iNo" id="string" contenteditable="true">${field1 || '\"frog\"'}</span>`
             break;
         case 'Print Char':
-            code = `<span class="editable iNo" id="string" contenteditable="true">${field1 || '65'}</span>
+            code = `<span>char</span>
+                    <span class="editable iNo" id="string" contenteditable="true">${field1 || '65'}</span>
                     <img src="image/pencil.png" alt="" onclick="popUpMenu(event,'printCharMenu')" class="pencilMenu">`
             break;
         case 'Format':
@@ -1976,6 +1982,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                     main([1])
                     break;
             }
+            break;
+        case 'printCharMenu':
+            fieldsParent.querySelector("#string").textContent = String(option?.charCodeAt(0));
             break;
         default:
             console.log('something went wrong');
