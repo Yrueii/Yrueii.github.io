@@ -78,6 +78,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable iNo toggleableField" order="5" contenteditable="true">${field6 || '0'}</span>
                     <span class="toggleableField" order="66">a</span>
                     <span class="editable iNo toggleableField" order="6" contenteditable="true">${field7 || '0'}</span>`
+            tpmId = "drawMenu";
             break;
         case 'Print':
             code = `<span class="editable iNo" id="string" contenteditable="true">${field1 || '\"frog\"'}</span>`
@@ -114,6 +115,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true" order="4">${field4 || '0'}</span>
                     <span class="toggleableField" id="field4" order="55"></span>
                     <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true" order="5">${field5 || '0'}</span>`
+            tpmId = "controlMenu";
             break;
         case 'Radar':
             code = `<span>from</span>
@@ -148,8 +150,9 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span class="editable operation" contenteditable="true" order="2">${field2 || 'result'}</span>
                     <span>=</span>
                     <span class="editable operation" contenteditable="true" order="3">${field3 || 'a'}</span>
-                    <span class="editable operation" id="operation" order="1" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
+                    <span class="editable operation selectionValue" id="operation" order="1" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
                     <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'b'}</span>`
+            tpmId = "opMenu";
             break;
         case 'Lookup':
             code = `<span class="editable operation" contenteditable="true" id="field1Value">${field2 || 'result'}</span>
@@ -189,6 +192,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
                     <img src="image/logic-node.png" alt="" class="jumpArrowTriangle" draggable="false">`
+            tpmId = "jumpMenu";
             break;
         case 'Unit Bind':
             code = `<span>type</span>
@@ -206,6 +210,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true" order="5">${field5 || '0'}</span>
                     <span class="toggleableField" id="field5" order="55">y</span>
                     <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true" order="6">${field6 || '0'}</span>`
+            tpmId = "ucontrolMenu";
             break;
         case 'Unit Radar':
             code = `<span>target</span>
@@ -463,6 +468,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="toggleableField" order="55"></span>
                     <span class="editable world toggleableField" contenteditable="true" order="5">${field5 || '0'}</span>
                     `
+            tpmId = "setMarkerMenu";
             break;
         case 'Make Marker':
             code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'makeMarkerMenu')" oninput="selectOption(event,'makeMarkerMenu', null, null, 1)" order="1">${field1 || 'shape'}</span>
@@ -2702,6 +2708,7 @@ async function importCode(manual,codeSaved){
             if (['Control', 
                 'Draw', 
                 'Unit Control', 
+                'Operation',
                 'Jump', 
                 'Set Rule', 
                 'Set Block', 
