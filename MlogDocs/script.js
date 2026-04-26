@@ -399,7 +399,7 @@ async function loadLang(version, lang) {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     el.textContent = ""; // clear text to prevent showing wrong language during loading
   });
-  document.getElementById('sidebar').firstElementChild.replaceChildren(); // clear table of contents
+  document.getElementById('sidebar').querySelector('ul').replaceChildren(); // clear table of contents
   document.querySelectorAll(".hidden").forEach(el => el.classList.remove("hidden")); // unhide any elements hidden by delete tokens
 
   const url = `./Languages/${version}/${lang}.yaml`;
@@ -446,7 +446,7 @@ async function loadLang(version, lang) {
   copyBtn.style.marginLeft = '6px';
   copyBtn.style.cursor = 'pointer';
 
-  const tableOfContents = document.getElementById('sidebar').firstElementChild;
+  const tableOfContents = document.getElementById('sidebar').querySelector('ul');
   const tableOfContentsObj = data['table_of_contents'];
 
   for (const [key, value] of Object.entries(tableOfContentsObj)) {
@@ -541,32 +541,32 @@ function parseTranspilerDataJSON() {
   .catch(err => console.error('fetch error:', err));
 }
 
-document.getElementById('hamburger-menu').addEventListener('click', function() {
-    var sidebar = document.getElementById('sidebar');
-    var content = document.querySelector('.main-content');
+// document.getElementById('hamburger-menu').addEventListener('click', function() {
+//     var sidebar = document.getElementById('sidebar');
+//     var content = document.querySelector('.main-content');
     
-    if (sidebar.classList.contains('open')) {
-        sidebar.classList.remove('open');
-        content.classList.remove('open');
-    } else {
-        sidebar.classList.add('open');
-        content.classList.add('open');
-    }
+//     if (sidebar.classList.contains('open')) {
+//         sidebar.classList.remove('open');
+//         content.classList.remove('open');
+//     } else {
+//         sidebar.classList.add('open');
+//         content.classList.add('open');
+//     }
     
-}); 
+// }); 
 
-document.getElementById('hamburger-menu-right').addEventListener('click', function() {
-  var sidebar = document.getElementById('sidebar-right');
-  var hamburgermenu = document.getElementById('hamburger-menu-right')
-  if (sidebar.classList.contains('open')) {
-      sidebar.classList.remove('open');
-      hamburgermenu.classList.remove('open');
-  } else {
-      sidebar.classList.add('open');
-      hamburgermenu.classList.add('open');
-  }
+// document.getElementById('hamburger-menu-right').addEventListener('click', function() {
+//   var sidebar = document.getElementById('sidebar-right');
+//   var hamburgermenu = document.getElementById('hamburger-menu-right')
+//   if (sidebar.classList.contains('open')) {
+//       sidebar.classList.remove('open');
+//       hamburgermenu.classList.remove('open');
+//   } else {
+//       sidebar.classList.add('open');
+//       hamburgermenu.classList.add('open');
+//   }
   
-}); 
+// }); 
 
 
 document.querySelectorAll('.sidebar-link').forEach(function(link) {
@@ -652,7 +652,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', highlightCurrentSection);
     highlightCurrentSection();
 
-    const tableOfContent = document.getElementById('sidebar').firstElementChild;
+    const tableOfContent = document.getElementById('sidebar').querySelector('ul');
 
     tableOfContent.addEventListener('click', e => {
       const btn = e.target.closest('.copy-link-btn');
@@ -675,7 +675,18 @@ document.addEventListener('DOMContentLoaded', function() {
       const link = e.target.closest('a[href^="#"]');
       if (link) {
         triggerGlow.call(link, e);
-        // no preventDefault → smooth scroll remains
+        const swidth = window.innerWidth;
+        console.log(swidth)
+        if (swidth <= 1670) {
+          var sidebar = document.getElementById('sidebar-right');
+          if (sidebar.classList.contains('open')) {
+              sidebar.classList.remove('open');
+          }
+          sidebar = document.getElementById('sidebar');
+          if (sidebar.classList.contains('open')) {
+              sidebar.classList.remove('open');
+          }
+        }
       }
     });
 
@@ -716,6 +727,34 @@ document.addEventListener('DOMContentLoaded', function() {
         elementsToWrap.forEach(el => section.appendChild(el));
       });
     });
+
+  document.querySelector('#sidebar-pull-tab-left').addEventListener('click', function() {
+      var sidebar = document.getElementById('sidebar');
+      var content = document.querySelector('.main-content');
+      
+      if (sidebar.classList.contains('open')) {
+          sidebar.classList.remove('open');
+          content.classList.remove('open');
+      } else {
+          sidebar.classList.add('open');
+          content.classList.add('open');
+      }
+      
+  }); 
+
+document.querySelector('#sidebar-pull-tab-right').addEventListener('click', function() {
+  var sidebar = document.getElementById('sidebar-right');
+  // var hamburgermenu = document.getElementById('hamburger-menu-right')
+  if (sidebar.classList.contains('open')) {
+      sidebar.classList.remove('open');
+      // hamburgermenu.classList.remove('open');
+  } else {
+      sidebar.classList.add('open');
+      // hamburgermenu.classList.add('open');
+  }
+  
+}); 
+
 
 });
   
