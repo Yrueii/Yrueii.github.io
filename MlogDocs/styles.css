@@ -958,6 +958,7 @@ iframe {
     border: 1px solid var(--sidebar-border-color);
     border-radius: 10px;
     border-top-left-radius: 0;
+    cursor: default;
 }
 
 .language-selection-button {
@@ -1004,6 +1005,37 @@ iframe {
     font-size: larger;
     color: var(--text-color);
     border-bottom: 1px solid var(--sidebar-border-color);
+}
+
+.lang-list-container {
+    padding: 0px;
+}
+
+.lang-item {
+    display: flex;
+    flex: auto;
+    border: none;
+    padding: 4px;
+    /* color: white; */
+
+}
+
+.lang-active {
+    /* content: "."; */
+    background-color: var(--sidebar-border-color);
+    display: flex;
+    align-items: center;
+    border-radius: 2px;
+}
+.lang-active::after {
+    content: '';
+    margin-left: auto;
+    padding-right: 4px;
+    width: 16px;
+    height: 16px;
+    background-image: url('image/assets/check-mark.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 

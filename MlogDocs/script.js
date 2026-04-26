@@ -392,6 +392,9 @@ const liClassTolinksMap = {
 };
 
 async function loadLang(version, lang) {
+  document.querySelectorAll('.lang-item').forEach(el => el.classList.remove('lang-active'));
+  document.getElementById(`${version}_${lang}`).classList.add("lang-active")
+  // document.getElementById(`${version}_${lang}`).classList.add("lang_active")
   document.body.classList.add("skeleton");
   document.querySelectorAll("[data-i18n]").forEach(el => {
     el.textContent = ""; // clear text to prevent showing wrong language during loading
@@ -503,24 +506,6 @@ async function loadLang(version, lang) {
   }
 
 }
-
-// Load default language (v7 English)
-loadLang("v7", "en").then(() => {
-// loadLang("v8", "en").then(() => {
-  // Optional operations needed to be done after loading
-  let img = document.querySelector('img[src="image/ui1.png"]');
-  let elementsToWrap = []
-  for (let i = 0; i < 48; i++) {
-    img = img.nextSibling;
-    elementsToWrap.push(img);
-  }
-
-  section = document.createElement('section');
-  section.id = 'vars-tab'
-  elementsToWrap[0].parentNode.insertBefore(section, elementsToWrap[0]);
-  elementsToWrap.forEach(el => section.appendChild(el));
-
-});
 
 function parseTranspilerDataJSON() {
   fetch('./TranspilerData/transpiler-datas.json')
@@ -653,12 +638,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Language selection dropdown
     langButton = document.querySelector('.language-selection-button');
-    langButton.addEventListener('click', function() {
-      const langSelection = document.querySelector('.language-selection');
-      if (langSelection.style.display === 'block') {
-        langSelection.style.display = 'none';
-      } else {
-        langSelection.style.display = 'block';
+    langButton.addEventListener('click', function(e) {
+      if (e.target.classList.contains('lang-item') || e.target.classList.contains('language-selection-button')) {
+        const langSelection = document.querySelector('.language-selection');
+        if (langSelection.style.display === 'block') {
+          langSelection.style.display = 'none';
+        } else {
+          langSelection.style.display = 'block';
+        }
       }
     });
   
@@ -703,14 +690,33 @@ document.addEventListener('DOMContentLoaded', function() {
         langList.appendChild(versionLi);
         for (const { lang_code, language } of langs) {
           const div = document.createElement('div');
-          div.innerHTML = `<a href="#" class="indent1" onclick="loadLang('${version}', '${lang_code}')">${language}</a>`;
+          div.classList.add('lang-list-container')
+          div.innerHTML = `<a href="#" class="indent1 lang-item" id="${version}_${lang_code}" onclick="loadLang('${version}', '${lang_code}')">${language}</a>`;
           versionLi.appendChild(div);
         }
       }
       // const div = document.createElement('div');
       // div.innerHTML = `<a href="https://github.com/Yrueii/Yrueii.github.io">Contribute a translation!</a>`;
       // langList.appendChild(div);
+
+      // Load default language (v7 English)
+      loadLang("v7", "en").then(() => {
+      // loadLang("v8", "en").then(() => {
+        // Optional operations needed to be done after loading
+        let img = document.querySelector('img[src="image/ui1.png"]');
+        let elementsToWrap = []
+        for (let i = 0; i < 48; i++) {
+          img = img.nextSibling;
+          elementsToWrap.push(img);
+        }
+    
+        section = document.createElement('section');
+        section.id = 'vars-tab'
+        elementsToWrap[0].parentNode.insertBefore(section, elementsToWrap[0]);
+        elementsToWrap.forEach(el => section.appendChild(el));
+      });
     });
+
 });
   
 function triggerGlow(event) {
