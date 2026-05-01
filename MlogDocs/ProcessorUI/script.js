@@ -5,20 +5,134 @@ async function loadJSON(filePath){
     return data;
 }
 
-function fillTemplateJSON(jsonData){
-    const template = jsonData["template"];
-    const data = jsonData["data"];
-    return data?.map(e => template?.replace(/\{\}/g, e));
+function loadHTMLFromArray(parent, array, elementName = "div"){
+    array.forEach(text => {
+        const element = document.createElement(elementName);
+        element.textContent = text;
+        parent.appendChild(element);
+    });
 }
 
-loadJSON("./json/payloads.json").then(payloadData => {
-    const payloadHTML = fillTemplateJSON(payloadData);
-    document.getElementById("payloads").innerHTML = payloadHTML.join("\n");
-});
-loadJSON("./json/characters.json").then(characterData => {
-    const printCharHTML = fillTemplateJSON(characterData);
-    document.getElementById("printCharMenu").innerHTML = printCharHTML.join("\n");
-});
+async function loadHTMLFromJSON(filePath, parentElementID, elementName = "div"){
+    const parent = document.getElementById(parentElementID);
+    loadJSON(filePath).then(JSONData => loadHTMLFromArray(parent, JSONData, elementName));
+}
+
+loadHTMLFromJSON("./data/payloads.json", "payloads");
+loadHTMLFromJSON("./data/characters.json", "printCharMenu");
+
+
+//requests should be an array of length-2 arrays,
+//each with [fetchLocation, isJSON] where fetchLocation can be either file path or URL
+async function fetchWithFallback(requests, fallbackValue = null){
+    for (const request of requests) {
+        const [fetchLocation, isJSON] = request;
+        const response = await fetch(fetchLocation);
+        if (response.ok){
+            return isJSON ? response.json() : response.text();
+        }
+    }
+    return fallbackValue;
+}
+
+//function to parse mimex format data
+//properties = null to return all properties
+function parseMimexData(data, properties = null, separator = ';', commentPrefixes = ["//", "#"]){
+    const dataRows = data.split('\n');
+
+    const parsedDataRows = [];
+
+    let propertyIndexes = [];
+    let foundFirstLine = false;
+
+    for (const row of dataRows) {
+        if (!row){
+            continue;
+        }
+        if (commentPrefixes.some(prefix => row.startsWith(prefix))){
+            continue;
+        }
+
+        const parsedRow = row.split(separator);
+
+        // Check if first line
+        if (!foundFirstLine){
+            foundFirstLine = true;
+
+            if (properties){
+                // parse headers if properties are specified
+                const propertyNamesToIndexes = {};
+                parsedRow.forEach((propertyName, propertyIndex) => {
+                    propertyNamesToIndexes[propertyName] = propertyIndex;
+                });
+
+                propertyIndexes = properties
+                .map(propertyName => propertyNamesToIndexes[propertyName])
+                .filter(index => index !== undefined);
+            }
+            continue;
+        }
+
+        if (!properties){
+            parsedDataRows.push(parsedRow);
+        } else {
+            parsedDataRows.push(
+                propertyIndexes
+                .map(index => parsedRow[index])
+                .filter(e => e !== undefined)
+            );
+        }
+    }
+    return parsedDataRows;
+}
+
+
+async function loadLAccessHTML (){
+    const LAccessURL = "https://raw.githubusercontent.com/cardillan/mimex-data/main/data/be/mimex-laccess.txt";
+    const LAccessFilePath = "./data/LAccessFallback.txt";
+    const LAccessRaw = await fetchWithFallback([
+        [LAccessURL, 0], 
+        [LAccessFilePath, 0],
+    ])
+
+    const LAccessProperties = ["name", "sensor", "control", "setprop"];
+    const LAccessParsed = parseMimexData(LAccessRaw, LAccessProperties);
+
+    console.log(LAccessParsed);
+    const LAccessNamePropertyIndex = LAccessProperties.indexOf("name");
+    const propertyIsTrue = s => (
+        ["true", "1"].includes(s)
+        ? true
+        : false
+    );
+
+    // sensor
+    loadHTMLFromArray(
+        document.getElementById("variables"),
+        LAccessParsed
+        .filter(e => propertyIsTrue(e[LAccessProperties.indexOf("sensor")]))
+        .map(e => '@' + e[LAccessNamePropertyIndex])
+    );
+
+    // control
+    loadHTMLFromArray(
+        document.getElementById("controlMenu"),
+        LAccessParsed
+        .filter(e => propertyIsTrue(e[LAccessProperties.indexOf("control")]))
+        .map(e => e[LAccessNamePropertyIndex])
+    );
+
+    // setprop
+    loadHTMLFromArray(
+        document.getElementById("setProp"),
+        LAccessParsed
+        .filter(e => propertyIsTrue(e[LAccessProperties.indexOf("setprop")]))
+        .map(e => '@' + e[LAccessNamePropertyIndex])
+    );
+}
+
+loadLAccessHTML();
+
 
 //####################################################################################################################################
 // add instruction function
@@ -78,6 +192,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable iNo toggleableField" order="5" contenteditable="true">${field6 || '0'}</span>
                     <span class="toggleableField" order="66">a</span>
                     <span class="editable iNo toggleableField" order="6" contenteditable="true">${field7 || '0'}</span>`
+            tpmId = "drawMenu";
             break;
         case 'Print':
             code = `<span class="editable iNo" id="string" contenteditable="true">${field1 || '\"frog\"'}</span>`
@@ -114,6 +229,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable blockControl toggleableField" id="field3Value" contenteditable="true" order="4">${field4 || '0'}</span>
                     <span class="toggleableField" id="field4" order="55"></span>
                     <span class="editable blockControl toggleableField" id="field4Value" contenteditable="true" order="5">${field5 || '0'}</span>`
+            tpmId = "controlMenu";
             break;
         case 'Radar':
             code = `<span>from</span>
@@ -148,8 +264,9 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span class="editable operation" contenteditable="true" order="2">${field2 || 'result'}</span>
                     <span>=</span>
                     <span class="editable operation" contenteditable="true" order="3">${field3 || 'a'}</span>
-                    <span class="editable operation" id="operation" order="1" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
+                    <span class="editable operation selectionValue" id="operation" order="1" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event,'opSuggestion', null, null, 1)">${field1 || '*'}</span>
                     <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'b'}</span>`
+            tpmId = "opMenu";
             break;
         case 'Lookup':
             code = `<span class="editable operation" contenteditable="true" id="field1Value">${field2 || 'result'}</span>
@@ -189,6 +306,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     </div>
                     <canvas class="jumpArrow" width=60></canvas>
                     <img src="image/logic-node.png" alt="" class="jumpArrowTriangle" draggable="false">`
+            tpmId = "jumpMenu";
             break;
         case 'Unit Bind':
             code = `<span>type</span>
@@ -206,6 +324,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable unitControl toggleableField" id="field4Value" contenteditable="true" order="5">${field5 || '0'}</span>
                     <span class="toggleableField" id="field5" order="55">y</span>
                     <span class="editable unitControl toggleableField" id="field5Value" contenteditable="true" order="6">${field6 || '0'}</span>`
+            tpmId = "ucontrolMenu";
             break;
         case 'Unit Radar':
             code = `<span>target</span>
@@ -463,6 +582,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="toggleableField" order="55"></span>
                     <span class="editable world toggleableField" contenteditable="true" order="5">${field5 || '0'}</span>
                     `
+            tpmId = "setMarkerMenu";
             break;
         case 'Make Marker':
             code = `<span class="editable world selectionValue" contenteditable="true" onclick="popUpMenu(event,'makeMarkerMenu')" oninput="selectOption(event,'makeMarkerMenu', null, null, 1)" order="1">${field1 || 'shape'}</span>
@@ -2702,6 +2822,7 @@ async function importCode(manual,codeSaved){
             if (['Control', 
                 'Draw', 
                 'Unit Control', 
+                'Operation',
                 'Jump', 
                 'Set Rule', 
                 'Set Block', 
