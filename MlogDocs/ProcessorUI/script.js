@@ -98,7 +98,6 @@ async function loadLAccessHTML (){
     const LAccessProperties = ["name", "sensor", "control", "setprop"];
     const LAccessParsed = parseMimexData(LAccessRaw, LAccessProperties);
 
-    console.log(LAccessParsed);
     const LAccessNamePropertyIndex = LAccessProperties.indexOf("name");
     const propertyIsTrue = s => (
         ["true", "1"].includes(s)
@@ -145,7 +144,7 @@ buttons.forEach(button => {
     button.addEventListener('click', () => addInstruction(button))
 });
     
-function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8, field9, triggerPopupMenu){
+function addInstruction(button, update, field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13, triggerPopupMenu){
     const pfstart = performance.now()
     
     if (typeof button === 'string') {
@@ -413,6 +412,36 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable world" contenteditable="true" order="5">${field5 || '@sharded'}</span>
                     <span>rot</span>
                     <span class="editable world" contenteditable="true" order="4">${field4 || '90'}</span>`
+            break;
+        case 'Spawn Bullet':
+            // uhhhhhh
+            code = `<span class="editable world" contenteditable="true">${field1 || 'result'}</span>
+                    <span>=</span>
+                    <span>bullet</span>
+                    <span>from</span>
+                    <span class="editable world" contenteditable="true">${field2 || '@dagger'}</span>
+                    <span>index</span>
+                    <span class="editable world" contenteditable="true">${field3 || '0'}</span>
+                    <span>x</span>
+                    <span class="editable world" contenteditable="true">${field4 || 'x'}</span>
+                    <span>y</span>
+                    <span class="editable world" contenteditable="true">${field5 || 'y'}</span>
+                    <span>rotation</span>
+                    <span class="editable world" contenteditable="true">${field6 || 'angle'}</span>
+                    <span>team</span>
+                    <span class="editable world" contenteditable="true">${field7 || 'null'}</span>
+                    <span>owner</span>
+                    <span class="editable world" contenteditable="true">${field8 || 'null'}</span>
+                    <span>damage</span>
+                    <span class="editable world" contenteditable="true">${field9 || '-1'}</span>
+                    <span>velocityScl</span>
+                    <span class="editable world" contenteditable="true">${field10 || '1'}</span>
+                    <span>lifeScl</span>
+                    <span class="editable world" contenteditable="true">${field11 || '1'}</span>
+                    <span>aimX</span>
+                    <span class="editable world" contenteditable="true">${field12 || '-1'}</span>
+                    <span>aimY</span>
+                    <span class="editable world" contenteditable="true">${field13 || '-1'}</span>`
             break;
         case 'Apply Status':
             field1 = field1 === 'true' ? 'clear' : (field1 === 'false' ? 'apply' : field1);
@@ -2551,6 +2580,7 @@ let instTypeMap = {
     'Get Block'     : 'getblock',
     'Set Block'     : 'setblock',
     'Spawn Unit'    : 'spawn',
+    'Spawn Bullet'  : 'bullet',
     // 'Apply Status'  : 'status',
     'Weather Sense' : 'weathersense',
     'Weather Set'   : 'weatherset',
@@ -2744,6 +2774,7 @@ let instTypeMapR = {
     'getblock'     : 'Get Block',
     'setblock'     : 'Set Block',
     'spawn'        : 'Spawn Unit',
+    'bullet'       : 'Spawn Bullet',
     'status'       : 'Apply Status',
     'weathersense' : 'Weather Sense',
     'weatherset'   : 'Weather Set',
