@@ -258,7 +258,7 @@ basic_concept:
             {br} {code:String:field} is a {link:string:#strings} of characters
             {br} {code:Content:field} is a {link:Content_name:#contentname}
             {br} {code:Building:field} is a {link:Building_Reference:#building-reference}
-            {br} {code:Building:field} is a {link:Unit_Reference:#building-reference}
+            {br} {code:Unit:field} is a {link:Unit_Reference:#building-reference}
             {br} the {code:edit} button ({img:image/ui5.png:top15 width120}) opens a menu to export/import codes
             {br} {img:image/ui2.png:width300 left160 mtop20}
             {br} when clicking “Copy to Clipboard” it will copy the code of the processor to your clipboard, 
@@ -276,6 +276,7 @@ basic_concept:
         Content: Content
         Content_name: Content name
         Building: Building
+        Unit: Unit
         Building_Reference: Building Reference
         Unit_Reference: Unit Reference
     how_processor_run_its_code:
