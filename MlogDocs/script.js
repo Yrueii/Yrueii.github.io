@@ -452,6 +452,9 @@ async function loadLang(version, lang) {
   for (const [key, value] of Object.entries(tableOfContentsObj)) {
     const link = document.createElement('a');
     const li = document.createElement('li');
+    if (value == "{delete}"){
+      continue
+    }
     link.href = `#${key}`;
     link.textContent = value;
     link.classList.add('sidebar-link');

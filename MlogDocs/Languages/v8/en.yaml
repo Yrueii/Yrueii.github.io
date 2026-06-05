@@ -113,7 +113,7 @@ table_of_contents:
     extras: Extras
     mindustry-coordinate-system: Mindustry Coordinate System
     configure-turns-to-config: The word configure turns to config
-    you-cannot-spawn-scathe-missile: You cannot spawn Scathe missles
+    you-cannot-spawn-scathe-missile: "{delete}"
     modded-items-and-draw-image: Modded items and Draw Image
     ai-chatbot-doenst-understand-mlog: AI Chatbot doesn't understand Mlog
     getting-unit-cap: Getting unit cap
@@ -2728,7 +2728,7 @@ extras:
         config: config
         configure: configure
     you_cannot_spawn_scathe_missile:
-        title: "You cannot spawn Scathe missile"
+        title: "{delete:1:0}"
         content: |
             To spawn a Scathe missile you have to spawn a unit capable of carrying a payload, set that unit payload to scathe missile using {code:setprop:wp} and {code:scathemissle:content-name}, make the unit drop the payload and then kill the unit
             {br}you can also setprop properties of the scathe missile.
