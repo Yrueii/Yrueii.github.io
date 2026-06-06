@@ -703,6 +703,18 @@ instructions:
             image: image
             size: size
             rotation: rotation
+        translate:
+            title: "{delete:1}"
+            content: "{delete:0}"
+        scale:
+            title: "{delete:1}"
+            content: "{delete:0}"
+        rotate:
+            title: "{delete:1}"
+            content: "{delete:0}"
+        reset:
+            title: "{delete:1}"
+            content: "{delete:0}"
     drawflush:
         title: Draw Flush
         content: Flush the queued draw instruction(s) from the draw buffer to the specified displays with its building reference
@@ -2070,10 +2082,13 @@ world_logic:
             {br}{code:to:field} value
     make_marker:
         title: "{delete:2}"
-        content: 
+        content: "{delete:0}"
     set_marker:
         title: "{delete:2}"
-        content: 
+        content: "{delete:0:1}"
+    locale_print:
+        title: "{delete:2}"
+        content: "{delete:0}"
 
 
 bleeding_edge:

@@ -312,7 +312,7 @@ body::-webkit-scrollbar-thumb {
     position: absolute;
     display: flex;
     left: auto;
-    right: 0;
+    right: -10px;
     width: 60px;
     transform: scaleX(-1);
     z-index: 1;
@@ -415,7 +415,7 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar-right.open .sidebar-pull-tab {
     right: auto;
-    left: 0;
+    left: -10px;
     transform: none;
 }
 
@@ -1203,5 +1203,5 @@ code.aqu {
 }
 
 .hidden {
-    display:none;
+    display:none !important;
 }

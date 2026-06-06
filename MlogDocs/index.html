@@ -36,20 +36,7 @@
     <div class="container">
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-pull-tab" id="sidebar-pull-tab-left">
-                <svg width="100%" viewBox="445 18 55 84" xmlns="http://www.w3.org/2000/svg" role="img">
-                    <path
-                        d="M445 20
-                            Q445 40 460 40
-                            L470 40
-                            A10 10 0 0 1 470 80
-                            L460 80
-                            Q445 80 445 100
-                            Z"
-                        fill="var(--sidebar-bg-color)"
-                        stroke="var(--sidebar-border-color)"
-                        stroke-width="1"
-                    />
-                </svg>
+                <svg width="55" viewBox="442 18 55 84" xmlns="http://www.w3.org/2000/svg" height="84"><path d="M448.097 19.288q0 20 15 20h10c15.396 0 25.019 16.667 17.321 30a20 20 0 0 1-17.321 10h-10q-15 0-15 20H443v-80Z" fill="var(--sidebar-bg-color)" stroke="var(--sidebar-border-color)"/></svg>
                 <div>&#9776;</div>
             </div>
             <div class="toc">
@@ -60,20 +47,7 @@
         </aside>
         <aside class="sidebar-right" id="sidebar-right">
             <div class="sidebar-pull-tab" id="sidebar-pull-tab-right">
-                <svg width="100%" viewBox="445 18 55 84" xmlns="http://www.w3.org/2000/svg" role="img">
-                    <path
-                        d="M445 20
-                            Q445 40 460 40
-                            L470 40
-                            A10 10 0 0 1 470 80
-                            L460 80
-                            Q445 80 445 100
-                            Z"
-                        fill="var(--sidebar-bg-color)"
-                        stroke="var(--sidebar-border-color)"
-                        stroke-width="1"
-                    />
-                </svg>
+                <svg width="55" viewBox="442 18 55 84" xmlns="http://www.w3.org/2000/svg" height="84"><path d="M448.097 19.288q0 20 15 20h10c15.396 0 25.019 16.667 17.321 30a20 20 0 0 1-17.321 10h-10q-15 0-15 20H443v-80Z" fill="var(--sidebar-bg-color)" stroke="var(--sidebar-border-color)"/></svg>
                 <div>&#9776;</div>
             </div>
             <div class="side-links">
@@ -309,6 +283,14 @@
                                 <p class="ti" data-i18n="instructions.draw.print.content"></p>
                             <li><b data-i18n="instructions.draw.image.title"></b></li>
                                 <p class="ti" data-i18n="instructions.draw.image.content"></p>
+                            <li><b data-i18n="instructions.draw.translate.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.translate.content"></p>
+                            <li><b data-i18n="instructions.draw.scale.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.scale.content"></p>
+                            <li><b data-i18n="instructions.draw.rotate.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.rotate.content"></p>
+                            <li><b data-i18n="instructions.draw.reset.title"></b></li>
+                                <p class="ti" data-i18n="instructions.draw.reset.content"></p>
                         </ol>
                     </section>
                     <section id="draw-flush">
@@ -808,11 +790,33 @@
                             <li><h2 data-i18n="world_logic.make_marker.title"></li></h2>
                             <!-- <img alt="alt" src="image/make marker.png" style="max-width: 85vw !important;"> -->
                             <p data-i18n="world_logic.make_marker.content"></p>
+                            <div style="display: flex; flex-wrap: wrap;">
+                                <figure style="margin-left: 0; text-align: center;">
+                                    <img src="image/quad.png" alt="" height="200px">
+                                    <figcaption>Default quad</figcaption>
+                                </figure>
+                                <figure style="margin-left: 0; text-align: center;">
+                                    <img src="image/quad router.png" alt="" height="200px">
+                                    <figcaption>Quad with texture and uvi</figcaption>
+                                </figure>
+                                <figure style="margin-left: 0; text-align: center;">
+                                    <img src="image/quad colori.png" alt="" height="200px">
+                                    <figcaption>Stretched Quad with colori</figcaption>
+                                </figure>
+                                <figure style="margin-left: 0; text-align: center;">
+                                    <img src="image/raycast.png" alt="" height="200px">
+                                    <figcaption>Raycast displayed using quads</figcaption>
+                                </figure>
+                            </div>
                         </section>
                         <section id="set-marker">
                             <li><h2 data-i18n="world_logic.set_marker.title"></li></h2>
                             <!-- <img alt="alt" src="image/set marker.png" style="max-width: 85vw !important;"> -->
                             <p data-i18n="world_logic.set_marker.content"></p>
+                        </section>
+                        <section id="locale-print">
+                            <li><h2 data-i18n="world_logic.locale_print.title"></li></h2>
+                            <p data-i18n="world_logic.locale_print.content"></p>
                         </section>
                     </ol>
 

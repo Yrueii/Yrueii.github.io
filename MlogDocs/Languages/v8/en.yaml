@@ -107,6 +107,7 @@ table_of_contents:
     set-prop: Set Prop
     make-marker: Make Marker
     set-marker: Set Marker
+    locale-print: Locale Print
     
     bleeding-edge: Bleeding Edge(WIP)
 
@@ -720,15 +721,19 @@ instructions:
         image:
             title: Image
             content: |
-                Draws an image of something from the game with {link:contentname:#contentname}, such as {code:dagger:content-name} or {code:copper:content-name} with its center as its origin,
-                {br}if it draws a picture of (oh no) that means whatever you're trying to draw either doesn't exist or not supported, the only work around is drawing it manually,
-                though the {link:be:#bleeding-edge} version supports more content
+                Draws an image of something from the game with {link:contentname:#contentname}, such as {code:dagger:content-name} or {code:copper:content-name} with its center as its origin.
+                {br}Can also copy contents of a display to another display, by putting block reference of the display you're trying to copy on the {code:image:field} field.
+                {br}If it draws a picture of (oh no) that means whatever you're trying to draw either doesn't exist or not supported, the only work around is drawing it manually.
                 {br}{img:image/draw image.png:mwidth80vw}{br}
                 {code:x:field}, {code:y:field} is the of coordinates{br}
                 {code:image:field} is what image it will draw, you put object name here, like {code:dagger:content-name}{br}
                 {code:size:field} is the size of the image{br}
                 {code:rotation:field} will rotate the image, in degrees{br}
                 {b:nomod}
+            drawflush: "drawflush"
+            draw_image_0_0_display1_32_0_0: "draw image 0 0 display1 32 0 0"
+            drawflush_display2: "drawflush display2"
+
             contentname: content name
             nomod: cannot draw modded items!
             dagger: "@dagger"
@@ -739,6 +744,29 @@ instructions:
             image: image
             size: size
             rotation: rotation
+        translate:
+            title: Translate
+            content: |
+                Translate / offset the display coordinates, this instruction is cumulative, meaning it translate it by the specified number every flush.
+                {br}example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30.
+                {br}like said above it is cumulative, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
+                {br}also is stored in the display like any other draw instruction, meaning if other processors draw to that display it will also be translated.
+                {br}to reset it use draw reset.
+        scale:
+            title: Scale
+            content: |
+                scale the display coordinates / zooms it, this is also cumulative and stored in the display like translate.
+                {br}example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40.
+                {br}if you run and flush scale 2, 2 again it will scale it again by 2 times again.
+                {br}running scale 1,2 will work as you expected, scaling the y while not scaling the x.
+        rotate:
+            title: Rotate
+            content: |
+                rotate the display coordinates by a degree, also cumulative and stored in the display like translate and scale.
+        reset:
+            title: Reset
+            content: "resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one."
+
     drawflush:
         title: Draw Flush
         content: Flush the queued draw instruction(s) from the draw buffer to the specified displays with its building reference
@@ -2015,7 +2043,6 @@ world_logic:
         ground: "ground"
         pierce: "pierce"
         effect: "effect"
-
     set_rate:
         title: "Set Rate"
         content: "Set the speed of the processor, in instruction per tick, 1 second = 60 ticks"
@@ -2119,9 +2146,6 @@ world_logic:
             bulletlifetime:
                 title: "@bulletLifetime"
                 content:
-
-
-
     make_marker:
         title: "Make Marker"
         content: |
@@ -2181,8 +2205,6 @@ world_logic:
         quad: "Quad"
         setmarker_posi: "setmarker posi"
         setmarker_uvi: "setmarker uvi"
-
-
     set_marker:
         title: "Set Marker"
         content: |
@@ -2320,7 +2342,51 @@ world_logic:
         line: "line"
         shape: "shape"
         texture: "Texture"
-
+    # FIX {code:name} 
+    locale_print:
+        title: Locale Print
+        content: |
+            Prints a property from the map locale bundles to the text buffer,
+            allowing to create multi-language maps by displaying different localized texts corresponding to the player's selected language.
+            {br}Locale bundles are accessible in the map editor, {code:map_info} -> {code:locale_bundles}
+            {br}{img:image/localeprint.png:_}
+            {br}in the left side add your languages, each languages can have different properties, to add properties click {code:add} on the right side.
+            {br}A property have a name and a value, the name is what you write on the {code:locale_print:wp} instruction, the {code:locale_print:wp}
+            instruction then gets the value of that property according to the player's language and then put them in the print buffer, can then be
+            {code:print_flush:draw}ed as normal.
+            {br}
+            {br}so for example if you have a property in the English language named {code:welcome} you can {code:locale_print_welcome:wp}, this will put
+            the property values of {code:welcome} to the processor print buffer, in this case {code:welcome_this_text_will_appear_for_player}.,
+            if the player's language is English.
+            {br}
+            {br}when you create a new property it usually copies itself to all of your added languages, unless you disable {code:apply_changes_to_all_locales:field} at the top of the locale bundles menu.
+            if a language does not have a property that other languages have, that property in languages that does have it will have a yellow border, meaning there are a language(s) in your selection that does not have a property
+            with that name, if you try to {code:locale_print:wp} this it will default to the properties in English, if there is no properties in English too will output {code:localename} 
+            {br}a blue border on properties means the value of that properties is the same accros language(s)
+            {br}here's an example:
+            {br}{img:image/localeprintexample.png:_}
+            {br}
+            {br}property values supports formatting like normal {code:print:draw} does, like placeholders {code:0}, colors {code:red},
+            newlines {code:n}
+            {br}
+            {br}for mobile devices you can add {code:mobile} at the end of the property name, for example {code:welcomemobile}, if players are on mobile
+            the instruction {code:locale_print_welcome:wp} will search properties ending with {code:mobile} first and displays that, if it doesn't exist
+            will use the regular {code:welcome} property instead
+        map_info: "Map Info"
+        locale_bundles: "Locale Bundles"
+        add: "add"
+        locale_print: "locale print"
+        print_flush: "print flush"
+        welcome: "welcome"
+        locale_print_welcome: "locale print \"welcome\""
+        welcome_this_text_will_appear_for_player: "Welcome (this text will appear for players using English)"
+        apply_changes_to_all_locales: "Apply Changes To All Locales"
+        print: "print"
+        red: "[red]"
+        n: "\\n"
+        mobile: ".mobile"
+        welcomemobile: "welcome.mobile"
+        localename: "???{name}???"
 
 bleeding_edge:
     title: "Bleeding Edge"
@@ -2369,45 +2435,19 @@ bleeding_edge:
         {br}note that this instruction will not be available if the rule of "Logic Unit Deconstruction" is disabled in the world/map rule settings
     ucontrol_deconstruct_0_0_0_0_0: "ucontrol deconstruct 0 0 0 0 0"
     unit: "@unit"
-    title8: "Draw image"
-    content8: "Draw image now supports more contents, like floors (@salt, @ice) and more"
-    content9: |
-        Draw image now can copy contents of a display to another display
-        {br}by putting block reference of the display you're trying to copy on the {code:image:field} field then {code:drawflush:draw}-ing it to another display
-        {br}example:
-        {br}
-        {code:draw_image_0_0_display1_32_0_0:draw}
-        {br}
-        {code:drawflush_display2:control}
-        {br}
-        will copy the content of display1 to display2
-        {br}
-        {br}note that the copied content will be affected like normal image, meaning translate/scale/rotate
-        {br}copied contents origin is the center of the display
-    image: "image"
-    drawflush: "drawflush"
-    draw_image_0_0_display1_32_0_0: "draw image 0 0 display1 32 0 0"
-    drawflush_display2: "drawflush display2"
+    title8: "{delete:1}"
+    content8: "{delete:0}"
+    content9: "{delete:0:1}"
     title9: "{delete:1}"
     content10: "{delete:0:1}"
-    title10: "Draw Translate"
-    content11: |
-        Translate / offset the display coordinates, this instruction is cumulative, meaning it translate it by the specified number every flush.
-        {br}example: you draw something at 20, 20, running and flushing translate 10,10 will offset the display coordinates by 10, so your (draw at 20,20) is now appeared as it was drawn on 30,30.
-        {br}like said above it is cumulative, if you run and flush translate 10, 10 again it will offset it again by 10, so your (draw at 20,20) is now appeared as it was drawn on 40,40.
-        {br}also is stored in the display like any other draw instruction, meaning if other processors draw to that display it will also be translated.
-        {br}to reset it use draw reset.
-    title11: "Draw Scale"
-    content12: |
-        scale the display coordinates / zooms it, this is also cumulative and stored in the display like translate.
-        {br}example: you draw a rectangle at 20, 20 with width and height of 20, 20, if you draw scale 2, 2 the rectangle will appear 2 times bigger / appeared as it was drawn with width and height of 40, 40.
-        {br}if you run and flush scale 2, 2 again it will scale it again by 2 times again.
-        {br}running scale 1,2 will work as you expected, scaling the y while not scaling the x.
-    title12: "Draw Rotate"
-    content13: |
-        self explanatory, rotate the display coordinates by a degree, also cumulative and stored in the display like translate and scale.
-    title13: "Draw Reset"
-    content14: "resets all previous translate,scale,and rotate / will make your display coordinates normal / as it was like a new one."
+    title10: "{delete:1}"
+    content11: "{delete:0:1}"
+    title11: "{delete:1}"
+    content12: "{delete:0:1}"
+    title12: "{delete:1}"
+    content13: "{delete:0:1}"
+    title13: "{delete:1}"
+    content14: "{delete:0:1}"
     title14: "{delete:1}"
     content15: "{delete:0:1}"
     title15: "Play Sound"
@@ -2431,7 +2471,7 @@ bleeding_edge:
     title17: "Weather Set"
     content18: "set the current state of the weather to the specified type"
     title18: "{delete:1}"
-    content19: "{delete:0}"
+    content19: "{delete:0:1}"
     id: "id"
     replace: "replace"
     x: "x"
@@ -2446,53 +2486,11 @@ bleeding_edge:
     quad: "Quad"
     setmarker_posi: "setmarker posi"
     setmarker_uvi: "setmarker uvi"
-    content20: "{br}{span:TOADD:toadd}"
+    content20: "{delete:0:1}"
     title19: "{delete:1}"
     content21: "{delete:0:1}"
-    title20: "Locale Print"
-    # FIX {code:name} 
-    content22: |
-        Prints a property from the map locale bundles to the text buffer,
-        allowing to create multi-language maps by displaying different localized texts corresponding to the player's selected language.
-        {br}Locale bundles are accessible in the map editor, {code:map_info} -> {code:locale_bundles}
-        {br}{img:image/localeprint.png:_}
-        {br}in the left side add your languages, each languages can have different properties, to add properties click {code:add} on the right side.
-        {br}A property have a name and a value, the name is what you write on the {code:locale_print:wp} instruction, the {code:locale_print:wp}
-        instruction then gets the value of that property according to the player's language and then put them in the print buffer, can then be
-        {code:print_flush:draw}ed as normal.
-        {br}
-        {br}so for example if you have a property in the English language named {code:welcome} you can {code:locale_print_welcome:wp}, this will put
-        the property values of {code:welcome} to the processor print buffer, in this case {code:welcome_this_text_will_appear_for_player}.,
-        if the player's language is English.
-        {br}
-        {br}when you create a new property it usually copies itself to all of your added languages, unless you disable {code:apply_changes_to_all_locales:field} at the top of the locale bundles menu.
-        if a language does not have a property that other languages have, that property in languages that does have it will have a yellow border, meaning there are a language(s) in your selection that does not have a property
-        with that name, if you try to {code:locale_print:wp} this it will default to the properties in English, if there is no properties in English too will output {code:localename} 
-        {br}a blue border on properties means the value of that properties is the same accros language(s)
-        {br}here's an example:
-        {br}{img:image/localeprintexample.png:_}
-        {br}
-        {br}property values supports formatting like normal {code:print:draw} does, like placeholders {code:0}, colors {code:red},
-        newlines {code:n}
-        {br}
-        {br}for mobile devices you can add {code:mobile} at the end of the property name, for example {code:welcomemobile}, if players are on mobile
-        the instruction {code:locale_print_welcome:wp} will search properties ending with {code:mobile} first and displays that, if it doesn't exist
-        will use the regular {code:welcome} property instead
-    map_info: "Map Info"
-    locale_bundles: "Locale Bundles"
-    add: "add"
-    locale_print: "locale print"
-    print_flush: "print flush"
-    welcome: "welcome"
-    locale_print_welcome: "locale print \"welcome\""
-    welcome_this_text_will_appear_for_player: "Welcome (this text will appear for players using English)"
-    apply_changes_to_all_locales: "Apply Changes To All Locales"
-    print: "print"
-    red: "[red]"
-    n: "\\n"
-    mobile: ".mobile"
-    welcomemobile: "welcome.mobile"
-    localename: "???{name}???"
+    title20: "{delete:1}"
+    content22: "{delete:0:1}"
     title21: "unpackcolor"
     content23: |
         New instructions
