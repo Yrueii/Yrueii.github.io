@@ -48,7 +48,7 @@ li b {
 }
 
 .code{
-    background-color: rgb(38, 36, 44);
+    background-color: var(--bg-surface);
     padding: 20px;
     border-radius: 20px;
     display: inline-block;
@@ -61,8 +61,8 @@ li b {
     border-radius: 7px;
     overflow: auto;
     padding: 0px 30px 0px 30px;
-    background-color: rgb(38, 36, 44);
-    border: 1px solid rgb(38, 36, 44);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--bg-surface);
     font-family: monospace;
     white-space: pre-wrap;
     
@@ -74,13 +74,13 @@ li b {
 }
 
 .codebox::-webkit-scrollbar-track {
-    background: rgb(38, 36, 44);      
+    background: var(--bg-surface);      
 }
 
 .codebox::-webkit-scrollbar-thumb {
     background-color: #555;    
     border-radius: 7px;        
-    border: 1px solid rgb(38, 36, 44);   
+    border: 1px solid var(--bg-surface);   
 }
 
 .codebox::-webkit-scrollbar-thumb:hover {

@@ -4,19 +4,13 @@
   } */
 
 @font-face {
-    font-family: 'Audiowide';
-    src: url('./font/Audiowide-Regular.ttf') format('truetype'); 
-    /* font-weight: 400; */
-    /* font-style: normal; */
-}
-@font-face {
-    font-family: 'Mindustry';
-    src: url('./font/Mindustry-Font.woff') format('truetype'); 
-    font-weight: 700;
+    font-family: 'IBM Plex Sans';
+    src: url('../Fonts/IBM/IBMPlexSans-VariableFont_wdth,wght.ttf') format('truetype'); 
+    /* font-weight: 700; */
     /* font-style: normal; */
 }
 
-:root{
+/* :root{
     --bg-color: #1e2229;
     --sidebar-bg-color: #16191f;
     --sidebar-border-color: #30363d;
@@ -25,14 +19,12 @@
     --secondary-color: #7ed4ff;
     --accent-color: #6b84d4;
     --error-color: #ff0000;
-}
+} */
 
 * {
-    /* font-family: "Audiowide", sans-serif; */ /* this is mindustry font but it looks weird */
-    /* font-weight: 100; */
-    font-family: Arial, sans-serif;
+    font-family: "IBM Plex Sans", sans-serif;
     line-height: 24px;
-    color: var(--text-color);
+    color: var(--text-primary);
 }
 
 data{
@@ -166,7 +158,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    background-color: var(--bg-color);
+    background-color: var(--bg-base);
 }
 
 body::-webkit-scrollbar {
@@ -203,7 +195,7 @@ body::-webkit-scrollbar-thumb {
     position: absolute;
     top: 15px;
     right: 35px;
-    color: var(--text-color);
+    color: var(--text-primary);
     font-size: 40px;
     font-weight: bold;
     transition: 0.3s;
@@ -263,7 +255,7 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar {
     width: auto;
-    background-color: var(--sidebar-bg-color);
+    background-color: var(--bg-deep);
     /* padding: 20px 10px 20px 20px; */
     position: fixed;   
     /* position: relative;  */
@@ -272,7 +264,7 @@ body::-webkit-scrollbar-thumb {
     transition: left 0.3s ease;
     /* overflow-y: auto; */
     z-index: 999; /* Ensure it is below the hamburger menu */
-    border: 1px solid var(--sidebar-border-color);
+    border: 1px solid var(--bg-elevated);
 }
 
 .sidebar .toc {
@@ -350,12 +342,12 @@ body::-webkit-scrollbar-thumb {
 
 .sidebar-right {
     width: auto;
-    background-color: var(--sidebar-bg-color);
+    background-color: var(--bg-deep);
     position: fixed;   
     height: 100dvh;
     transition: left 0.3s ease;
     z-index: 999;
-    border: 1px solid var(--sidebar-border-color);
+    border: 1px solid var(--bg-elevated);
 
 
     right: -288px; /* Initially hidden */
@@ -723,7 +715,7 @@ section {
 }
 
 .link {
-    color:var(--primary-color) ;
+    color:var(--link-primary) ;
 }
 
 .lg ,.lg sub, .lg sup {
@@ -795,7 +787,7 @@ section {
     all: unset;
     padding-bottom: 0.3em;
     cursor: pointer;
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--link-primary);
 }
 
 img {
@@ -834,7 +826,7 @@ ol.custom-list li::before {
 }
 
 .ytlink {
-    background-color: var(--secondary-color);
+    background-color: var(--link-secondary);
     color: black;
     border-radius: 10px;
     justify-content: center;
@@ -892,9 +884,9 @@ th {
 
 a {
     position: relative;
-    color: var(--primary-color);
+    color: var(--link-primary);
     text-decoration: none;
-    border-bottom: 2px solid var(--primary-color);
+    border-bottom: 2px solid var(--link-primary);
 }
 
 a .tooltip {
@@ -1097,8 +1089,8 @@ iframe {
     /* padding: 1rem 1.5rem; */
     top: 100%;
     left: 0px;
-    background-color: var(--sidebar-bg-color);
-    border: 1px solid var(--sidebar-border-color);
+    background-color: var(--bg-deep);
+    border: 1px solid var(--bg-elevated);
     border-radius: 10px;
     border-top-left-radius: 0;
     cursor: default;
@@ -1118,8 +1110,8 @@ iframe {
 
 .language-selection-button:hover {
     cursor: pointer;
-    color: var(--primary-color);
-    background-color: var(--sidebar-border-color);
+    color: var(--link-primary);
+    background-color: var(--bg-elevated);
 }
 
 .language-selection-button::after {
@@ -1130,7 +1122,7 @@ iframe {
     margin-left: 5px;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
-    border-top: 5px solid var(--text-color);
+    border-top: 5px solid var(--text-primary);
 }
 
 .lang-footer, .lang-body, .lang-header {
@@ -1141,13 +1133,13 @@ iframe {
     margin-top: 1rem;
     padding-bottom: 1rem;
     font-size: large;
-    color: var(--text-color);
-    border-top: 1px solid var(--sidebar-border-color);
+    color: var(--text-primary);
+    border-top: 1px solid var(--bg-elevated);
 }
 .lang-header {
     font-size: larger;
-    color: var(--text-color);
-    border-bottom: 1px solid var(--sidebar-border-color);
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--bg-elevated);
 }
 
 .lang-list-container {
@@ -1165,7 +1157,7 @@ iframe {
 
 .lang-active {
     /* content: "."; */
-    background-color: var(--sidebar-border-color);
+    background-color: var(--bg-elevated);
     display: flex;
     align-items: center;
     border-radius: 2px;

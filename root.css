@@ -1,0 +1,45 @@
+:root {
+    --bg-deep:       #16191f;
+    --bg-base:       #1a1d24;
+    --bg-surface:    #21252f;
+    --bg-elevated:   #2a2e3a;
+
+    --accent:        #00e5cc;
+    --accent-hover:  #00c9b2;
+    --accent-dim:    rgba(0, 229, 204, 0.12);
+
+    --text-primary:  #d9e3f7;
+    --text-muted:    #9aa0ad;
+    --text-faint:    #7a8090;
+
+    --link-primary:  #03a3f2;
+    --link-secondary:#03a3f2;
+
+    --border:        #2a2e3a;
+    --border-hover:  #3a3e4a;
+
+    --danger:        #ff4444;
+    --danger-dim:    #3a1a1a;
+    --warn:          #f9a857;
+    --label:         #bd93f9;
+
+    --font-ui:       'Outfit', sans-serif;
+    --font-mono:     'Share Tech Mono', monospace;
+
+    --radius-sm:     6px;
+    --radius-md:     10px;
+    --radius-pill:   999px;
+}
+
+@font-face {
+    font-family: 'Audiowide';
+    src: url('Fonts/Audiowide/Audiowide-Regular.ttf') format('truetype'); 
+    /* font-weight: 400; */
+    /* font-style: normal; */
+}
+@font-face {
+    font-family: 'Mindustry';
+    src: url('Fonts/Mindustry/Mindustry-Font.woff') format('truetype'); 
+    font-weight: 700;
+    /* font-style: normal; */
+}

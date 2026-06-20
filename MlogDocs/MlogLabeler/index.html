@@ -5,151 +5,183 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mlog Labeler</title>
     <script src="script.js"></script>
+    <link rel="icon" href="..\image\micro-processor.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <link href="../../root.css" rel="stylesheet">
     <style>
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Mindustry';
+        }
+
+        body {
+            background: var(--bg-base);
+            color: white;
+            min-height: 100vh;
+            padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem);
+            text-align: center;
+        }
+
+        .hero-tag {
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        h2.page-title {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        h2.page-title span { color: var(--accent); }
+        .subtitle { font-size: 0.95rem; color: #7a8090; margin-bottom: 2rem; }
+
+        .editor-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .editor-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .col-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            text-transform: uppercase;
+        }
+
         textarea {
             width: 300px;
-            height: 500px;
+            height: 440px;
             resize: none;
-            background-color: #302e38;
-            color: white;
-            border-color: #302e38;
+            background: var(--bg-surface);
+            color: var(--text-primary);
+            border: 1px solid var(--bg-elevated);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            outline: none;
+            transition: border-color 0.2s;
         }
-        textarea::-webkit-scrollbar {
-            width: 12px;
-        }
+        textarea::-webkit-scrollbar { width: 8px; }
+        textarea::-webkit-scrollbar-thumb { background: var(--bg-elevated); border-radius: 4px; }
+        textarea:focus { border-color: var(--accent); }
 
-        textarea::-webkit-scrollbar-thumb {
-            background-color: #888; 
-            border-radius: 6px;
-        }
-
-        textarea:focus {
-            border-color: rgb(34, 34, 39); 
-            outline: 2px ridge #182b44;
-        }
+        .btn-row { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
 
         button {
-            background-color: #4CAF50; /* Green background */
-            color: white;              /* White text */
-            padding: 12px 24px;         /* Padding */
-            border: none;               /* Remove default border */
-            border-radius: 8px;         /* Rounded corners */
-            cursor: pointer;            /* Pointer cursor on hover */
-            font-size: 16px;            /* Text size */
-            font-family: Arial, sans-serif; /* Font family */
-            outline: 5px ridge rgba(34, 85, 82, 0.6);
-            border-radius: 2rem;
+            font-size: 0.88rem;
+            font-weight: 500;
+            padding: 8px 20px;
+            border: 1px solid var(--bg-elevated);
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.2s;
+            outline: none;
+            background: var(--bg-surface);
+            color: var(--text-primary);
         }
+        button:hover { background: var(--bg-elevated); border-color: var(--accent); color: var(--accent); }
 
-        /* Button hover effect */
-        button:hover {
-            background-color: #45a049; /* Darker green when hovered */
-        }
-
-        @media (max-width: 668px) {
-            .input{
-                padding-right: 0 !important;
-            }
-
-        }
-        
-        .codebox {
-            height: fit-content;
-            width: fit-content;
-            text-align: left;
-            margin: 0 auto;
-            border-radius: 7px;
-            overflow: auto;
-            padding: 0px 30px 0px 30px;
-            background-color: rgb(38, 36, 44);
-            border: 1px solid rgb(38, 36, 44);
-            font-family: monospace;
-            white-space: pre-wrap;
-        }
-
-        .toggled {
-        background-color: #4CAF50;
-        color: white;
-        }
-
-        .untoggled {
-        background-color: red;
-        color: white;
-        }
-
-        button:hover.untoggled {
-            background-color: #971111;
-        }
+        .toggled { background: var(--accent); color: #0d1117; border-color: var(--accent); }
+        .toggled:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #0d1117; }
+        .untoggled { background: #3a1a1a; color: #ff6b6b; border-color: #ff4444; }
+        .untoggled:hover { background: #4a1a1a; border-color: #ff2222; color: #ff4444; }
 
         #status {
-        opacity: 1;
-        color: rgb(0, 255, 0);
+            font-size: 0.75rem;
+            color: var(--accent);
+            min-height: 1.2rem;
         }
 
-        /* .visible {
-        opacity: 0 !important;
-        } */
-            
+        hr.divider { border: none; border-top: 1px solid #2a2e38; margin: 2.5rem 0; }
+
+        .info-section { text-align: left; max-width: 640px; margin: 0 auto; }
+        .info-title {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .info-section p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
+
+        .codebox {
+            background: var(--bg-surface);
+            border: 1px solid var(--bg-elevated);
+            border-radius: 8px;
+            padding: 1rem 1.25rem;
+            font-size: 0.82rem;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            text-align: left;
+            margin: 0.75rem 0;
+            line-height: 1.7;
+        }
+        .kw  { color: var(--accent); }
+        .str { color: #f9a857; }
+        .lbl { color: #bd93f9; }
+
+        @media (max-width: 660px) {
+            textarea { width: min(300px, 90vw); }
+        }
     </style>
 </head>
-<body 
-    style=
-    "background-color: rgb(62, 59, 73); 
-    color: white; 
-    text-align: center;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: large;
-">
+<body>
+    <div class="hero-tag">— mlog tools —</div>
+    <h2 class="page-title">Mlog <span>Labeler</span></h2>
+    <p class="subtitle">Enter unedited mlog code to add labels</p>
 
-    <h2>Mlog Labeler</h2>
-    <p style="font-size: larger;">Please enter unedited mlog code</p>
-
-    <div style="padding-right: 30px;display: inline-block;" class="input">
-        <p style="font-size: larger;">Input</p>
-        <textarea id="input" placeholder="Enter Mlog Code here"></textarea>
-        <br><button onclick="submitText()">Submit</button>
-        <button id="toggleButton" class="toggled" onclick="toggleButton()">Indent</button>
-    </div> 
-
-    <div style="display: inline-block;vertical-align: top;">
-        <p style="font-size: larger;">Output</p>
-        <textarea id="output" placeholder="Output here"></textarea>
-        <br><button onclick="copy()">Copy</button>
-        <p id="status"></p>
-    </div>
-    
-    
-    <h2>
-        what is labels?
-    </h2>
-    <p>
-        Label is a jump destination, for example
-        <div class="codebox">
-                <code>
-set i 0
-print "frog1"
-op add i i 1
-jump 1 lessThan i 2
-print "frog2"
-printflush message1
-                </code>
+    <div class="editor-row">
+        <div class="editor-col">
+            <div class="col-label">Input</div>
+            <textarea id="input" placeholder="Enter Mlog code here..."></textarea>
+            <div class="btn-row">
+                <button onclick="submitText()">Submit</button>
+                <button id="toggleButton" class="toggled" onclick="toggleButton()">Indent</button>
+            </div>
         </div>
-    can be written as
-    <div class="codebox">
-        <code>
-set i 0
-j1:
-print "frog1"
-op add i i 1
-jump j1 lessThan i 2
-print "frog2"
-printflush message1  
-        </code>
+        <div class="editor-col">
+            <div class="col-label">Output</div>
+            <textarea id="output" placeholder="Output appears here..." readonly></textarea>
+            <div class="btn-row">
+                <button onclick="copy()">Copy</button>
+            </div>
+            <p id="status"></p>
+        </div>
     </div>
-    <br>it makes writing with text editor easier since you don't have to worry about jumps jumping to the wrong line when you add line(s) in between
-    <br>it also makes it easier to read in its text form, with labels you dont have to count lines to figure out what line the jump instruction jumps to
-    </p>
-    
 
+    <hr class="divider">
+
+    <div class="info-section">
+        <div class="info-title">what are labels?</div>
+        <p>A label is a named jump destination. Instead of hardcoding line numbers, you name a position in your code and jump to it by name. This makes code easier to write and read — no more counting lines when you insert something new.</p>
+        <p>For example, this:</p>
+        <div class="codebox"><span class="kw">set</span> i 0
+<span class="kw">print</span> <span class="str">"frog1"</span>
+<span class="kw">op</span> add i i 1
+<span class="kw">jump</span> 1 lessThan i 2
+<span class="kw">print</span> <span class="str">"frog2"</span>
+<span class="kw">printflush</span> message1</div>
+        <p>can be written as:</p>
+        <div class="codebox"><span class="kw">set</span> i 0
+<span class="lbl">j1:</span>
+<span class="kw">print</span> <span class="str">"frog1"</span>
+<span class="kw">op</span> add i i 1
+<span class="kw">jump</span> <span class="lbl">j1</span> lessThan i 2
+<span class="kw">print</span> <span class="str">"frog2"</span>
+<span class="kw">printflush</span> message1</div>
+    </div>
 </body>
 </html>

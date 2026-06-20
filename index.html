@@ -4,58 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yruei</title>
-<body style="font-family: 'Courier New', Courier, monospace; background-color: rgb(37, 41, 49); color: white">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="root.css" rel="stylesheet">
     <style>
-        h1{
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--bg-base);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            padding: clamp(2rem, 6vw, 4rem) clamp(1rem, 5vw, 3rem);
+        }
+
+        .hero {
             text-align: center;
-            margin-top: 3vw;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--bg-elevated);
         }
-        h2{
-            margin-left: 20vw;
+        .hero-tag {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
         }
-        li{
-            margin-left: 20vw;
-            font-size: larger;
+        .hero h1 {
+            font-size: clamp(1.8rem, 6vw, 3rem);
+            font-weight: 600;
+            line-height: 1.15;
+            margin-bottom: 0.75rem;
         }
-        a{
-            color: aqua;
+        .hero h1 span { color: var(--accent); }
+        .hero p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: #7a8090;
+            max-width: 420px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .section-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #21252f;
+            border: 1px solid #2a2e3a;
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .link-card:hover {
+            background: #252a35;
+            border-color: var(--accent);
+        }
+
+        .link-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #1a1d24;
+            border: 1px solid #2a2e3a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .link-body { flex: 1; min-width: 0; }
+
+        .link-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #e8ecf0;
+            margin-bottom: 2px;
+        }
+        .link-url {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            color: #4a5060;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .link-card:hover .link-url { color: var(--accent); }
+
+        .wip {
+            font-size: 0.65rem;
+            font-family: 'Share Tech Mono', monospace;
+            background: #2a2e3a;
+            color: #7a8090;
+            border-radius: 4px;
+            padding: 2px 6px;
+            margin-left: 8px;
+            vertical-align: middle;
+            border: 1px solid #3a3e4a;
+        }
+
+        .arrow {
+            color: #2a2e3a;
+            font-size: 18px;
+            flex-shrink: 0;
+            transition: color 0.2s;
+        }
+        .link-card:hover .arrow { color: var(--accent); }
+
+        .footer {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #2a2e38;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+        .footer-text {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: #3a3e4a;
+            letter-spacing: 0.1em;
         }
     </style>
-    <h1 style="margin-top: 3vw;">
-        Yruei's homepage
-    </h1>
-    <h2>
-        This is my website, for programming and stuff
-    </h2>
-    <h2 style="text-indent: 25px;">
-        Links
-    </h2>
-    <li style="text-indent: 25px;">
-         Mlog Documentation </a>
-        <div style="text-indent: 50px;">
-            <a href="MlogDocs/index.html">https://yrueii.github.io/MlogDocs</a>
-        </div>
-    </li>
-    <li style="text-indent: 25px;">
-        Mlog Invention </a>
-       <div style="text-indent: 50px;">
-           <a href="MlogDocs/MlogInvention/index.html">https://yrueii.github.io/MlogDocs/MlogInvention</a>
-       </div>
-   </li>
-    <li style="text-indent: 25px;">
-            Mlog labeler </a>
-        <div style="text-indent: 50px;">
-            <a href="MlogDocs/MlogLabeler/index.html">https://yrueii.github.io/MlogDocs/MlogLabeler</a>
-        </div>
-    </li>   
-    <li style="text-indent: 25px;">
-        Interactable Processor GUI (WIP)</a>
-    <div style="text-indent: 50px;">
-        <a href="MlogDocs/ProcessorUI/index.html">https://yrueii.github.io/MlogDocs/ProcessorUI</a>
+    <!-- Tabler icons for the link icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-tag">— personal site —</div>
+        <h1>Yruei's <span>homepage</span></h1>
+        <p>Programming projects, tools, and documentation</p>
     </div>
-</li>   
 
+    <div class="section-label">links</div>
+    <div class="links">
 
-   
+        <a class="link-card" href="MlogDocs/index.html">
+            <div class="link-icon"><i class="ti ti-book" aria-hidden="true"></i></div>
+            <div class="link-body">
+                <div class="link-title">Mlog Documentation</div>
+                <div class="link-url">yrueii.github.io/MlogDocs</div>
+            </div>
+            <i class="ti ti-arrow-right arrow" aria-hidden="true"></i>
+        </a>
+
+        <a class="link-card" href="MlogDocs/MlogInvention/index.html">
+            <div class="link-icon"><i class="ti ti-bulb" aria-hidden="true"></i></div>
+            <div class="link-body">
+                <div class="link-title">Mlog Invention</div>
+                <div class="link-url">yrueii.github.io/MlogDocs/MlogInvention</div>
+            </div>
+            <i class="ti ti-arrow-right arrow" aria-hidden="true"></i>
+        </a>
+
+        <a class="link-card" href="MlogDocs/MlogLabeler/index.html">
+            <div class="link-icon"><i class="ti ti-tag" aria-hidden="true"></i></div>
+            <div class="link-body">
+                <div class="link-title">Mlog Labeler</div>
+                <div class="link-url">yrueii.github.io/MlogDocs/MlogLabeler</div>
+            </div>
+            <i class="ti ti-arrow-right arrow" aria-hidden="true"></i>
+        </a>
+
+        <a class="link-card" href="MlogDocs/ProcessorUI/index.html">
+            <div class="link-icon"><i class="ti ti-cpu" aria-hidden="true"></i></div>
+            <div class="link-body">
+                <div class="link-title">Interactable Processor GUI <span class="wip">WIP</span></div>
+                <div class="link-url">yrueii.github.io/MlogDocs/ProcessorUI</div>
+            </div>
+            <i class="ti ti-arrow-right arrow" aria-hidden="true"></i>
+        </a>
+
+    </div>
+
+    <div class="footer">
+        <div class="dot"></div>
+        <div class="footer-text">yrueii.github.io</div>
+    </div>
 </body>
 </html>

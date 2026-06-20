@@ -165,6 +165,8 @@ const tokenResolvers = {
         el.style.backgroundColor = "gray";
         el.style.color = "yellow";
         break;
+      case "accent":
+        el.style.color = "var(--accent)";
       default:
         console.warn(`Unknown hl color "${extra}" for key "${name}"`);
     }
@@ -459,7 +461,7 @@ async function loadLang(version, lang) {
   copyBtn.style.cursor = 'pointer';
 
   const tableOfContents = document.getElementById('sidebar').querySelector('ul');
-  const tableOfContentsObj = data['table_of_contents'];
+  const tableOfContentsObj = data['table_of_contents']['list'];
 
   for (const [key, value] of Object.entries(tableOfContentsObj)) {
     const link = document.createElement('a');
