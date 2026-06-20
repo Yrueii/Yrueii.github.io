@@ -62,8 +62,10 @@ table_of_contents:
     sensor: Sensor
     set: Set
     operation: Operation
+    select: Select
     lookup: Lookup
     pack-color: Pack Color
+    unpack-color: Unpack Color
     wait: Wait
     stop: Stop
     end: End
@@ -89,6 +91,7 @@ table_of_contents:
 
     world-logic: World Logic (WIP)
     how-to-get-world-processor: How to get World Processor
+    query: Query
     get-block: Get Block
     set-block: Set Block
     spawn-unit: Spawn Unit
@@ -105,6 +108,7 @@ table_of_contents:
     get-flag: Get Flag
     set-flag: Set Flag
     set-prop: Set Prop
+    play-sound: Play Sound
     make-marker: Make Marker
     set-marker: Set Marker
     locale-print: Locale Print
@@ -1175,6 +1179,23 @@ instructions:
                 title: atan
                 content: "{link:Atan:https://en.wikipedia.org/wiki/Inverse_trigonometric_functions}, in degrees"
                 Atan: Atan
+    select:
+        title: Select
+        content: |
+            A ternary operator.
+            {br}{img:image/select.png:_}
+            {br}Sets a variable to a value based on whether the condition is True or not. If not, it sets it to another value.
+            {br}{code:result:variable op} will be the variable set by this instruction.
+            {br}{code:if:field} is the condition.
+            {br}{code:then:field} is the value to set {code:result:variable op} to when the condition is {hl:_true:yel}.
+            {br}{code:else:field} is the value to set {code:result:variable op} to when the condition is {hl:_false:yel}.
+        result: result
+        if: if
+        then: then
+        else: else
+        _true: "True"
+        _false: "False"
+
     lookup:
         title: Lookup
         content: |
@@ -1209,7 +1230,7 @@ instructions:
     packcolor:
         title: Pack Color
         content: |
-            Packs RGBA color into a single number, is usually used with {link:drawcollink:#draw-col} and {link:controlcolor:#control-color}
+            Packs RGBA color into a single number, is usually used with  {code:drawcollink:draw} and {link:controlcolor:#control-color}
             {br} Since it's a single number it can be stored to 1 address on {link:cells:#cell}, 
             instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
             {img:image/pack color.png:mwidth85vw}
@@ -1220,8 +1241,9 @@ instructions:
             color when unpacked will return {hl:_4294967295:yel}, which is the maximum value of 32-bit 
             unsigned integer, converting it to binary will return {hl:_1:yel} 
             ( 8 bit for each value ), by using the {code:shr:op} and 
-            {code:bitnop:op} you can extract each color value.
-        drawcollink: "{code:drawcol:draw}" #nested token
+            {code:bitnop:op} you can extract each color value manually.
+            {br} or use {code:unpackcolor:op}.
+        drawcollink: "{link:drawcol:#draw-col}" #nested token
         drawcol: draw col
         controlcolor: control color
         cells: cells/banks
@@ -1232,6 +1254,24 @@ instructions:
         _1: "11111111111111111111111111111111"
         shr: "bit shift right operation"
         bitnop: "bitwise and operation"
+        unpackcolor: unpackcolor
+    unpackcolor:
+        title: Unpack Color
+        content: |
+            Unpack packed color to their individual value
+            {br}{img:image/unpackcolor.png:_}
+            {br}{code:r:variable op} is the variable of the red value of the packed color
+            {br}{code:g:variable op} is the variable of the green value of the packed color
+            {br}{code:b:variable op} is the variable of the blue value of the packed color
+            {br}{code:a:variable op} is the variable of the alpha value of the packed color
+            {br}{code:unpack:field} is the input for packed color, usually stems from {code:packcolor:op} instruction
+        r: r
+        g: g
+        b: b
+        a: a
+        unpack: unpack
+        packcolor: packcolor
+
     wait:
         title: Wait
         content: Wait the specified number of seconds, in other words, pausing the processor for that amount of seconds
@@ -1828,6 +1868,35 @@ world_logic:
         show_wp: "Blocks.worldProcessor.buildVisibility = BuildVisibility.shown"
         enable_testing: "Vars.state.playtestingMap=Vars.state.map"
         disable_testing: "Vars.state.playtestingMap=null"
+    query:
+        title: Query
+        content: |
+            Queries units/buildings in a specified area
+            {br}{img:image/query.png:_}
+            {br}{code:circle:variable wp} area mode, can be either circle or rect (rectangular). Determines the shape of the area to query, will fetch all units/buildings (based on query mode) in this area
+            {br}{code:unit:variable wp} query mode, can be either unit or building.
+            {br}{code:x:field} the x coordinate to query.
+            {br}{code:y:field} the y coordinate to query.
+            {br}{code:radius:field} (if circle mode), the radius of the circle area with {code:x:field} {code:y:field} as the center of the circle
+            {br}{code:width:field} (if rect mode) the width of the rectangle area with {code:x:field} {code:y:field} as the bottom left of the rectangle
+            {br}{code:height:field} (if rect mode) the height of the rectangle area with {code:x:field} {code:y:field} as the bottom left of the rectangle.
+            {br}Fetches all units/buildings references in the specified area and put them as an indexed list in the {code:_queries:variable} variable. Starts from index {hl:_0:yel}.
+            {br}References can be retrieved from {code:_queries:variable} by using {code:read:control}, by putting {code:_queries:variable} on the second field and the index on the {code:at:field} at.
+            {br}Returns regular unit/block {link:reference:#building-reference}
+
+        circle: circle
+        unit: unit
+        radius: radius
+        width: width
+        height: height
+        x: x
+        y: y
+        _queries: "@queries" 
+        _0: "0"
+        read: "{link:_read:#read}"
+        _read: read
+        at: at
+        reference: reference
     get_block:
         title: "Get block"
         content: "Get tile information at the specified coordinates"
@@ -2146,6 +2215,24 @@ world_logic:
             bulletlifetime:
                 title: "@bulletLifetime"
                 content:
+    play_sound:
+        title: Play Sound
+        content: |
+            {img:image/play sound.png:_}
+            {br}plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder.
+            {br}{code:volume:field} controls the volume of the played sound.
+            {br}{code:pitch:field} change the pitch of the played sound, .
+            {br} the formula is, pitch = 2 ^ ([semitone change] / 12 ).
+            {br} for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
+            {br} 2 ^ (12 / 12) = 2
+            {br} or c6 : 2 ^ (24 / 12) = 4
+            {br} or c3 : 2 ^ (-12 / 12) = 0.5
+            {br}{code:pan:field} pans the sound to the left or right
+            {br}{code:limit:field}, if true prevents sound from being played if the sound has already played in the same frame, this prevents ear destroying sounds
+        volume: "volume"
+        pitch: "pitch"
+        pan: "pan"
+        limit: "limit"
     make_marker:
         title: "Make Marker"
         content: |
@@ -2450,18 +2537,8 @@ bleeding_edge:
     content14: "{delete:0:1}"
     title14: "{delete:1}"
     content15: "{delete:0:1}"
-    title15: "Play Sound"
-    content16: |
-        {br}plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder.
-        {br}{code:volume:field} controls the volume of the played sound.
-        {br}{code:pitch:field} change the pitch of the played sound, .
-        {br} the formula is, pitch = 2 ^ ([semitone change] / 12 ).
-        {br} for example @sfx-press tone is c4 to make it c5 meaning increase it by 12 semitone :
-        {br} 2 ^ (12 / 12) = 2
-        {br} or c6 : 2 ^ (24 / 12) = 4
-        {br} or c3 : 2 ^ (-12 / 12) = 0.5
-        {br}{code:pan:field} pans the sound to the left or right
-        {br}{code:limit:field}, if true prevents sound from being played if the sound has already played in the same frame, this prevents ear destroying sounds
+    title15: "{delete:1}"
+    content16: "{delete:0:1}"
     volume: "volume"
     pitch: "pitch"
     pan: "pan"
@@ -2491,10 +2568,8 @@ bleeding_edge:
     content21: "{delete:0:1}"
     title20: "{delete:1}"
     content22: "{delete:0:1}"
-    title21: "unpackcolor"
-    content23: |
-        New instructions
-        {span:TOADD:toadd}
+    title21: "{delete:1}"
+    content23: "{delete:0:1}"
     title22: "op sign"
     content24: |
         New operation for {link:operation:#operation}

@@ -1114,6 +1114,9 @@ instructions:
                 title: atan
                 content: "{link:Atan:https://en.wikipedia.org/wiki/Inverse_trigonometric_functions}, in degrees"
                 Atan: Atan
+    select:
+        title: "{delete:3:0}"
+        content:
     lookup:
         title: Lookup
         content: |
@@ -1148,7 +1151,7 @@ instructions:
     packcolor:
         title: Pack Color
         content: |
-            Packs RGBA color into a single number, is usually used with {link:drawcollink:#draw-col} and {link:controlcolor:#control-color}
+            Packs RGBA color into a single number, is usually used with {code:drawcollink:draw} and {link:controlcolor:#control-color}
             {br} Since it's a single number it can be stored to 1 address on {link:cells:#cell}, 
             instead of 4 addresses with the usual RGBA, making reading and writing a lot easier too.
             {img:image/pack color.png:mwidth85vw}
@@ -1160,7 +1163,7 @@ instructions:
             unsigned integer, converting it to binary will return {hl:_1:yel} 
             ( 8 bit for each value ), by using the {code:shr:op} and 
             {code:bitnop:op} you can extract each color value.
-        drawcollink: "{code:drawcol:draw}" #nested token
+        drawcollink: "{link:drawcol:#draw-col}" #nested token
         drawcol: draw col
         controlcolor: control color
         cells: cells/banks
@@ -1171,6 +1174,9 @@ instructions:
         _1: "11111111111111111111111111111111"
         shr: "bit shift right operation"
         bitnop: "bitwise and operation"
+    unpackcolor:
+        title: "{delete:3}"
+        content:
     wait:
         title: Wait
         content: Wait the specified number of seconds, in other words, pausing the processor for that amount of seconds
@@ -2089,6 +2095,12 @@ world_logic:
     locale_print:
         title: "{delete:2}"
         content: "{delete:0}"
+    play_sound:
+        title: "{delete:2}"
+        content: "{delete:0}"
+    query:
+        title: "{delete:2}"
+        content: "{delete:0}"
 
 
 bleeding_edge:
@@ -2205,6 +2217,7 @@ bleeding_edge:
         {br}the first format will take \{0\} and the second format will take \{1\}
     title15: "Play Sound"
     content16: |
+        {img:image/play sound.png:_}
         {br}plays a sound from the game’s sfx, include all of the game’s .ogg file, can be found in sounds folder.
         {br}{code:volume:field} controls the volume of the played sound.
         {br}{code:pitch:field} change the pitch of the played sound, .

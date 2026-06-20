@@ -133,7 +133,10 @@ const tokenResolvers = {
     const el = document.createElement("a");
     el.href = `${extra}`;
     el.textContent = sectionData[name];
-    // el.addEventListener('click', triggerGlow);
+    const url = new URL(el.href);
+    if (url.hash && url.origin === location.origin && url.pathname === location.pathname) {
+      el.addEventListener('click', triggerGlow);
+    }
     return el;
   },
   hl(name, sectionData, extra) {
@@ -269,7 +272,7 @@ async function fetchYaml(url) {
       `  col   : ${col}\n` +
       `  reason: ${err.reason ?? err.message}`
     );
-    return;
+    throw new Error("Cannot fetch YAML file, Aborting!");
   }
   return data;
 }
@@ -326,8 +329,10 @@ const liClassTolinksMap = {
     "sensor",
     "set",
     "operation",
+    "select",
     "lookup",
     "pack-color",
+    "unpack-color",
     "wait",
     "stop",
     "end",
@@ -344,7 +349,9 @@ const liClassTolinksMap = {
     "transpiler",
     "mods",
     "subframe",
+
     "how-to-get-world-processor",
+    "query",
     "get-block",
     "set-block",
     "spawn-unit",
@@ -364,6 +371,7 @@ const liClassTolinksMap = {
     "make-marker",
     "set-marker",
     "locale-print",
+    "play-sound",
 
     "mindustry-coordinate-system",
     "configure-turns-to-config",
@@ -404,7 +412,10 @@ async function loadLang(version, lang) {
   document.querySelectorAll(".hidden").forEach(el => el.classList.remove("hidden")); // unhide any elements hidden by delete tokens
 
   const url = `./Languages/${version}/${lang}.yaml`;
-  const data = await fetchYaml(url);
+  const data = await fetchYaml(url).catch(err => {
+    console.error(err.message); // Language not found
+    throw err;
+  });;
 
   window.i18n = data;
 
@@ -490,7 +501,10 @@ async function loadLang(version, lang) {
     if (tableElement){
       tableElement.replaceChildren(); // clear existing content
       const url = `./Languages/${version}/static/${name}.yaml`;
-      const data = await fetchYaml(url);
+      const data = await fetchYaml(url).catch(err => {
+        console.error(err.message); // Language not found
+        throw err;
+      });;
       let isId = false;
       if (tableId.split('-')[0] == 'id') {
         isId = true;
@@ -729,6 +743,8 @@ document.addEventListener('DOMContentLoaded', function() {
         section.id = 'vars-tab'
         elementsToWrap[0].parentNode.insertBefore(section, elementsToWrap[0]);
         elementsToWrap.forEach(el => section.appendChild(el));
+      }).catch(err => {
+        console.error(err.message);
       });
     });
 

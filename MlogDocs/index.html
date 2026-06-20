@@ -433,6 +433,10 @@
                             <p class="oplist" data-i18n="instructions.operation.list.atan.content"></p>
                         </ol>
                     </section>
+                    <section id="select">
+                        <h2><li><b data-i18n="instructions.select.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.select.content"></p>
+                    </section>
                     <section id="lookup">
                         <h2><li><b data-i18n="instructions.lookup.title"></b></li></h2>
                         <p class="ti" data-i18n="instructions.lookup.content"></p>
@@ -440,6 +444,10 @@
                     <section id="pack-color">
                         <h2><li><b data-i18n="instructions.packcolor.title"></b></li></h2>
                         <p class="ti" data-i18n="instructions.packcolor.content"></p>
+                    </section>
+                    <section id="unpack-color">
+                        <h2><li><b data-i18n="instructions.unpackcolor.title"></b></li></h2>
+                        <p class="ti" data-i18n="instructions.unpackcolor.content"></p>
                     </section>
                     <section id="wait">
                         <h2><li><b data-i18n="instructions.wait.title"></b></li></h2>
@@ -667,161 +675,170 @@
                 <hr>
                 <p data-i18n="world_logic.content" class="ti"></p>
                 <section id="how-to-get-world-processor">
-                <h2 data-i18n="world_logic.how_to_get_world_processor.title"></h2>
-                <p data-i18n="world_logic.how_to_get_world_processor.content"></p>
+                    <h2 data-i18n="world_logic.how_to_get_world_processor.title"></h2>
+                    <p data-i18n="world_logic.how_to_get_world_processor.content"></p>
                 </section>
-                    <ol style="list-style-type: disc;">
-                        <section id="get-block">
-                            <li><h2 data-i18n="world_logic.get_block.title"></h2></li>
-                            <p data-i18n="world_logic.get_block.content"></p>
-                            <img alt="alt" src="image/get block.png" style="max-width: 85vw !important;" >
-                            <p data-i18n="world_logic.get_block.content2"></p>
-                        </section>
-                        <section id="set-block">
-                            <li><h2 data-i18n="world_logic.set_block.title"></li></h2>
-                            <p data-i18n="world_logic.set_block.content"></p>
-                            <img alt="alt" src="image/set block.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.set_block.content2"></p>
-                        </section>
-                        <section id="spawn-unit">
-                            <li><h2 data-i18n="world_logic.spawn_unit.title"></li></h2>
-                            <p data-i18n="world_logic.spawn_unit.content"></p>
-                            <img alt="alt" src="image/spawn unit.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.spawn_unit.content2"></p>
-                        </section>
-                        <section id="apply-status">
-                            <li><h2 data-i18n="world_logic.apply_status.title"></li></h2>
-                            <p data-i18n="world_logic.apply_status.content"></p>
-                            <img alt="alt" src="image/apply status.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.apply_status.content2"></p>
-                        </section>
-                        <section id="spawn-wave">
-                            <li><h2 data-i18n="world_logic.spawn_wave.title"></li></h2>
-                            <img alt="alt" src="image/spawn wave.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.spawn_wave.content"></p>
-                        </section>
-                        <section id="set-rule">
-                            <li><h2 data-i18n="world_logic.set_rule.title"></li></h2>
-                            <p data-i18n="world_logic.set_rule.content"></p>
-                            <img alt="alt" src="image/set rule.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.set_rule.content2"></p>
-                        </section>
-                        <section id="flush-message">
-                            <li><h2 data-i18n="world_logic.flush_message.title"></li></h2>
-                            <p data-i18n="world_logic.flush_message.content"></p>
-                            <img alt="alt" src="image/flush message.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.flush_message.content2"></p>
-                        </section>
-                        <section id="cutscene">
-                            <li><h2 data-i18n="world_logic.cutscene.title"></li></h2>
-                            <p data-i18n="world_logic.cutscene.content"></p>
-                        </section>
-                        <section id="effect">
-                            <li><h2 data-i18n="world_logic.effect.title"></li></h2>
-                            <img alt="alt" src="image/effect.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.effect.content"></p>
-                        </section>
-                        <section id="explosion">
-                            <li><h2 data-i18n="world_logic.explosion.title"></li></h2>
-                            <span data-i18n="world_logic.explosion.content"></span>
-                            <span data-i18n="world_logic.explosion.content2" class="spin"></span>
-                        </section>
-                        <section id="set-rate">
-                            <li><h2 data-i18n="world_logic.set_rate.title"></li></h2>
-                            <img alt="alt" src="image/set rate.png" >
-                            <p data-i18n="world_logic.set_rate.content"></p>
-                        </section>
-                        <section id="fetch">
-                            <li><h2 data-i18n="world_logic.fetch.title"></li></h2>
-                            <p data-i18n="world_logic.fetch.content"></p>
-                            <img alt="alt" src="image/fetch.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.fetch.content2"></p>
-                        </section>
-                        <section id="sync">
-                            <li><h2 data-i18n="world_logic.sync.title"></li></h2>
-                            <img alt="alt" src="image/sycn.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.sync.content"></p>
-                        </section>
-                        <section id="set-flag">
-                            <li><h2 data-i18n="world_logic.set_flag.title"></li></h2>
-                            <img alt="alt" src="image/set flag.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.set_flag.content"></p>
-                        </section>
-                        <section id="get-flag">
-                            <li><h2 data-i18n="world_logic.get_flag.title"></li></h2>
-                            <img alt="alt" src="image/getflag.png" style="max-width: 85vw !important;">
-                            <p data-i18n="world_logic.get_flag.content"></p>
-                        </section>
-                        <section id="set-prop">
-                            <li><h2 data-i18n="world_logic.set_prop.title"></li></h2>
-                            <p data-i18n="world_logic.set_prop.content"></p>
-                            <span data-i18n="world_logic.set_prop.list.x.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.x.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.y.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.y.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.velocityx.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.velocityx.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.velocityy.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.velocityy.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.rotation.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.rotation.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.speed.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.speed.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.armor.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.armor.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.health.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.health.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.shield.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.shield.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.team.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.team.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.flag.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.flag.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.totalpower.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.totalpower.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.payloadtype.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.payloadtype.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.bullettime.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.bullettime.content" class="spin mb0"></span>
-                            <span data-i18n="world_logic.set_prop.list.bulletlifetime.title"></span>
-                            <span data-i18n="world_logic.set_prop.list.bulletlifetime.content" class="spin mb0"></span>
-                        </section>
-                        <section id="make-marker">
-                            <li><h2 data-i18n="world_logic.make_marker.title"></li></h2>
-                            <!-- <img alt="alt" src="image/make marker.png" style="max-width: 85vw !important;"> -->
-                            <p data-i18n="world_logic.make_marker.content"></p>
-                            <div style="display: flex; flex-wrap: wrap;">
-                                <figure style="margin-left: 0; text-align: center;">
-                                    <img src="image/quad.png" alt="" height="200px">
-                                    <figcaption>Default quad</figcaption>
-                                </figure>
-                                <figure style="margin-left: 0; text-align: center;">
-                                    <img src="image/quad router.png" alt="" height="200px">
-                                    <figcaption>Quad with texture and uvi</figcaption>
-                                </figure>
-                                <figure style="margin-left: 0; text-align: center;">
-                                    <img src="image/quad colori.png" alt="" height="200px">
-                                    <figcaption>Stretched Quad with colori</figcaption>
-                                </figure>
-                                <figure style="margin-left: 0; text-align: center;">
-                                    <img src="image/raycast.png" alt="" height="200px">
-                                    <figcaption>Raycast displayed using quads</figcaption>
-                                </figure>
-                            </div>
-                        </section>
-                        <section id="set-marker">
-                            <li><h2 data-i18n="world_logic.set_marker.title"></li></h2>
-                            <!-- <img alt="alt" src="image/set marker.png" style="max-width: 85vw !important;"> -->
-                            <p data-i18n="world_logic.set_marker.content"></p>
-                        </section>
-                        <section id="locale-print">
-                            <li><h2 data-i18n="world_logic.locale_print.title"></li></h2>
-                            <p data-i18n="world_logic.locale_print.content"></p>
-                        </section>
-                    </ol>
+                <ol style="list-style-type: disc;">
+                    <section id="query">
+                        <li><h2 data-i18n="world_logic.query.title"></li></h2>
+                        <p data-i18n="world_logic.query.content"></p>
+                    </section>
+                    <section id="get-block">
+                        <li><h2 data-i18n="world_logic.get_block.title"></h2></li>
+                        <p data-i18n="world_logic.get_block.content"></p>
+                        <img alt="alt" src="image/get block.png" style="max-width: 85vw !important;" >
+                        <p data-i18n="world_logic.get_block.content2"></p>
+                    </section>
+                    <section id="set-block">
+                        <li><h2 data-i18n="world_logic.set_block.title"></li></h2>
+                        <p data-i18n="world_logic.set_block.content"></p>
+                        <img alt="alt" src="image/set block.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.set_block.content2"></p>
+                    </section>
+                    <section id="spawn-unit">
+                        <li><h2 data-i18n="world_logic.spawn_unit.title"></li></h2>
+                        <p data-i18n="world_logic.spawn_unit.content"></p>
+                        <img alt="alt" src="image/spawn unit.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.spawn_unit.content2"></p>
+                    </section>
+                    <section id="apply-status">
+                        <li><h2 data-i18n="world_logic.apply_status.title"></li></h2>
+                        <p data-i18n="world_logic.apply_status.content"></p>
+                        <img alt="alt" src="image/apply status.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.apply_status.content2"></p>
+                    </section>
+                    <section id="spawn-wave">
+                        <li><h2 data-i18n="world_logic.spawn_wave.title"></li></h2>
+                        <img alt="alt" src="image/spawn wave.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.spawn_wave.content"></p>
+                    </section>
+                    <section id="set-rule">
+                        <li><h2 data-i18n="world_logic.set_rule.title"></li></h2>
+                        <p data-i18n="world_logic.set_rule.content"></p>
+                        <img alt="alt" src="image/set rule.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.set_rule.content2"></p>
+                    </section>
+                    <section id="flush-message">
+                        <li><h2 data-i18n="world_logic.flush_message.title"></li></h2>
+                        <p data-i18n="world_logic.flush_message.content"></p>
+                        <img alt="alt" src="image/flush message.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.flush_message.content2"></p>
+                    </section>
+                    <section id="cutscene">
+                        <li><h2 data-i18n="world_logic.cutscene.title"></li></h2>
+                        <p data-i18n="world_logic.cutscene.content"></p>
+                    </section>
+                    <section id="effect">
+                        <li><h2 data-i18n="world_logic.effect.title"></li></h2>
+                        <img alt="alt" src="image/effect.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.effect.content"></p>
+                    </section>
+                    <section id="explosion">
+                        <li><h2 data-i18n="world_logic.explosion.title"></li></h2>
+                        <span data-i18n="world_logic.explosion.content"></span>
+                        <span data-i18n="world_logic.explosion.content2" class="spin"></span>
+                    </section>
+                    <section id="set-rate">
+                        <li><h2 data-i18n="world_logic.set_rate.title"></li></h2>
+                        <img alt="alt" src="image/set rate.png" >
+                        <p data-i18n="world_logic.set_rate.content"></p>
+                    </section>
+                    <section id="fetch">
+                        <li><h2 data-i18n="world_logic.fetch.title"></li></h2>
+                        <p data-i18n="world_logic.fetch.content"></p>
+                        <img alt="alt" src="image/fetch.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.fetch.content2"></p>
+                    </section>
+                    <section id="sync">
+                        <li><h2 data-i18n="world_logic.sync.title"></li></h2>
+                        <img alt="alt" src="image/sycn.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.sync.content"></p>
+                    </section>
+                    <section id="set-flag">
+                        <li><h2 data-i18n="world_logic.set_flag.title"></li></h2>
+                        <img alt="alt" src="image/set flag.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.set_flag.content"></p>
+                    </section>
+                    <section id="get-flag">
+                        <li><h2 data-i18n="world_logic.get_flag.title"></li></h2>
+                        <img alt="alt" src="image/getflag.png" style="max-width: 85vw !important;">
+                        <p data-i18n="world_logic.get_flag.content"></p>
+                    </section>
+                    <section id="set-prop">
+                        <li><h2 data-i18n="world_logic.set_prop.title"></li></h2>
+                        <p data-i18n="world_logic.set_prop.content"></p>
+                        <span data-i18n="world_logic.set_prop.list.x.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.x.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.y.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.y.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.velocityx.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.velocityx.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.velocityy.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.velocityy.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.rotation.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.rotation.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.speed.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.speed.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.armor.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.armor.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.health.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.health.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.shield.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.shield.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.team.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.team.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.flag.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.flag.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.totalpower.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.totalpower.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.payloadtype.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.payloadtype.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.bullettime.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.bullettime.content" class="spin mb0"></span>
+                        <span data-i18n="world_logic.set_prop.list.bulletlifetime.title"></span>
+                        <span data-i18n="world_logic.set_prop.list.bulletlifetime.content" class="spin mb0"></span>
+                    </section>
+                    <section id="play-sound">
+                        <li><h2 data-i18n="world_logic.play_sound.title"></li></h2>
+                        <p data-i18n="world_logic.play_sound.content"></p>
+                    </section>
+                    <section id="make-marker">
+                        <li><h2 data-i18n="world_logic.make_marker.title"></li></h2>
+                        <!-- <img alt="alt" src="image/make marker.png" style="max-width: 85vw !important;"> -->
+                        <p data-i18n="world_logic.make_marker.content"></p>
+                        <div style="display: flex; flex-wrap: wrap;">
+                            <figure style="margin-left: 0; text-align: center;">
+                                <img src="image/quad.png" alt="" height="200px">
+                                <figcaption>Default quad</figcaption>
+                            </figure>
+                            <figure style="margin-left: 0; text-align: center;">
+                                <img src="image/quad router.png" alt="" height="200px">
+                                <figcaption>Quad with texture and uvi</figcaption>
+                            </figure>
+                            <figure style="margin-left: 0; text-align: center;">
+                                <img src="image/quad colori.png" alt="" height="200px">
+                                <figcaption>Stretched Quad with colori</figcaption>
+                            </figure>
+                            <figure style="margin-left: 0; text-align: center;">
+                                <img src="image/raycast.png" alt="" height="200px">
+                                <figcaption>Raycast displayed using quads</figcaption>
+                            </figure>
+                        </div>
+                    </section>
+                    <section id="set-marker">
+                        <li><h2 data-i18n="world_logic.set_marker.title"></li></h2>
+                        <!-- <img alt="alt" src="image/set marker.png" style="max-width: 85vw !important;"> -->
+                        <p data-i18n="world_logic.set_marker.content"></p>
+                    </section>
+                    <section id="locale-print">
+                        <li><h2 data-i18n="world_logic.locale_print.title"></li></h2>
+                        <p data-i18n="world_logic.locale_print.content"></p>
+                    </section>
 
-                </section>
-                <section id="bleeding-edge" class="subtitle">
+                </ol>
+
+            </section>
+            <section id="bleeding-edge" class="subtitle">
                 <h1 data-i18n="bleeding_edge.title"></h1>
                 <hr>
                 <p data-i18n="bleeding_edge.content"></p>
@@ -868,7 +885,6 @@
                     <p data-i18n="bleeding_edge.content15"></p>
                     <br>
                     <li><h2 data-i18n="bleeding_edge.title15"></li></h2>
-                    <img alt="alt" src="image/play sound.png" >
                     <p data-i18n="bleeding_edge.content16"></p>
                     <br>
                     <li><h2 data-i18n="bleeding_edge.title16"></li></h2>

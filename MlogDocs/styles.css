@@ -3,10 +3,16 @@
     scroll-behavior:smooth;
   } */
 
-  @font-face {
+@font-face {
     font-family: 'Audiowide';
     src: url('./font/Audiowide-Regular.ttf') format('truetype'); 
     /* font-weight: 400; */
+    /* font-style: normal; */
+}
+@font-face {
+    font-family: 'Mindustry';
+    src: url('./font/Mindustry-Font.woff') format('truetype'); 
+    font-weight: 700;
     /* font-style: normal; */
 }
 
@@ -732,32 +738,64 @@ section {
 
 .op:not(.variable), .jump:not(.variable), .unit:not(.variable), .draw:not(.variable), .control:not(.variable), .wp:not(.variable) {
     border-radius: 0;
-    color: white;
-    font-family: "Audiowide", sans-serif;
+    color: inherit;
+    font-family: "Mindustry" !important;
+    text-shadow:
+        -1.5px  0   #211E2B,
+         1.5px  0   #211E2B,
+         0   -1.5px #211E2B,
+         0    1.5px #211E2B,
+        -1.5px -1.5px #211E2B,
+         1.5px -1.5px #211E2B,
+        -1.5px  1.5px #211E2B,
+         1.5px  1.5px #211E2B;
+    font-size: medium;
+    padding: 0.2em 0.3em;
+    white-space: nowrap;
+    border: none;
+    border-radius: 3px;
 }
 
 .op:not(.variable), .variable.op::after{
     background-color: #877bad;
+    color: #877bad;
 }
 
 .jump:not(.variable), .variable.jump::after{
     background-color: #6ab1b1;
+    color: #6ab1b1;
 }
 
 .unit:not(.variable), .variable.unit::after{
     background-color: #c7b59d;
+    color: #c7b59d;
 }
 
 .draw:not(.variable), .variable.draw::after{
     background-color: #a08a8a;
+    color: #a08a8a;
 }
 
 .control:not(.variable), .variable.control::after{
     background-color: #d4816b;
+    color: #d4816b;
 }
 
 .wp:not(.variable), .variable.wp::after{
     background-color: #6b84d4;
+    color: #6b84d4;
+}
+
+.op:not(.variable) a,
+.jump:not(.variable) a,
+.unit:not(.variable) a,
+.draw:not(.variable) a,
+.control:not(.variable) a,
+.wp:not(.variable) a {
+    all: unset;
+    padding-bottom: 0.3em;
+    cursor: pointer;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 img {
@@ -920,6 +958,7 @@ code {
     background-color: #030508;
     border: none;
     position: relative;
+    text-shadow: 0px 1px 0px #85868a;
 }
 
 .variable::after {
