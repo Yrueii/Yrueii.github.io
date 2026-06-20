@@ -1856,10 +1856,12 @@ world_logic:
             along with world cell and world message will appear in the processor menu,
             however this mode is equivalent to pause mode as nothing runs including processors,
             go back to the editor open the hamburger button and choose “Playtest” {img:image/playtest.png:_} instead, this allows
-            you to edit and run processor in real time, although not placing new ones
+            you to edit and run processor in real time, although not placing new ones.
             {br}{br}
-            alternatively you can load your custom map as normal through the “Play”
-            button and use the console to make world processor available, typing :
+            Alternatively in the "Map info", accessible from the editor, then "Rules", you can enable "Allow Editing World Processors" under "Resources & Building" section. This will make world processors accessible even outside the editor.
+            {br}
+            {br}
+            For maps you don't have editor access to (like campaign) you can use the console ("Settings" > "Game" > "Enable Console". {code:f8:key} on Desktop) to make world processor available, typing 
             {br}{code:show_wp} will make world processor available in the menu, and
             {br}{code:enable_testing} allows you to edit them
             (making the map into a playtest mode), we are basically doing the
@@ -1868,10 +1870,11 @@ world_logic:
             auto save does work though, so you might want to lower the auto save interval, or you can disable the playtest mode using :
             {br}{code:disable_testing} before exiting the world
             {br}{br}
-            there might be better ways of gaining access to world processor, like using mods, if you know any other easier method let me know and i will edit this section
         show_wp: "Blocks.worldProcessor.buildVisibility = BuildVisibility.shown"
         enable_testing: "Vars.state.playtestingMap=Vars.state.map"
         disable_testing: "Vars.state.playtestingMap=null"
+        f8 : F8
+        mod: mod
     query:
         title: Query
         content: |
@@ -1879,17 +1882,19 @@ world_logic:
             {br}{img:image/query.png:_}
             {br}{code:circle:variable wp} area mode, can be either circle or rect (rectangular). Determines the shape of the area to query, will fetch all units/buildings (based on query mode) in this area
             {br}{code:unit:variable wp} query mode, can be either unit or building.
+            {br}{code:team:field} team filtering, query will only get objects from this team, null for all teams.
             {br}{code:x:field} the x coordinate to query.
             {br}{code:y:field} the y coordinate to query.
             {br}{code:radius:field} (if circle mode), the radius of the circle area with {code:x:field} {code:y:field} as the center of the circle
             {br}{code:width:field} (if rect mode) the width of the rectangle area with {code:x:field} {code:y:field} as the bottom left of the rectangle
             {br}{code:height:field} (if rect mode) the height of the rectangle area with {code:x:field} {code:y:field} as the bottom left of the rectangle.
             {br}Fetches all units/buildings references in the specified area and put them as an indexed list in the {code:_queries:variable} variable. Starts from index {hl:_0:yel}.
-            {br}References can be retrieved from {code:_queries:variable} by using {code:read:control}, by putting {code:_queries:variable} on the second field and the index on the {code:at:field} at.
+            {br}References can be retrieved from {code:_queries:variable} by using {code:read:draw}, by putting {code:_queries:variable} on the second field and the index on the {code:at:field} at.
             {br}Returns regular unit/block {link:reference:#building-reference}
 
         circle: circle
         unit: unit
+        team: team
         radius: radius
         width: width
         height: height
