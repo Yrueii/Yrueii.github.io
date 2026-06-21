@@ -847,26 +847,49 @@ th {
 }
 
 @keyframes backgroundGlow {
-    50% {
-        background: rgba(200, 200, 200, 0.5); /* Glow color */
+    0% {
+        opacity: 0;
+        border: 2px solid var(--accent);
+    }
+    25% {
+        opacity: 1;
+        border: 2px solid var(--accent);
+        background: color-mix(in srgb, var(--accent) 20%, transparent);
+    }
+    75% {
+        opacity: 1;
+        border: 2px solid var(--accent);
+        background: color-mix(in srgb, var(--accent) 20%, transparent);
+        
+    }
+    100% {
+        border: 2px solid var(--accent);
+        opacity: 0;
     }
   }
 
 .glow-section {
     position: relative;
+    isolation: isolate;
 }
 
 .glow-section::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    border-radius: 30px;
+    border-radius: 20px;
     margin-left: -50px;
-    filter:blur(10px);
-    z-index: 1001;
+    padding: 2em;
+    margin: -1em -2em;
+    z-index: -1;
     pointer-events: none;
-    animation: backgroundGlow 1.5s ease-in-out;
+    animation: backgroundGlow 2s;
   }
+
+.glow-section > * {
+    position: relative;
+    z-index: 1;
+}
 
 .error-message {
     display: none;
