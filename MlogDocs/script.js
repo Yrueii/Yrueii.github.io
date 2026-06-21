@@ -127,6 +127,16 @@ function renderTextWithTokens(el, text, sectionData, _debugPath) {
 const modal = document.getElementById('imageModal');
 const modalImg = document.getElementById('modalImage');
 const modalVideo = document.getElementById('modalVideo');
+const lazyVideoObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const video = entry.target;
+      video.src = video.dataset.src;
+      video.load();
+      lazyVideoObserver.unobserve(video);
+    }
+  });
+});
 
 const tokenResolvers = {
   link(name, sectionData, extra) {
@@ -191,6 +201,7 @@ const tokenResolvers = {
   },
   img(name, sectionData, extra) {
     const el = document.createElement("img");
+    el.setAttribute('loading', 'lazy')
     el.src = name;
     el.classList.add(...extra.split(' '));
     el.addEventListener('click', function () {
@@ -203,8 +214,7 @@ const tokenResolvers = {
   },
   video(name, sectionData, extra) {
     const el = document.createElement("video");
-    el.src = name;
-    el.classList.add(...extra.split(' '));
+    el.classList.add(...extra.split(' '), 'lazy-video');
     el.addEventListener('click', function () {
       if (this.id === 'modalVideo') return;
       modal.style.display = 'flex';
@@ -217,6 +227,12 @@ const tokenResolvers = {
     el.setAttribute('loop', '');
     el.setAttribute('muted', '');
     el.setAttribute('playsinline', '');
+    el.setAttribute('preload', 'none');
+
+    el.dataset.src = name;
+
+    lazyVideoObserver.observe(el);
+
     return el;
   },
   p(name, sectionData, extra) {
@@ -347,6 +363,7 @@ const liClassTolinksMap = {
     "shuttle-logic",
     "thorium-reactor-fail-safe",
     "counter-array",
+    "lookup-array",
     "writing-in-text-editor",
     "transpiler",
     "mods",
@@ -764,20 +781,22 @@ document.addEventListener('DOMContentLoaded', function() {
       
   }); 
 
-document.querySelector('#sidebar-pull-tab-right').addEventListener('click', function() {
-  var sidebar = document.getElementById('sidebar-right');
-  // var hamburgermenu = document.getElementById('hamburger-menu-right')
-  if (sidebar.classList.contains('open')) {
-      sidebar.classList.remove('open');
-      // hamburgermenu.classList.remove('open');
-  } else {
-      sidebar.classList.add('open');
-      // hamburgermenu.classList.add('open');
-  }
-  
-}); 
+  document.querySelector('#sidebar-pull-tab-right').addEventListener('click', function() {
+    var sidebar = document.getElementById('sidebar-right');
+    // var hamburgermenu = document.getElementById('hamburger-menu-right')
+    if (sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        // hamburgermenu.classList.remove('open');
+    } else {
+        sidebar.classList.add('open');
+        // hamburgermenu.classList.add('open');
+    }
+    
+  }); 
 
+  const selfVideos = document.querySelector('#self-promotion').querySelectorAll("video")
 
+  selfVideos.forEach(video => lazyVideoObserver.observe(video));
 });
   
 function triggerGlow(event) {

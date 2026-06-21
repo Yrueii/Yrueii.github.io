@@ -86,6 +86,7 @@ table_of_contents:
         shuttle-logic: Shuttle Logic
         thorium-reactor-fail-safe: Thorium Reactor Fail Safe
         counter-array: counter Array
+        lookup-array: Lookup Array
         
         advanced: Advanced
         writing-in-text-editor: Writing in text editor
@@ -1755,6 +1756,33 @@ logic_examples:
                 {br}
                 {video:image/Counter_Array.mp4:width700}
                 {br}The variable ‘array’ is now an array, this is a static array, meaning the size of the array is fixed, you can however expand the size of the array to how many you want
+        lookup_array:
+            title: "Lookup Array"
+            content: |
+                A lookup array is another form of array in Mlog that make use of the {code:read:draw} instruction capabilities to read variables values from processors
+                {br}{video:image/lookup_array.mp4:width800}
+                {br}Line 0 : define the variables for the lookup array. we use {code:draw:draw} because its the most efficient instruction at defining the most amount of variables in 1 instruction. The defined variables are null, which is fine because we will store the values ourself.
+                {br}Line 1 : Set {code:i:variable op} to 0, this is your index variable to access the Array
+                {br}Line 2 : By using lookup we get a content name from the index variable
+                {br}Line 3 : We increment our index.
+                {br}Line 4 : We get the string equivalent of the content name that we get previously from lookup, because in order to read variables from processors using the {code:read:draw} instruction, the {code:at:field} field value must a string, and sensoring {code:_name:content-name} from a content name gives us a string. This will become our array key.
+                {br}Line 5 : Write a value to the array on index {code:i:variable}, this is optional, in practice you would fill this with what ever you want to store in the array, like a unit reference.
+                {br}Line 6 : Read the value from {code:this:variable} (so we don't need another processor) processor using our derived key string which is also derived from our index {code:i:variable}
+                {br}Line 7 : At this point the core part of the lookup array is done, you can use the value from the array to your needs, in this case we just print it.
+                {br}Line 8 : {code:printflush:draw} the value
+                {br}
+                {br} there are downsides to this method, primarily because we can't have more than 1 arrays in a single processor. This can be worked around by just offesetting the second array index by a certain amount, for example the first array will use index 0-9, if you need another array then the second array will use index 10-20. Or use the other lookup method like liquid or unit, which doesn't have as much length as block
+            draw: "{link:_draw:#draw}"
+            _draw: draw triangle
+            read: "{link:_read:#read}"
+            _read: read
+            i: i
+            at: at
+            _name: "@name"
+            this: "{link:_this:#built-in-variable}"
+            _this: "@this"
+            printflush: "{link:_printflush:#print-flush}"
+            _printflush: printflush
 
 advanced:
     title: "Advanced"

@@ -22,121 +22,123 @@ title: Mlog Documentation
 by: By Yruei
 
 table_of_contents:
-    # the key here is actually used for href (the link) so dont change them
-    foreword: Foreword
-    introduction: Introduction
-    glossary: Glossary
-    integers: Integers
-    float: Float
-    boolean: Boolean
-    strings: Strings
-    building-reference: Block or Unit Reference
-    contentname: Content name
+    title: Table of content
+    list:
+        # the key here is actually used for href (the link) so dont change them
+        foreword: Foreword
+        introduction: Introduction
+        glossary: Glossary
+        integers: Integers
+        float: Float
+        boolean: Boolean
+        strings: Strings
+        building-reference: Block or Unit Reference
+        contentname: Content name
 
-    basic-concept: Basic Concept
-    processors: Processors
-    processors-ui: Processor's UI
-    how-processor-run-its-code: How Processors run its code
-    links: Links
-    variables: Variables
-    built-in-variables: Built in Variables
-    constants: Constant
-    buffers: Buffers
+        basic-concept: Basic Concept
+        processors: Processors
+        processors-ui: Processor's UI
+        how-processor-run-its-code: How Processors run its code
+        links: Links
+        variables: Variables
+        built-in-variables: Built in Variables
+        constants: Constant
+        buffers: Buffers
 
-    blocks: Blocks
-    message: Message
-    switch: Switch
-    display: Displays
-    cell: Cells/Banks
+        blocks: Blocks
+        message: Message
+        switch: Switch
+        display: Displays
+        cell: Cells/Banks
 
-    instructions: Instructions
-    read: Read
-    write: Write
-    draw: Draw
-    draw-flush: Draw Flush
-    print: Print
-    print-flush: Print Flush
-    get-link: Get link
-    control: Control
-    radar: Radar
-    sensor: Sensor
-    set: Set
-    operation: Operation
-    lookup: Lookup
-    pack-color: Pack Color
-    wait: Wait
-    stop: Stop
-    end: End
-    jump: Jump
+        instructions: Instructions
+        read: Read
+        write: Write
+        draw: Draw
+        draw-flush: Draw Flush
+        print: Print
+        print-flush: Print Flush
+        get-link: Get link
+        control: Control
+        radar: Radar
+        sensor: Sensor
+        set: Set
+        operation: Operation
+        lookup: Lookup
+        pack-color: Pack Color
+        wait: Wait
+        stop: Stop
+        end: End
+        jump: Jump
 
-    controlling-units: Controlling Units
-    unit-bind: Unit Bind
-    unit-control: Unit Control
-    unit-radar: Unit Radar
-    unit-locate: Unit Locate
+        controlling-units: Controlling Units
+        unit-bind: Unit Bind
+        unit-control: Unit Control
+        unit-radar: Unit Radar
+        unit-locate: Unit Locate
 
-    simple-logic-examples: Simple Logic Examples
-    universal-switch: Universal Switch
-    shuttle-logic: Shuttle Logic
-    thorium-reactor-fail-safe: Thorium Reactor Fail Safe
-    counter-array: counter Array
-    
-    advanced: Advanced
-    writing-in-text-editor: Writing in text editor
-    transpiler: Transpiler
-    mods: Mods
-    subframe: Antithreading / Subframe
+        simple-logic-examples: Simple Logic Examples
+        universal-switch: Universal Switch
+        shuttle-logic: Shuttle Logic
+        thorium-reactor-fail-safe: Thorium Reactor Fail Safe
+        counter-array: counter Array
+        
+        advanced: Advanced
+        writing-in-text-editor: Writing in text editor
+        transpiler: Transpiler
+        mods: Mods
+        subframe: Antithreading / Subframe
 
-    world-logic: World Logic (WIP)
-    how-to-get-world-processor: How to get World Processor
-    get-block: Get Block
-    set-block: Set Block
-    spawn-unit: Spawn Unit
-    apply-status: Apply Status
-    spawn-wave: Spawn Wave(WIP)
-    set-rule: Set Rule(WIP)
-    flush-message: Flush Message
-    cutscene: Cutscene
-    effect: Effect
-    explosion: Explosion
-    set-rate: Set Rate
-    fetch: Fetch
-    sync: Sync(WIP)
-    get-flag: Get Flag
-    set-flag: Set Flag
-    set-prop: Set Prop
-    
-    bleeding-edge: Bleeding Edge(WIP)
+        world-logic: World Logic (WIP)
+        how-to-get-world-processor: How to get World Processor
+        get-block: Get Block
+        set-block: Set Block
+        spawn-unit: Spawn Unit
+        apply-status: Apply Status
+        spawn-wave: Spawn Wave(WIP)
+        set-rule: Set Rule(WIP)
+        flush-message: Flush Message
+        cutscene: Cutscene
+        effect: Effect
+        explosion: Explosion
+        set-rate: Set Rate
+        fetch: Fetch
+        sync: Sync(WIP)
+        get-flag: Get Flag
+        set-flag: Set Flag
+        set-prop: Set Prop
+        
+        bleeding-edge: Bleeding Edge(WIP)
 
-    extras: Extras
-    mindustry-coordinate-system: Mindustry Coordinate System
-    configure-turns-to-config: The word configure turns to config
-    you-cannot-spawn-scathe-missile: You cannot spawn Scathe missles
-    modded-items-and-draw-image: Modded items and Draw Image
-    ai-chatbot-doenst-understand-mlog: AI Chatbot doesn't understand Mlog
-    getting-unit-cap: Getting unit cap
-    v6-unit-control-with-logic: v6 unit control with logic
-    damage-calculation: Damage calculation   
-    math: Math
-    self-linking-processor: Self linking processor
+        extras: Extras
+        mindustry-coordinate-system: Mindustry Coordinate System
+        configure-turns-to-config: The word configure turns to config
+        you-cannot-spawn-scathe-missile: You cannot spawn Scathe missles
+        modded-items-and-draw-image: Modded items and Draw Image
+        ai-chatbot-doenst-understand-mlog: AI Chatbot doesn't understand Mlog
+        getting-unit-cap: Getting unit cap
+        v6-unit-control-with-logic: v6 unit control with logic
+        damage-calculation: Damage calculation   
+        math: Math
+        self-linking-processor: Self linking processor
 
-    self-promotion: Self promotion
+        self-promotion: Self promotion
 
-    appendix: Appendix
-    mloginvention: Mlog Invention
-    built-in-variables1: Built in Variables
-    global: Global
-    environment: Environment
-    sensors: Sensors
-    blocks-and-items: Blocks and Items
-    units: Units
-    text-form-instruction: Text form instruction
-    normal-processor: Normal Processor
-    world-processor: World Processor
-    lookup-ids: Lookup Id(s)
-    dblockbehaviour: Disabled block behaviour
-    
-    Contributors: Contributors
+        appendix: Appendix
+        mloginvention: Mlog Invention
+        built-in-variables1: Built in Variables
+        global: Global
+        environment: Environment
+        sensors: Sensors
+        blocks-and-items: Blocks and Items
+        units: Units
+        text-form-instruction: Text form instruction
+        normal-processor: Normal Processor
+        world-processor: World Processor
+        lookup-ids: Lookup Id(s)
+        dblockbehaviour: Disabled block behaviour
+        
+        Contributors: Contributors
 
 foreword:
     title: Foreword
@@ -1656,6 +1658,9 @@ logic_examples:
                 {br}
                 {video:image/Counter_Array.mp4:width700}
                 {br}The variable ‘array’ is now an array, this is a static array, meaning the size of the array is fixed, you can however expand the size of the array to how many you want
+        lookup_array:
+            title: "{delete:1:0}"
+            content: 
 
 advanced:
     title: "Advanced"

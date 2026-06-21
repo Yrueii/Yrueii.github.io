@@ -783,7 +783,8 @@ section {
 .unit:not(.variable) a,
 .draw:not(.variable) a,
 .control:not(.variable) a,
-.wp:not(.variable) a {
+.wp:not(.variable) a,
+.variable a {
     all: unset;
     padding-bottom: 0.3em;
     cursor: pointer;
