@@ -802,36 +802,53 @@ document.addEventListener('DOMContentLoaded', function() {
 function triggerGlow(event) {
   event.preventDefault();
 
-  const href = this.getAttribute("href"); // "#section"
+  const href = this.getAttribute("href");
   const target = document.querySelector(href);
   if (!target) return;
 
-  // create history entry
   history.pushState(null, "", href);
 
-  const targetTop = target.getBoundingClientRect().top + window.scrollY;
+  // not the most elegant solution, but its better than not reaching the destination
+  let scrollInterval = setInterval(() => {
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    const scrollToPosition =
+      target.offsetHeight > window.innerHeight
+        ? targetTop
+        : targetTop - window.innerHeight / 2 + target.offsetHeight / 2;
 
-  const scrollToPosition =
-    target.offsetHeight > window.innerHeight
-      ? targetTop
-      : targetTop - window.innerHeight / 2 + target.offsetHeight / 2;
+    window.scrollTo({
+      top: scrollToPosition,
+      behavior: "smooth",
+    });
+  }, 200);
 
-  window.scrollTo({
-    top: scrollToPosition,
-    behavior: "smooth",
-  });
+  let stableTimeout = null;
 
-  const targetId = href.slice(1);
-  const observer = new IntersectionObserver((entries, observer) => {
+  const abort = () => {
+    clearInterval(scrollInterval);
+    clearTimeout(stableTimeout);
+    observer.disconnect();
+    window.removeEventListener("wheel", abort);
+  };
+
+  window.addEventListener("wheel", abort);
+
+  const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
-      triggerGlow1(target);
-      observer.disconnect();
+      stableTimeout = setTimeout(() => {
+        clearInterval(scrollInterval);
+        triggerGlow1(target);
+        observer.disconnect();
+        window.removeEventListener("wheel", abort);
+      }, 500);
+    } else {
+      clearTimeout(stableTimeout);
+      stableTimeout = null;
     }
   });
 
   observer.observe(target);
 }
-
 
 function triggerGlow1(section) {
   section.classList.remove('glow-section');
