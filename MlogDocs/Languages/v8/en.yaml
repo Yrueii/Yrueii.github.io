@@ -1917,7 +1917,7 @@ world_logic:
             {br}{code:width:field} (if rect mode) the width of the rectangle area with {code:x:field} {code:y:field} as the bottom left of the rectangle
             {br}{code:height:field} (if rect mode) the height of the rectangle area with {code:x:field} {code:y:field} as the bottom left of the rectangle.
             {br}Fetches all units/buildings references in the specified area and put them as an indexed list in the {code:_queries:variable} variable. Starts from index {hl:_0:yel}.
-            {br}References can be retrieved from {code:_queries:variable} by using {code:read:draw}, by putting {code:_queries:variable} on the second field and the index on the {code:at:field} at.
+            {br}References can be retrieved from {code:_queries:variable} by using {code:read:draw}, by putting {code:_queries:variable} on the second field and the index on the {code:at:field} field.
             {br}Returns regular unit/block {link:reference:#building-reference}
 
         circle: circle
