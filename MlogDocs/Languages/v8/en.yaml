@@ -101,6 +101,8 @@ table_of_contents:
         set-block: Set Block
         spawn-unit: Spawn Unit
         apply-status: Apply Status
+        weather-sense: Weather Sense
+        weather-set: Weather Set
         spawn-wave: Spawn Wave(WIP)
         set-rule: Set Rule(WIP)
         flush-message: Flush Message
@@ -2003,6 +2005,20 @@ world_logic:
         wet: "wet"
         to: "to"
         for: "for"
+    weather_sense:
+        title: "Weather Sense"
+        content: |
+            Sense the current weather is the specified weather type, returns boolean.
+            {br}{img:image/weather_sense.png:_}
+            {br}{code:weather:field}, what weather to sense.
+        weather: weather
+    weather_set:
+        title: "Weather Set"
+        content: |
+            Set the current state of the weather to the specified type.
+            {br}{img:image/weather_set.png:_}
+            {br}{code:weather:field}, what weather to set the map to.
+        weather: weather
     spawn_wave:
         title: "Spawn Wave"
         content: "{span:TOADD:toadd}"
@@ -2576,20 +2592,12 @@ bleeding_edge:
     content15: "{delete:0:1}"
     title15: "{delete:1}"
     content16: "{delete:0:1}"
-    volume: "volume"
-    pitch: "pitch"
-    pan: "pan"
-    limit: "limit"
-    title16: "Weather Sense"
-    content17: "sense the current weather is the specified weather type, returns boolean"
-    title17: "Weather Set"
-    content18: "set the current state of the weather to the specified type"
+    title16: "{delete:1}"
+    content17: "{delete:0:1}"
+    title17: "{delete:1}"
+    content18: "{delete:0:1}"
     title18: "{delete:1}"
     content19: "{delete:0:1}"
-    id: "id"
-    replace: "replace"
-    x: "x"
-    y: "y"
     shapetext: "shapeText"
     point: "point"
     shape: "shape"
@@ -2648,41 +2656,14 @@ bleeding_edge:
     _2147483644: "2147483644"
     title27: "{delete:1}"
     content29: "{delete:0:1}"
-    sensor_width_unit_camerawidth: "sensor width @unit @cameraWidth"
     title28: "{delete:1}"
     content30: "{delete:0:1}"
-    sensor_x_unit_camerax: "sensor x @unit @cameraX"
-    title29: "@solid"
-    content31: |
-        an object solidness
-        {br}example:
-        {br}{code:sensor_s_conveyor1_solid:wp}
-        {br}returns {code:s:variable} as 0
-        {br}while a wall for example returns 1
-    sensor_s_conveyor1_solid: "sensor s conveyor1 @solid"
-    s: "s"
-    title30: "@velocityX and @velocityY"
-    content32: |
-        an object velocity, in blocks/second
-        {br}example:
-        {br}{code:sensor_vx_unit_velocityx:wp}`
-        {br}returns {code:vx:variable} as a number of the {code:unit:variable} velocity in blocks/second
-        {br}can also be think of as a vector,
-        {br}by using {code:op_len:op} on the {code:unit:variable}'s {code:velocityx:content-name} and {code:velocityy:content-name} you can get the unit current speed
-        {br}this variable also avaiable in {code:setprop:wp}
-    sensor_vx_unit_velocityx: "sensor vx @unit @velocityX"
-    vx: "vx"
-    op_len: "op len"
-    velocityx: "@velocityX"
-    velocityy: "@velocityY"
-    setprop: "setprop"
-    title31: "@size"
-    content33: |
-        now can return the length of strings
-        {br}example:
-        {br}{code:sensor_length_size_in_mindustry:control}
-        {br}will return 9
-    sensor_length_size_in_mindustry: "sensor length = @size in \"Mindustry\""
+    title29: "{delete:1}"
+    content31: "{delete:0:1}"
+    title30: "{delete:1}"
+    content32: "{delete:0:1}"
+    title31: "{delete:1}"
+    content33: "{delete:0:1}"
     title32: "@memoryCapacity"
     content34: |
         return the capacity of the selected memory cell/bank
@@ -2707,15 +2688,8 @@ bleeding_edge:
         {br}{code:sensor_result_payloadcapacity_in_unit:control}
         {br}when {code:unit:variable} is an oct will return 30.25
     sensor_result_payloadcapacity_in_unit: "sensor result = @payloadCapacity in @unit"
-    title35: "@currentAmmoType"
-    content37: |
-        return the ammo type used by a turret
-        {br}example:
-        {br}{code:sensor_result_currentammotype_in_duo1:control}
-        {br}when {code:duo1:variable} is an using copper as its ammo will return {code:copper:content-name}
-    sensor_result_currentammotype_in_duo1: "sensor result = @currentAmmoType in duo1"
-    duo1: "duo1"
-    copper: "@copper"
+    title35: "{delete:1}"
+    content37: "{delete}"
     title36: "@displayHeight and @displayWidth"
     content38: "Returns the display height and width of a display, in pixels"
     title37: "@bufferUsage"
@@ -3003,8 +2977,8 @@ built_in_vars2:
             title: "@blue"
             content: blue team
         solid:
-            title: "@solid"
-            content: alias for stone-wall
+            title: "{delete}"
+            content: "{delete:0:1}"
         block:
             title: "@block"
             content: '-'
@@ -3088,6 +3062,16 @@ built_in_vars2:
             title: "@ammoCapacity"
             content: |
                 the maximum amount of items (ammo) a turret can hold; returns number
+        currentAmmoType:
+            title: "@currentAmmoType"
+            content: |
+                return the ammo type used by a turret
+                {br}example:
+                {br}{code:sensor_result_currentammotype_in_duo1:control}
+                {br}when {code:duo1:variable} is an using copper as its ammo will return {code:copper:content-name}
+            sensor_result_currentammotype_in_duo1: "sensor result = @currentAmmoType in duo1"
+            duo1: "duo1"
+            copper: "@copper"
         health:
             title: "@health"
             content: |
@@ -3128,6 +3112,40 @@ built_in_vars2:
             title: "@y"
             content: |
                 the y coordinate location of the object; returns number
+        velocityX:
+            title: "@velocityX"
+            content: |
+                an object x velocity, in blocks/second
+                {br}example:
+                {br}{code:sensor_vx_unit_velocityx:wp}
+                {br}returns {code:vx:variable} as a number of the {code:unit:variable} velocity in blocks/second
+                {br}can also be think of as a vector,
+                {br}by using {code:op_len:op} on the {code:unit:variable}'s {code:velocityx:content-name} and {code:velocityy:content-name} you can get the unit current speed
+                {br}this variable also avaiable in {code:setprop:wp}
+            sensor_vx_unit_velocityx: "sensor vx @unit @velocityX"
+            vx: "vx"
+            op_len: "op len"
+            velocityx: "@velocityX"
+            velocityy: "@velocityY"
+            setprop: "setprop"
+            unit: "@unit"
+        velocityY:
+            title: "@velocityY"
+            content: |
+                an object y velocity, in blocks/second
+                {br}example:
+                {br}{code:sensor_vx_unit_velocityy:wp}
+                {br}returns {code:vy:variable} as a number of the {code:unit:variable} velocity in blocks/second
+                {br}can also be think of as a vector,
+                {br}by using {code:op_len:op} on the {code:unit:variable}'s {code:velocityx:content-name} and {code:velocityy:content-name} you can get the unit current speed
+                {br}this variable also avaiable in {code:setprop:wp}
+            sensor_vx_unit_velocityy: "sensor vy @unit @velocityY"
+            vy: "vy"
+            op_len: "op len"
+            velocityx: "@velocityX"
+            velocityy: "@velocityY"
+            setprop: "setprop"
+            unit: "@unit"
         shootX:
             title: "@shootX"
             content: |
@@ -3155,7 +3173,21 @@ built_in_vars2:
         size:
             title: "@size"
             content: |
-                the size of object; returns number, eg, foreshadow is 4 because it is 4x4, information can also be found on ingame’s info menu
+                The size of object; returns number, eg, foreshadow is 4 because it is 4x4, information can also be found on ingame’s info menu.
+                {br}Can also return the length of strings
+                {br}{code:sensor_length_size_in_mindustry:control}
+                {br}will return 9
+            sensor_length_size_in_mindustry: "sensor length = @size in \"Mindustry\""
+        solid:
+            title: "@solid"
+            content: |
+                an object solidness
+                {br}example:
+                {br}{code:sensor_s_conveyor1_solid:wp}
+                {br}returns {code:isSolid:variable} as 0
+                {br}while a wall for example returns 1
+            sensor_s_conveyor1_solid: "sensor isSolid conveyor1 @solid"
+            isSolid: "isSolid"
         dead:
             title: "@dead"
             content: |

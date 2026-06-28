@@ -375,6 +375,8 @@ const liClassTolinksMap = {
     "set-block",
     "spawn-unit",
     "apply-status",
+    "weather-sense",
+    "weather-set",
     "spawn-wave",
     "set-rule",
     "flush-message",
