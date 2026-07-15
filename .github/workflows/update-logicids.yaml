@@ -6,7 +6,7 @@ on:
     - cron: '0 */6 * * *'  # Every 6 hours
   push:
     branches:
-      - action-test
+      - actions
 
 permissions:
   contents: write

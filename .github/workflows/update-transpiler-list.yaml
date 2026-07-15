@@ -6,7 +6,7 @@ on:
     - cron: '0 0 * * *' # daily at 00:00 UTC
   push:
     branches:
-      - action-test
+      - actions
 
 permissions:
   contents: write
