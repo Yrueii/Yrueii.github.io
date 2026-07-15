@@ -1,0 +1,68 @@
+name: Update transpiler list
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # daily at 00:00 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  generate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate transpiler-datas.json
+        run: |
+          #!/usr/bin/bash
+          cd "$GITHUB_WORKSPACE" || exit
+
+          hash curl jq || exit
+
+          api_url=https://api.github.com/repos
+          file=MlogDocs/transpiler-datas.json
+          date_updated=$(date -u +"%Y-%m-%d %H:%M:%S")
+
+          mapfile -t repos < .github/transpiler-repos || exit
+
+          first=true
+          echo "{\"date_updated\": \"$date_updated\", \"repos\": [" > "$file"
+
+          for line in "${repos[@]}"; do
+              url=${line%%  *}
+              name=${line##*  }
+
+              repo=${url#*/*/*/}
+              request_url=$api_url/$repo
+              entry=$(curl "$request_url" | jq --arg short_name "$name" '{html_url, short_name: $short_name, description, owner: .owner.login, updated_at, stargazers_count}')
+              if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+                  echo "curl failed (${PIPESTATUS[0]})" >&2
+                  exit "${PIPESTATUS[0]}"
+              fi
+              if $first; then
+                  first=false
+              else
+                  echo ',' >> "$file"
+              fi
+              echo "$entry" >> "$file"
+          done
+
+          echo ']}' >> "$file"
+
+          echo 'Update transpiler list finish!'
+
+      - name: Upload transpiler-datas.json as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: transpiler-datas
+          path: ./transpiler-datas.json
+      - name: Commit and push updated file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add transpiler-datas.json
+          git diff --staged --quiet || git commit -m "Update transpiler-datas.json [skip ci]"
+          git push
