@@ -61,18 +61,38 @@ jobs:
 
           echo 'Update transpiler list finish!'
 
+      - name: Check for actual changes (excluding date_updated)
+        run: |
+          # Extract the repos array from both old and new JSON, ignoring date_updated
+          if [ -f MlogDocs/transpiler-datas.json ]; then
+            # Get the repos array from git's version of the file (before our changes)
+            git show HEAD:MlogDocs/transpiler-datas.json | jq '.repos' > /tmp/old_repos.json
+          else
+            # File doesn't exist yet, so there are definitely changes
+            echo '[]' > /tmp/old_repos.json
+          fi
+          
+          # Get the repos array from our newly generated file
+          jq '.repos' MlogDocs/transpiler-datas.json > /tmp/new_repos.json
+          
+          # Compare the repos arrays
+          if diff -q /tmp/old_repos.json /tmp/new_repos.json > /dev/null 2>&1; then
+            echo "No changes in repo data detected"
+            echo "HAS_CHANGES=false" >> $GITHUB_ENV
+          else
+            echo "Changes detected in repo data"
+            echo "HAS_CHANGES=true" >> $GITHUB_ENV
+          fi
+
       - name: Commit and push if changed
+        if: env.HAS_CHANGES == 'true'
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          if [[ -n $(git status --porcelain) ]]; then
-            git add .
-            git commit -m "Update transpiler-datas.json [automated]"
-            git fetch origin
-            git rebase origin/$GITHUB_REF_NAME
-            git push
-            echo "Changes committed and pushed"
-          else
-            echo "No changes detected"
-          fi
+          git add MlogDocs/transpiler-datas.json
+          git commit -m "Update transpiler-datas.json [automated]"
+          git fetch origin
+          git rebase origin/$GITHUB_REF_NAME
+          git push
+          echo "Changes committed and pushed"
