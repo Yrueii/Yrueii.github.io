@@ -36,7 +36,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           if [[ -n $(git status --porcelain) ]]; then
-            git add upstream-state.yml blocks.yml units.yml weathers.yml statuses.yml
+            git add .
             git commit -m "Update logic IDs from upstream [automated]"
             git push
             echo "Changes committed and pushed"
