@@ -1,11 +1,11 @@
-{"date_updated": "2026-07-15 18:05:20", "repos": [
+{"date_updated": "2026-07-15 18:13:09", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mincode",
   "description": "A high level language for Mindustry Logic (mlog) and Mindustry Schematics.",
   "owner": "cardillan",
   "updated_at": "2026-07-14T22:49:23Z",
-  "stargazers_count": 0
+  "stargazers_count": 158
 }
 ,
 {
@@ -14,7 +14,7 @@
   "description": "A Python compiler for Mindustry's logic processors assembly language",
   "owner": "Lonami",
   "updated_at": "2026-02-09T21:59:51Z",
-  "stargazers_count": 0
+  "stargazers_count": 59
 }
 ,
 {
