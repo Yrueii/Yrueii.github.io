@@ -1,12 +1,12 @@
 liquids:
-  - "@water"
-  - "@slag"
-  - "@oil"
-  - "@cryofluid"
-  - "@neoplasm"
-  - "@hydrogen"
-  - "@ozone"
-  - "@cyanogen"
-  - "@gallium"
-  - "@nitrogen"
-  - "@arkycite"
+  - '@water'
+  - '@slag'
+  - '@oil'
+  - '@cryofluid'
+  - '@neoplasm'
+  - '@hydrogen'
+  - '@ozone'
+  - '@cyanogen'
+  - '@gallium'
+  - '@nitrogen'
+  - '@arkycite'

@@ -1,11 +1,11 @@
-{"date_updated": "2026-04-11 09:29:46", "repos": [
+{"date_updated": "2026-07-15 18:13:09", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mincode",
   "description": "A high level language for Mindustry Logic (mlog) and Mindustry Schematics.",
   "owner": "cardillan",
-  "updated_at": "2026-04-08T05:55:28Z",
-  "stargazers_count": 140
+  "updated_at": "2026-07-14T22:49:23Z",
+  "stargazers_count": 158
 }
 ,
 {
@@ -22,8 +22,8 @@
   "short_name": "Mlogls",
   "description": "A language server for the Mindustry Logic programming language",
   "owner": "JeanJPNM",
-  "updated_at": "2026-04-08T19:16:47Z",
-  "stargazers_count": 8
+  "updated_at": "2026-07-10T15:29:57Z",
+  "stargazers_count": 9
 }
 ,
 {
@@ -49,8 +49,8 @@
   "short_name": "Mlog JS",
   "description": "Compile javascript into Mindustry logic code (mlog)",
   "owner": "mlogjs",
-  "updated_at": "2026-02-08T15:12:22Z",
-  "stargazers_count": 85
+  "updated_at": "2026-07-04T06:55:03Z",
+  "stargazers_count": 89
 }
 ,
 {
@@ -94,7 +94,7 @@
   "short_name": "Mlogpp",
   "description": "high level mindustry logic language",
   "owner": "albi-c",
-  "updated_at": "2026-02-10T13:37:11Z",
+  "updated_at": "2026-04-28T09:12:04Z",
   "stargazers_count": 8
 }
 ,
@@ -121,7 +121,7 @@
   "short_name": "Mlog Bang Lang",
   "description": "Mindustry logic extension meta-programming language, for zero additional overhead!",
   "owner": "A4-Tacks",
-  "updated_at": "2026-04-09T13:26:27Z",
+  "updated_at": "2026-07-15T09:22:52Z",
   "stargazers_count": 32
 }
 ,
@@ -130,7 +130,7 @@
   "short_name": "sfmlog",
   "description": "An mlog transpiler",
   "owner": "SkyeTheFoxyFox",
-  "updated_at": "2026-03-06T05:25:02Z",
+  "updated_at": "2026-07-09T09:21:51Z",
   "stargazers_count": 0
 }
 ]}

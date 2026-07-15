@@ -547,7 +547,7 @@ async function loadLang(version, lang) {
 }
 
 function parseTranspilerDataJSON() {
-  fetch('./TranspilerData/transpiler-datas.json')
+  fetch('./transpiler-datas.json')
   .then(res => res.json())
   .then(datas => {
     const sorted = datas.repos

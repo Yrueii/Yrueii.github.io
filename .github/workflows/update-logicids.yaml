@@ -1,0 +1,51 @@
+name: Update Logic IDs from Upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # daily at 00:00 UTC
+  push:
+    branches:
+      - actions
+
+concurrency:
+  group: update-docs
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: pip install pyyaml requests
+      
+      - name: Check upstream file and update if needed
+        run: python3 .github/scripts/update-logicids.py
+      
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          if [[ -n $(git status --porcelain) ]]; then
+            git add .
+            git commit -m "Update logic IDs from upstream [automated]"
+            git fetch origin
+            git rebase origin/$GITHUB_REF_NAME
+            git push
+            echo "Changes committed and pushed"
+          else
+            echo "No changes detected"
+          fi
