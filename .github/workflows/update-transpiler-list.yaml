@@ -68,7 +68,9 @@ jobs:
           
           if [[ -n $(git status --porcelain) ]]; then
             git add .
-            git commit -m "Update transpiler-datas.json [Automated]"
+            git commit -m "Update transpiler-datas.json [automated]"
+            git fetch origin
+            git rebase origin/$GITHUB_REF_NAME
             git push
             echo "Changes committed and pushed"
           else
