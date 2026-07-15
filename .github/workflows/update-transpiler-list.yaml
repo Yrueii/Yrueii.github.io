@@ -8,6 +8,10 @@ on:
     branches:
       - actions
 
+concurrency:
+  group: update-docs
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
