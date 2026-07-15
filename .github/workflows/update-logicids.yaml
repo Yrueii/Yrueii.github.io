@@ -3,7 +3,7 @@ name: Update Logic IDs from Upstream
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours
+    - cron: '0 0 * * *' # daily at 00:00 UTC
   push:
     branches:
       - actions
