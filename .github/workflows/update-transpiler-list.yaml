@@ -30,7 +30,7 @@ jobs:
           hash curl jq || exit
 
           api_url=https://api.github.com/repos
-          file=transpiler-datas.json
+          file=MlogDocs/transpiler-datas.json
           date_updated=$(date -u +"%Y-%m-%d %H:%M:%S")
 
           mapfile -t repos < .github/transpiler-repos || exit
@@ -61,11 +61,6 @@ jobs:
 
           echo 'Update transpiler list finish!'
 
-      - name: Upload transpiler-datas.json as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: transpiler-datas
-          path: MlogDocs/transpiler-datas.json
       - name: Commit and push updated file
         run: |
           git config user.name "github-actions[bot]"
