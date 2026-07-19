@@ -1,0 +1,115 @@
+import re
+import yaml
+import utilities
+import os
+
+UPSTREAM_URL = "https://raw.githubusercontent.com/Anuken/Mindustry/master/core/src/mindustry/content/Blocks.java"
+FILENAME = "Blocks.java"
+STATE_FILE = ".github/upstream-state.yaml"
+OUTPUT_DIR = "MlogDocs/Languages/v8/static/"
+
+ORES = ['ore-copper', 'ore-lead', 'ore-scrap', 'ore-titanium', 'ore-thorium', 'ore-beryllium', 'ore-tungsten', 'ore-crystal-thorium', 'ore-wall-thorium', 'ore-wall-beryllium', 'graphitic-wall', 'ore-wall-graphite', 'ore-wall-tungsten']
+
+util = utilities.utilities(UPSTREAM_URL, STATE_FILE, FILENAME)
+
+class IndentDumper(yaml.Dumper):
+    def increase_indent(self, flow=False, indentless=False):
+        return super().increase_indent(flow, False)
+    
+
+def extract_strings_in_region(file_path, types):
+    """
+    Extract string arguments from patterns within a specific region.
+    
+    Region format:
+    //region environment
+    ... code here ...
+    //endregion
+    """
+    for type, names in types.items():
+        items = []
+        for region_name in names:
+            # Hardcoded for ore since there's no easy mapping to get from the source code
+            if region_name == 'ore':
+                for ore in ORES:
+                    items.append(f"@{ore}")
+                continue
+
+            # Harcoded build block, since this doesn't actually have a mapping, but instead depends on the size of the block
+            if region_name == 'build':
+                for i in range(1, 17):
+                    items.append(f"@build{i}")
+
+            # Pattern for the region markers
+            region_start = f"//region {region_name}"
+            region_end = "//endregion"
+            
+            # Pattern for finding string arguments
+            string_pattern = r'new\s+\w+\s*\(\s*["\']([^"\']*)["\']\s*\)'
+            
+            in_region = False
+            
+            with open(file_path, 'r') as file:
+                for line_num, line in enumerate(file, 1):
+                    # Check for region start
+                    if region_start in line:
+                        in_region = True
+                        continue
+                    
+                    # Check for region end
+                    if region_end in line and in_region:
+                        in_region = False
+                        continue
+                    
+                    # If we're inside the region, look for matches
+                    if in_region:
+                        matches = re.findall(string_pattern, line)
+                        for match in matches:
+                            items.append(f"@{match}")
+
+        if items:
+            output_file = f"{type}.yaml"
+            yaml_data = {type: items}
+
+            with open(f"{OUTPUT_DIR}{output_file}", 'w') as f:
+                yaml.dump(yaml_data, f, Dumper=IndentDumper, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
+
+            print(f"✓ Generated {output_file} with {len(items)} {type}")
+
+def main():
+    # Download upstream file
+    temp_file = util.download_upstream_file()
+    
+    # Get hash of downloaded file
+    new_hash = util.get_file_hash(temp_file)
+    print(f"Upstream file SHA256: {new_hash}")
+
+    # Load stored state
+    state = util.load_state()
+    stored_hash = state.get("upstream_sha256")
+
+    # Check if we need to update
+    if stored_hash == new_hash:
+        print(f"No changes detected (hash: {new_hash[:12]}...)")
+        return
+    
+    if stored_hash:
+        print(f"Changes detected!")
+        print(f"  Old hash: {stored_hash[:12]}...")
+        print(f"  New hash: {new_hash[:12]}...")
+    else:
+        print("No previous state found. Generating initial files...")
+    
+    # Parse the downloaded file
+    extract_strings_in_region(temp_file, {'environment':["environment", "ore", "build"]})
+    
+    # Update the state file
+    util.save_state(new_hash)
+
+    # Clean up temp file
+    os.remove(temp_file)
+    
+    print("✓ Update complete")
+
+if __name__ == "__main__":
+    main()

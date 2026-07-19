@@ -1,4 +1,4 @@
-name: Update Logic IDs from Upstream
+name: Update Static contents from Upstream
 
 on:
   workflow_dispatch:
@@ -31,8 +31,11 @@ jobs:
       - name: Install dependencies
         run: pip install pyyaml requests
       
-      - name: Check upstream file and update if needed
+      - name: Check logicids file and update if needed
         run: python3 .github/scripts/update-logicids.py
+
+      - name: Check environment file and update if needed
+        run: python3 .github/scripts/update-environment.py
       
       - name: Commit and push if changed
         run: |
@@ -41,7 +44,7 @@ jobs:
           
           if [[ -n $(git status --porcelain) ]]; then
             git add .
-            git commit -m "Update logic IDs from upstream [automated]"
+            git commit -m "Update Static contents from upstream [automated]"
             git fetch origin
             git rebase origin/$GITHUB_REF_NAME
             git push

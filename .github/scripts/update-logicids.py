@@ -1,57 +1,19 @@
 #!/usr/bin/env python3
 import struct
 import yaml
-import requests
-import hashlib
 import os
-import sys
-from datetime import datetime, timezone
+import utilities
 
 UPSTREAM_URL = "https://raw.githubusercontent.com/Anuken/Mindustry/master/core/assets/logicids.dat"
+FILENAME = "logicids.dat"
 STATE_FILE = ".github/upstream-state.yaml"
 OUTPUT_DIR = "MlogDocs/Languages/v8/static/"
 CONTENT_TYPES = ["blocks", "units", "items", "liquids"]
 
+util = utilities.utilities(UPSTREAM_URL, STATE_FILE, FILENAME)
 class IndentDumper(yaml.Dumper):
     def increase_indent(self, flow=False, indentless=False):
         return super().increase_indent(flow, False)
-
-def get_file_hash(file_path):
-    """Calculate SHA256 hash of a file"""
-    sha256 = hashlib.sha256()
-    with open(file_path, 'rb') as f:
-        for chunk in iter(lambda: f.read(4096), b""):
-            sha256.update(chunk)
-    return sha256.hexdigest()
-
-def download_upstream_file():
-    """Download the upstream logicids.dat file"""
-    print(f"Downloading {UPSTREAM_URL}")
-    response = requests.get(UPSTREAM_URL)
-    response.raise_for_status()
-    
-    temp_file = "/tmp/logicids.dat"
-    with open(temp_file, 'wb') as f:
-        f.write(response.content)
-    
-    return temp_file
-
-def load_state():
-    """Load the stored state file"""
-    if os.path.exists(STATE_FILE):
-        with open(STATE_FILE, 'r') as f:
-            return yaml.safe_load(f) or {}
-    return {}
-
-def save_state(sha256_hash):
-    """Save the state file with the new SHA256"""
-    state_yaml = (
-        f"upstream_sha256: {sha256_hash}\n"
-        f"last_updated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')}\n"
-    )
-    with open(STATE_FILE, 'w') as f:
-        f.write(state_yaml)
-    print(f"Updated state file: {STATE_FILE}")
 
 def parse_logicids(file_path):
     """Parse the logicids.dat file and generate YAML files"""
@@ -97,14 +59,14 @@ def parse_logicids(file_path):
 
 def main():
     # Download upstream file
-    temp_file = download_upstream_file()
+    temp_file = util.download_upstream_file()
     
     # Get hash of downloaded file
-    new_hash = get_file_hash(temp_file)
+    new_hash = util.get_file_hash(temp_file)
     print(f"Upstream file SHA256: {new_hash}")
     
     # Load stored state
-    state = load_state()
+    state = util.load_state()
     stored_hash = state.get("upstream_sha256")
     
     # Check if we need to update
@@ -123,7 +85,7 @@ def main():
     parse_logicids(temp_file)
     
     # Update the state file
-    save_state(new_hash)
+    util.save_state(new_hash)
     
     # Clean up temp file
     os.remove(temp_file)
