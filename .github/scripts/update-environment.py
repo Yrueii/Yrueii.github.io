@@ -35,6 +35,11 @@ def extract_strings_in_region(file_path, types):
                     items.append(f"@{ore}")
                 continue
 
+            # Harcoded build block, since this doesn't actually have a mapping, but instead depends on the size of the block
+            if region_name == 'build':
+                for i in range(1, 17):
+                    items.append(f"@build{i}")
+
             # Pattern for the region markers
             region_start = f"//region {region_name}"
             region_end = "//endregion"
@@ -96,7 +101,7 @@ def main():
         print("No previous state found. Generating initial files...")
     
     # Parse the downloaded file
-    extract_strings_in_region(temp_file, {'environment':["environment", "ore"]})
+    extract_strings_in_region(temp_file, {'environment':["environment", "ore", "build"]})
     
     # Update the state file
     util.save_state(new_hash)
