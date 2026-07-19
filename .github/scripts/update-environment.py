@@ -1,60 +1,64 @@
-#!/usr/bin/env python3
-import struct
+import re
 import yaml
-import os
 import utilities
+import os
 
-UPSTREAM_URL = "https://raw.githubusercontent.com/Anuken/Mindustry/master/core/assets/logicids.dat"
+UPSTREAM_URL = "https://raw.githubusercontent.com/Anuken/Mindustry/master/core/src/mindustry/content/Blocks.java"
 STATE_FILE = ".github/upstream-state.yaml"
 OUTPUT_DIR = "MlogDocs/Languages/v8/static/"
-CONTENT_TYPES = ["blocks", "units", "items", "liquids"]
 
 util = utilities.utilities(UPSTREAM_URL, STATE_FILE)
+
 class IndentDumper(yaml.Dumper):
     def increase_indent(self, flow=False, indentless=False):
         return super().increase_indent(flow, False)
 
-def parse_logicids(file_path):
-    """Parse the logicids.dat file and generate YAML files"""
-    with open(file_path, 'rb') as f:
-        data = f.read()
+def extract_strings_in_region(file_path, region_name="environment"):
+    """
+    Extract string arguments from patterns within a specific region.
     
-    offset = 0
+    Region format:
+    //region environment
+    ... code here ...
+    //endregion
+    """
+    # Pattern for the region markers
+    region_start = f"//region {region_name}"
+    region_end = "//endregion"
     
-    for ctype_name in CONTENT_TYPES:
-        if offset + 2 > len(data):
-            break
-        
-        count = struct.unpack('>H', data[offset:offset+2])[0]
-        offset += 2
-        
+    # Pattern for finding string arguments
+    string_pattern = r'new\s+\w+\s*\(\s*["\']([^"\']*)["\']\s*\)'
+    
+    results = []
+    in_region = False
+    
+    with open(file_path, 'r') as file:
         items = []
-        for i in range(count):
-            if offset + 2 > len(data):
-                break
+        for line_num, line in enumerate(file, 1):
+            # Check for region start
+            if region_start in line:
+                in_region = True
+                continue
             
-            str_len = struct.unpack('>H', data[offset:offset+2])[0]
-            offset += 2
+            # Check for region end
+            if region_end in line and in_region:
+                in_region = False
+                continue
             
-            if offset + str_len > len(data):
-                break
-            
-            name = data[offset:offset+str_len].decode('utf-8', errors='replace')
-            offset += str_len
-            
-            items.append(f"@{name}")
-        
+            # If we're inside the region, look for matches
+            if in_region:
+                matches = re.findall(string_pattern, line)
+                for match in matches:
+                    items.append(f"@{match}")
+
         if items:
-            output_file = f"{ctype_name}.yaml"
-            yaml_data = {ctype_name: items}
-            
+            output_file = f"{region_name}.yaml"
+            yaml_data = {region_name: items}
+
             with open(f"{OUTPUT_DIR}{output_file}", 'w') as f:
                 yaml.dump(yaml_data, f, Dumper=IndentDumper, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
-            
-            print(f"✓ Generated {output_file} with {len(items)} {ctype_name}")
-        
-        if offset >= len(data):
-            break
+
+            print(f"✓ Generated {output_file} with {len(items)} {region_name}")
 
 def main():
     # Download upstream file
@@ -64,11 +68,11 @@ def main():
     # Get hash of downloaded file
     new_hash = util.get_file_hash(temp_file)
     print(f"Upstream file SHA256: {new_hash}")
-    
+
     # Load stored state
     state = util.load_state(filename)
     stored_hash = state.get("upstream_sha256")
-    
+
     # Check if we need to update
     if stored_hash == new_hash:
         print(f"No changes detected (hash: {new_hash[:12]}...)")
@@ -82,11 +86,11 @@ def main():
         print("No previous state found. Generating initial files...")
     
     # Parse the downloaded file
-    parse_logicids(temp_file)
+    extract_strings_in_region(temp_file, "environment")
     
     # Update the state file
     util.save_state(new_hash, filename)
-    
+
     # Clean up temp file
     os.remove(temp_file)
     
