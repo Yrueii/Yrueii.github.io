@@ -26,7 +26,7 @@ def extract_strings_in_region(file_path, types):
     ... code here ...
     //endregion
     """
-    for type, names in types:
+    for type, names in types.items():
         items = []
         for region_name in names:
             # Hardcoded for ore since there's no easy mapping to get from the source code
