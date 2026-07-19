@@ -36,7 +36,7 @@ class utilities:
         """Load the stored state file"""
         if os.path.exists(self.STATE_FILE):
             with open(self.STATE_FILE, 'r') as f:
-                return yaml.safe_load(f).get(self.FILENAME) or {}
+                return (yaml.safe_load(f) or {}).get(self.FILENAME) or {}
         return {}
 
     def save_state(self, sha256_hash):
