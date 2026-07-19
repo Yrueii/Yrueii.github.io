@@ -60,14 +60,13 @@ def parse_logicids(file_path):
 def main():
     # Download upstream file
     temp_file = util.download_upstream_file()
-    filename = os.path.basename(temp_file)
     
     # Get hash of downloaded file
     new_hash = util.get_file_hash(temp_file)
     print(f"Upstream file SHA256: {new_hash}")
     
     # Load stored state
-    state = util.load_state(filename)
+    state = util.load_state()
     stored_hash = state.get("upstream_sha256")
     
     # Check if we need to update
@@ -86,7 +85,7 @@ def main():
     parse_logicids(temp_file)
     
     # Update the state file
-    util.save_state(new_hash, filename)
+    util.save_state(new_hash)
     
     # Clean up temp file
     os.remove(temp_file)
