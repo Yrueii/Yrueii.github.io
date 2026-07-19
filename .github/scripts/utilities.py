@@ -7,9 +7,10 @@ from datetime import datetime, timezone
 
 class utilities:
 
-    def __init__(self, UPSTREAM_URL, STATE_FILE):
+    def __init__(self, UPSTREAM_URL, STATE_FILE, FILENAME):
         self.UPSTREAM_URL = UPSTREAM_URL
         self.STATE_FILE = STATE_FILE
+        self.FILENAME = FILENAME
 
     def get_file_hash(self, file_path):
         """Calculate SHA256 hash of a file"""
@@ -25,20 +26,20 @@ class utilities:
         response = requests.get(self.UPSTREAM_URL)
         response.raise_for_status()
         
-        temp_file = "/tmp/logicids.dat"
+        temp_file = f"/tmp/{self.FILENAME}"
         with open(temp_file, 'wb') as f:
             f.write(response.content)
         
         return temp_file
 
-    def load_state(self, filename):
+    def load_state(self):
         """Load the stored state file"""
         if os.path.exists(self.STATE_FILE):
             with open(self.STATE_FILE, 'r') as f:
-                return yaml.safe_load(f).get(filename) or {}
+                return yaml.safe_load(f).get(self.FILENAME) or {}
         return {}
 
-    def save_state(self, sha256_hash, filename):
+    def save_state(self, sha256_hash):
         """Save the state file with the new SHA256"""
         # 1. LOAD existing data (or create empty dict if file doesn't exist)
         if os.path.exists(self.STATE_FILE):
@@ -48,7 +49,7 @@ class utilities:
             state_data = {}
         
         # 2. MODIFY the specific entry
-        state_data[filename] = {
+        state_data[self.FILENAME] = {
             "upstream_sha256": sha256_hash,
             "last_updated": datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
         }

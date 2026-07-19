@@ -5,11 +5,12 @@ import os
 import utilities
 
 UPSTREAM_URL = "https://raw.githubusercontent.com/Anuken/Mindustry/master/core/assets/logicids.dat"
+FILENAME = "logicids.dat"
 STATE_FILE = ".github/upstream-state.yaml"
 OUTPUT_DIR = "MlogDocs/Languages/v8/static/"
 CONTENT_TYPES = ["blocks", "units", "items", "liquids"]
 
-util = utilities.utilities(UPSTREAM_URL, STATE_FILE)
+util = utilities.utilities(UPSTREAM_URL, STATE_FILE, FILENAME)
 class IndentDumper(yaml.Dumper):
     def increase_indent(self, flow=False, indentless=False):
         return super().increase_indent(flow, False)

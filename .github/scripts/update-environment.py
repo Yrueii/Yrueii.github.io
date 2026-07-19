@@ -4,16 +4,20 @@ import utilities
 import os
 
 UPSTREAM_URL = "https://raw.githubusercontent.com/Anuken/Mindustry/master/core/src/mindustry/content/Blocks.java"
+FILENAME = "Blocks.java"
 STATE_FILE = ".github/upstream-state.yaml"
 OUTPUT_DIR = "MlogDocs/Languages/v8/static/"
 
-util = utilities.utilities(UPSTREAM_URL, STATE_FILE)
+ORES = ['ore-copper', 'ore-lead', 'ore-scrap', 'ore-titanium', 'ore-thorium', 'ore-beryllium', 'ore-tungsten', 'ore-crystal-thorium', 'ore-wall-thorium', 'ore-wall-beryllium', 'graphitic-wall', 'ore-wall-graphite', 'ore-wall-tungsten']
+
+util = utilities.utilities(UPSTREAM_URL, STATE_FILE, FILENAME)
 
 class IndentDumper(yaml.Dumper):
     def increase_indent(self, flow=False, indentless=False):
         return super().increase_indent(flow, False)
+    
 
-def extract_strings_in_region(file_path, region_names=["environment"]):
+def extract_strings_in_region(file_path, types):
     """
     Extract string arguments from patterns within a specific region.
     
@@ -22,19 +26,24 @@ def extract_strings_in_region(file_path, region_names=["environment"]):
     ... code here ...
     //endregion
     """
-    for region_name in region_names:
-        # Pattern for the region markers
-        region_start = f"//region {region_name}"
-        region_end = "//endregion"
-        
-        # Pattern for finding string arguments
-        string_pattern = r'new\s+\w+\s*\(\s*["\']([^"\']*)["\']\s*\)'
-        
-        results = []
-        in_region = False
-        
-        with open(file_path, 'r') as file:
-            items = []
+    for type, names in types:
+        items = []
+        for region_name in names:
+            # Hardcoded for ore since there's no easy mapping to get from the source code
+            if region_name == 'ore':
+                for ore in ORES:
+                    items.append(f"@{ore}")
+                continue
+
+            # Pattern for the region markers
+            region_start = f"//region {region_name}"
+            region_end = "//endregion"
+            
+            # Pattern for finding string arguments
+            string_pattern = r'new\s+\w+\s*\(\s*["\']([^"\']*)["\']\s*\)'
+            
+            in_region = False
+            
             for line_num, line in enumerate(file, 1):
                 # Check for region start
                 if region_start in line:
@@ -52,14 +61,15 @@ def extract_strings_in_region(file_path, region_names=["environment"]):
                     for match in matches:
                         items.append(f"@{match}")
 
+        with open(file_path, 'r') as file:
             if items:
-                output_file = f"{region_name}.yaml"
-                yaml_data = {region_name: items}
+                output_file = f"{type}.yaml"
+                yaml_data = {type: items}
 
                 with open(f"{OUTPUT_DIR}{output_file}", 'w') as f:
                     yaml.dump(yaml_data, f, Dumper=IndentDumper, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
 
-                print(f"✓ Generated {output_file} with {len(items)} {region_name}")
+                print(f"✓ Generated {output_file} with {len(items)} {type}")
 
 def main():
     # Download upstream file
@@ -87,7 +97,7 @@ def main():
         print("No previous state found. Generating initial files...")
     
     # Parse the downloaded file
-    extract_strings_in_region(temp_file, ["environment", "ore"])
+    extract_strings_in_region(temp_file, {'environment':["environment", "ore"]})
     
     # Update the state file
     util.save_state(new_hash, filename)
