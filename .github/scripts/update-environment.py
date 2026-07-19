@@ -44,32 +44,32 @@ def extract_strings_in_region(file_path, types):
             
             in_region = False
             
-            for line_num, line in enumerate(file, 1):
-                # Check for region start
-                if region_start in line:
-                    in_region = True
-                    continue
-                
-                # Check for region end
-                if region_end in line and in_region:
-                    in_region = False
-                    continue
-                
-                # If we're inside the region, look for matches
-                if in_region:
-                    matches = re.findall(string_pattern, line)
-                    for match in matches:
-                        items.append(f"@{match}")
+            with open(file_path, 'r') as file:
+                for line_num, line in enumerate(file, 1):
+                    # Check for region start
+                    if region_start in line:
+                        in_region = True
+                        continue
+                    
+                    # Check for region end
+                    if region_end in line and in_region:
+                        in_region = False
+                        continue
+                    
+                    # If we're inside the region, look for matches
+                    if in_region:
+                        matches = re.findall(string_pattern, line)
+                        for match in matches:
+                            items.append(f"@{match}")
 
-        with open(file_path, 'r') as file:
-            if items:
-                output_file = f"{type}.yaml"
-                yaml_data = {type: items}
+        if items:
+            output_file = f"{type}.yaml"
+            yaml_data = {type: items}
 
-                with open(f"{OUTPUT_DIR}{output_file}", 'w') as f:
-                    yaml.dump(yaml_data, f, Dumper=IndentDumper, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
+            with open(f"{OUTPUT_DIR}{output_file}", 'w') as f:
+                yaml.dump(yaml_data, f, Dumper=IndentDumper, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
 
-                print(f"✓ Generated {output_file} with {len(items)} {type}")
+            print(f"✓ Generated {output_file} with {len(items)} {type}")
 
 def main():
     # Download upstream file
