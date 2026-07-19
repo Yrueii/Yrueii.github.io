@@ -13,7 +13,7 @@ class IndentDumper(yaml.Dumper):
     def increase_indent(self, flow=False, indentless=False):
         return super().increase_indent(flow, False)
 
-def extract_strings_in_region(file_path, region_name="environment"):
+def extract_strings_in_region(file_path, region_names=["environment"]):
     """
     Extract string arguments from patterns within a specific region.
     
@@ -22,43 +22,44 @@ def extract_strings_in_region(file_path, region_name="environment"):
     ... code here ...
     //endregion
     """
-    # Pattern for the region markers
-    region_start = f"//region {region_name}"
-    region_end = "//endregion"
-    
-    # Pattern for finding string arguments
-    string_pattern = r'new\s+\w+\s*\(\s*["\']([^"\']*)["\']\s*\)'
-    
-    results = []
-    in_region = False
-    
-    with open(file_path, 'r') as file:
-        items = []
-        for line_num, line in enumerate(file, 1):
-            # Check for region start
-            if region_start in line:
-                in_region = True
-                continue
-            
-            # Check for region end
-            if region_end in line and in_region:
-                in_region = False
-                continue
-            
-            # If we're inside the region, look for matches
-            if in_region:
-                matches = re.findall(string_pattern, line)
-                for match in matches:
-                    items.append(f"@{match}")
+    for region_name in region_names:
+        # Pattern for the region markers
+        region_start = f"//region {region_name}"
+        region_end = "//endregion"
+        
+        # Pattern for finding string arguments
+        string_pattern = r'new\s+\w+\s*\(\s*["\']([^"\']*)["\']\s*\)'
+        
+        results = []
+        in_region = False
+        
+        with open(file_path, 'r') as file:
+            items = []
+            for line_num, line in enumerate(file, 1):
+                # Check for region start
+                if region_start in line:
+                    in_region = True
+                    continue
+                
+                # Check for region end
+                if region_end in line and in_region:
+                    in_region = False
+                    continue
+                
+                # If we're inside the region, look for matches
+                if in_region:
+                    matches = re.findall(string_pattern, line)
+                    for match in matches:
+                        items.append(f"@{match}")
 
-        if items:
-            output_file = f"{region_name}.yaml"
-            yaml_data = {region_name: items}
+            if items:
+                output_file = f"{region_name}.yaml"
+                yaml_data = {region_name: items}
 
-            with open(f"{OUTPUT_DIR}{output_file}", 'w') as f:
-                yaml.dump(yaml_data, f, Dumper=IndentDumper, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
+                with open(f"{OUTPUT_DIR}{output_file}", 'w') as f:
+                    yaml.dump(yaml_data, f, Dumper=IndentDumper, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
 
-            print(f"✓ Generated {output_file} with {len(items)} {region_name}")
+                print(f"✓ Generated {output_file} with {len(items)} {region_name}")
 
 def main():
     # Download upstream file
@@ -86,7 +87,7 @@ def main():
         print("No previous state found. Generating initial files...")
     
     # Parse the downloaded file
-    extract_strings_in_region(temp_file, "environment")
+    extract_strings_in_region(temp_file, ["environment", "ore"])
     
     # Update the state file
     util.save_state(new_hash, filename)

@@ -40,12 +40,21 @@ class utilities:
 
     def save_state(self, sha256_hash, filename):
         """Save the state file with the new SHA256"""
-        state_yaml = {
-            filename: {
+        # 1. LOAD existing data (or create empty dict if file doesn't exist)
+        if os.path.exists(self.STATE_FILE):
+            with open(self.STATE_FILE, 'r') as f:
+                state_data = yaml.safe_load(f) or {}
+        else:
+            state_data = {}
+        
+        # 2. MODIFY the specific entry
+        state_data[filename] = {
             "upstream_sha256": sha256_hash,
             "last_updated": datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
-            }
         }
+        
+        # 3. WRITE the entire updated structure back
         with open(self.STATE_FILE, 'w') as f:
-            yaml.dump(state_yaml, f, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
+            yaml.dump(state_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False, indent=2)
+        
         print(f"Updated state file: {self.STATE_FILE}")
