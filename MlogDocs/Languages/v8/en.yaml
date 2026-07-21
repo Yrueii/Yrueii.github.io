@@ -506,14 +506,12 @@ basic_concept:
             {br}
             {br}
             The text buffer has a {hl:_400:yel} character limit, for example “frog” is 4 characters. 
-            Even though the message block has a {hl:_220:yel} characters limit you can still print {hl:_400:yel} characters to it. 
         printfrog: print "frog"
         frog: frog
         printflush: Print Flush
         _256: "256"
         _1024: "1024"
         _400: "400"
-        _220: "220"
 
 blocks:
     title: Blocks
@@ -521,7 +519,7 @@ blocks:
         title: Message
         content: |
             Is used with Print and Print Flush, can also be manually written by clicking it and clicking the pencil icon.
-            {br}has 220 characters limit (including spaces)
+            {br}has 400 characters limit (including spaces)
             {br}will only show its text when hovered
 
     switch:
