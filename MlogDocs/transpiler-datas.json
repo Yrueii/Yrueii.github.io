@@ -1,4 +1,4 @@
-{"date_updated": "2026-07-20 02:44:41", "repos": [
+{"date_updated": "2026-07-22 02:26:29", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mincode",
@@ -13,8 +13,8 @@
   "short_name": "Pyndustric",
   "description": "A Python compiler for Mindustry's logic processors assembly language",
   "owner": "Lonami",
-  "updated_at": "2026-02-09T21:59:51Z",
-  "stargazers_count": 59
+  "updated_at": "2026-07-21T11:24:59Z",
+  "stargazers_count": 60
 }
 ,
 {
@@ -121,7 +121,7 @@
   "short_name": "Mlog Bang Lang",
   "description": "Mindustry logic extension meta-programming language, for zero additional overhead!",
   "owner": "A4-Tacks",
-  "updated_at": "2026-07-19T14:31:27Z",
+  "updated_at": "2026-07-21T23:39:30Z",
   "stargazers_count": 33
 }
 ,
