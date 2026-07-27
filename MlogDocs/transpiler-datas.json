@@ -1,10 +1,10 @@
-{"date_updated": "2026-07-26 02:33:30", "repos": [
+{"date_updated": "2026-07-27 02:41:09", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mincode",
   "description": "A high level language for Mindustry Logic (mlog) and Mindustry Schematics.",
   "owner": "cardillan",
-  "updated_at": "2026-07-25T13:11:48Z",
+  "updated_at": "2026-07-26T10:45:45Z",
   "stargazers_count": 161
 }
 ,
@@ -49,8 +49,8 @@
   "short_name": "Mlog JS",
   "description": "Compile javascript into Mindustry logic code (mlog)",
   "owner": "mlogjs",
-  "updated_at": "2026-07-04T06:55:03Z",
-  "stargazers_count": 89
+  "updated_at": "2026-07-26T10:49:51Z",
+  "stargazers_count": 90
 }
 ,
 {
