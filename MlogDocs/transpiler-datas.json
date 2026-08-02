@@ -1,11 +1,11 @@
-{"date_updated": "2026-08-01 02:33:57", "repos": [
+{"date_updated": "2026-08-02 02:32:34", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mincode",
   "description": "A high level language for Mindustry Logic (mlog) and Mindustry Schematics.",
   "owner": "cardillan",
-  "updated_at": "2026-07-26T10:45:45Z",
-  "stargazers_count": 161
+  "updated_at": "2026-08-01T13:46:04Z",
+  "stargazers_count": 162
 }
 ,
 {
@@ -22,8 +22,8 @@
   "short_name": "Mlogls",
   "description": "A language server for the Mindustry Logic programming language",
   "owner": "JeanJPNM",
-  "updated_at": "2026-07-10T15:29:57Z",
-  "stargazers_count": 9
+  "updated_at": "2026-08-01T14:37:10Z",
+  "stargazers_count": 10
 }
 ,
 {
@@ -49,8 +49,8 @@
   "short_name": "Mlog JS",
   "description": "Compile javascript into Mindustry logic code (mlog)",
   "owner": "mlogjs",
-  "updated_at": "2026-07-26T10:49:51Z",
-  "stargazers_count": 90
+  "updated_at": "2026-08-01T08:21:40Z",
+  "stargazers_count": 91
 }
 ,
 {
@@ -72,65 +72,65 @@
 }
 ,
 {
-  "html_url": null,
+  "html_url": "https://github.com/yangfl/minasm",
   "short_name": "MlogEvo",
-  "description": null,
-  "owner": null,
-  "updated_at": null,
-  "stargazers_count": null
+  "description": "Assembly-like language compiles to Mindustry Logic Language",
+  "owner": "yangfl",
+  "updated_at": "2026-07-28T17:43:58Z",
+  "stargazers_count": 3
 }
 ,
 {
-  "html_url": null,
+  "html_url": "https://github.com/Vilsol/go-mlog",
   "short_name": "go-mlog",
-  "description": null,
-  "owner": null,
-  "updated_at": null,
-  "stargazers_count": null
+  "description": "Go to Mindustry (MLOG) compiler, runtime and decompiler (WIP)",
+  "owner": "Vilsol",
+  "updated_at": "2025-04-22T06:14:55Z",
+  "stargazers_count": 28
 }
 ,
 {
-  "html_url": null,
+  "html_url": "https://github.com/albi-c/mlogpp",
   "short_name": "Mlogpp",
-  "description": null,
-  "owner": null,
-  "updated_at": null,
-  "stargazers_count": null
+  "description": "high level mindustry logic language",
+  "owner": "albi-c",
+  "updated_at": "2026-04-28T09:12:04Z",
+  "stargazers_count": 8
 }
 ,
 {
-  "html_url": null,
+  "html_url": "https://github.com/quantumsheep/glsl-mlog-compiler",
   "short_name": "GLSL to Mlog",
-  "description": null,
-  "owner": null,
-  "updated_at": null,
-  "stargazers_count": null
+  "description": "Transpiles GLSL to mlog (Mindustry Logic)",
+  "owner": "quantumsheep",
+  "updated_at": "2025-11-24T03:22:03Z",
+  "stargazers_count": 4
 }
 ,
 {
-  "html_url": null,
+  "html_url": "https://github.com/Voz-Duh/Mindustry_CodeToLogic",
   "short_name": "Mindustry CodeToLogic",
-  "description": null,
-  "owner": null,
-  "updated_at": null,
-  "stargazers_count": null
+  "description": "Converter from DSL to mindustry logic",
+  "owner": "Voz-Duh",
+  "updated_at": "2025-07-18T11:53:46Z",
+  "stargazers_count": 0
 }
 ,
 {
-  "html_url": null,
+  "html_url": "https://github.com/A4-Tacks/mindustry_logic_bang_lang",
   "short_name": "Mlog Bang Lang",
-  "description": null,
-  "owner": null,
-  "updated_at": null,
-  "stargazers_count": null
+  "description": "Mindustry logic extension meta-programming language, for zero additional overhead!",
+  "owner": "A4-Tacks",
+  "updated_at": "2026-07-25T13:12:26Z",
+  "stargazers_count": 34
 }
 ,
 {
-  "html_url": null,
+  "html_url": "https://github.com/SkyeTheFoxyFox/sfmlog",
   "short_name": "sfmlog",
-  "description": null,
-  "owner": null,
-  "updated_at": null,
-  "stargazers_count": null
+  "description": "An mlog transpiler",
+  "owner": "SkyeTheFoxyFox",
+  "updated_at": "2026-07-09T09:21:51Z",
+  "stargazers_count": 0
 }
 ]}
