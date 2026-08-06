@@ -1,11 +1,11 @@
-{"date_updated": "2026-07-19 03:35:01", "repos": [
+{"date_updated": "2026-08-06 03:42:16", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mincode",
   "description": "A high level language for Mindustry Logic (mlog) and Mindustry Schematics.",
   "owner": "cardillan",
-  "updated_at": "2026-07-17T10:02:09Z",
-  "stargazers_count": 159
+  "updated_at": "2026-08-05T07:10:11Z",
+  "stargazers_count": 163
 }
 ,
 {
@@ -13,8 +13,8 @@
   "short_name": "Pyndustric",
   "description": "A Python compiler for Mindustry's logic processors assembly language",
   "owner": "Lonami",
-  "updated_at": "2026-02-09T21:59:51Z",
-  "stargazers_count": 59
+  "updated_at": "2026-07-21T11:24:59Z",
+  "stargazers_count": 60
 }
 ,
 {
@@ -22,8 +22,8 @@
   "short_name": "Mlogls",
   "description": "A language server for the Mindustry Logic programming language",
   "owner": "JeanJPNM",
-  "updated_at": "2026-07-10T15:29:57Z",
-  "stargazers_count": 9
+  "updated_at": "2026-08-01T14:37:10Z",
+  "stargazers_count": 10
 }
 ,
 {
@@ -49,8 +49,8 @@
   "short_name": "Mlog JS",
   "description": "Compile javascript into Mindustry logic code (mlog)",
   "owner": "mlogjs",
-  "updated_at": "2026-07-04T06:55:03Z",
-  "stargazers_count": 89
+  "updated_at": "2026-08-01T08:21:40Z",
+  "stargazers_count": 91
 }
 ,
 {
@@ -76,7 +76,7 @@
   "short_name": "MlogEvo",
   "description": "Assembly-like language compiles to Mindustry Logic Language",
   "owner": "yangfl",
-  "updated_at": "2025-06-08T06:41:51Z",
+  "updated_at": "2026-07-28T17:43:58Z",
   "stargazers_count": 3
 }
 ,
@@ -121,8 +121,8 @@
   "short_name": "Mlog Bang Lang",
   "description": "Mindustry logic extension meta-programming language, for zero additional overhead!",
   "owner": "A4-Tacks",
-  "updated_at": "2026-07-15T09:22:52Z",
-  "stargazers_count": 32
+  "updated_at": "2026-07-25T13:12:26Z",
+  "stargazers_count": 34
 }
 ,
 {
