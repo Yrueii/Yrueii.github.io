@@ -3217,7 +3217,7 @@ built_in_vars2:
         speed:
             title: "@speed"
             content: |
-                the object maximum speed, in tiles/second; returns number, information can also be found on ingame’s info menu, there is currently no variable for current speed
+                the object maximum speed, in tiles/second; returns number, information can also be found on ingame’s info menu. for an object's current traveling speed use @velocityX and @velocityY
         team:
             title: "@team"
             content: |
