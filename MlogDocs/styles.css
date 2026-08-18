@@ -1065,6 +1065,47 @@ pre {
     font-size: smaller;
 }
 
+section {
+  position: relative;
+}
+
+section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 50px;
+  height: 100%;
+}
+
+.copy-link-btn-page {
+  all: unset;
+  position: absolute;
+  top: 2px;
+  left: -50px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+  user-select: none;
+}
+
+section:hover > .copy-link-btn-page {
+  opacity: 1;
+  visibility: visible;
+}
+
+section:has(section:hover) > .copy-link-btn-page {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+@media (hover: none) {
+  .show-link-btn > .copy-link-btn-page {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 .sidebar-link {
     flex:1;
 }

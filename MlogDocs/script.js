@@ -729,6 +729,45 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
+  const sections = document.querySelectorAll('section')
+  const img = `<img src="image/assets/link2.svg" alt="Copy link" style="width:22px;height:22px;">`
+
+  sections.forEach(section => {
+    const linkBtn = document.createElement('button')
+    linkBtn.innerHTML = img
+    linkBtn.title = "Copy link"
+    linkBtn.classList.add("copy-link-btn-page")
+    linkBtn.style.cursor = 'pointer';
+    linkBtn.dataset.url = `#${section.id}`
+    section.prepend(linkBtn)
+  });
+
+  const main = document.querySelector('main');
+
+  main.addEventListener('click', handleCopyClick);
+
+  function handleCopyClick(e) {
+    const btn = e.target.closest('.copy-link-btn-page');
+    if (!btn) return;
+
+    const url = `${location.origin}${location.pathname}${btn.dataset.url}`;
+    navigator.clipboard.writeText(url).then(() => {
+      btn.innerHTML = img_check;
+      setTimeout(() => btn.innerHTML = img, 1200);
+    });
+  }
+
+  if (window.matchMedia('(hover: none)').matches) {
+    sections.forEach(section => {
+      section.addEventListener('click', (e) => {
+        // only toggle if the tap wasn't on the button itself
+        if (!e.target.closest('.copy-link-btn-page')) {
+          section.classList.toggle('show-link-btn');
+        }
+      });
+    });
+  }
+
   // Load available languages and populate the language selection dropdown
   fetch('/MlogDocs/Languages/index.json')
     .then(r => r.json())
