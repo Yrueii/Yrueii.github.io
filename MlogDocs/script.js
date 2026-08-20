@@ -297,6 +297,16 @@ async function fetchYaml(url) {
 
 // ###########################################################################################################
 // Mapping of li classes to hrefs for auto-generating table of contents
+// TODO: Make this mapping dynamic by reading from the YAML file instead of hardcoding it in the script.
+// like:
+// table_of_contents:
+//     title: Table of content
+//     list:
+//         glossary: 
+//            string: "Glossary"
+//         integers:
+//            string: "Integers"
+//            parent: "glossary"
 
 const liClassTolinksMap = {
   "sub-title": [
@@ -421,7 +431,12 @@ const liClassTolinksMap = {
   ]
 };
 
+
+
 async function loadLang(version, lang) {
+  const copyBtnImg = `<img src="image/assets/link2.svg" alt="Copy link">`
+  const copyBtnImgCheck = `<img src="image/assets/check-mark.svg" alt="Link copied">`
+
   document.querySelectorAll('.lang-item').forEach(el => el.classList.remove('lang-active'));
   document.getElementById(`${version}_${lang}`).classList.add("lang-active")
   // document.getElementById(`${version}_${lang}`).classList.add("lang_active")
@@ -473,9 +488,7 @@ async function loadLang(version, lang) {
   const copyBtn = document.createElement('button');
   copyBtn.className = 'copy-link-btn';
   copyBtn.title = 'Copy link';
-  img = `<img src="image/assets/link2.svg" alt="Copy link" style="width:16px;height:16px;">`
-  img_check = `<img src="image/assets/check-mark.svg" alt="Link copied" style="width:16px;height:16px;">`
-  copyBtn.innerHTML = img;
+  copyBtn.innerHTML = copyBtnImg;
   copyBtn.style.marginLeft = '6px';
   copyBtn.style.cursor = 'pointer';
 
@@ -544,6 +557,50 @@ async function loadLang(version, lang) {
     };
   }
 
+  // Add copy link buttons to each section title
+  const sections = document.querySelectorAll('section')
+  sections.forEach(section => {
+    const titleEl = section.querySelector(':scope [data-i18n*="title"]');
+    if (!titleEl) {
+      console.warn(`Section with ID "${section.id}" has no title element`);
+      return;
+    }
+
+    const linkBtn = document.createElement('button')
+    linkBtn.innerHTML = copyBtnImg
+    linkBtn.title = "Copy link"
+    linkBtn.classList.add("copy-link-btn-page")
+    linkBtn.style.cursor = 'pointer';
+    linkBtn.dataset.url = `#${section.id}`
+    titleEl.append(linkBtn)
+  });
+
+  const main = document.querySelector('main');
+
+  // Add event listener to the main element to handle copy link button clicks
+  main.addEventListener('click', handleCopyClick);
+  function handleCopyClick(e) {
+    const btn = e.target.closest('.copy-link-btn-page');
+    if (!btn) return;
+
+    const url = `${location.origin}${location.pathname}${btn.dataset.url}`;
+    navigator.clipboard.writeText(url).then(() => {
+      btn.innerHTML = copyBtnImgCheck;
+      setTimeout(() => btn.innerHTML = copyBtnImg, 1200);
+    });
+  }
+
+  // Add event listener to toggle the visibility of the copy link button on touch devices
+  if (window.matchMedia('(hover: none)').matches) {
+    sections.forEach(section => {
+      section.addEventListener('click', (e) => {
+        // only toggle if the tap wasn't on the button itself
+        if (!e.target.closest('.copy-link-btn-page')) {
+          section.classList.toggle('show-link-btn');
+        }
+      });
+    });
+  }
 }
 
 function parseTranspilerDataJSON() {
@@ -704,7 +761,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const url = location.origin + location.pathname + link.getAttribute('href');
 
         navigator.clipboard.writeText(url).then(() => {
-          btn.innerHTML = img_check;
+          btn.innerHTML = copyBtnImgCheck;
           setTimeout(() => btn.innerHTML = img, 1200);
         });
 
@@ -728,45 +785,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     });
-
-  const sections = document.querySelectorAll('section')
-  const img = `<img src="image/assets/link2.svg" alt="Copy link" style="width:22px;height:22px;">`
-
-  sections.forEach(section => {
-    const linkBtn = document.createElement('button')
-    linkBtn.innerHTML = img
-    linkBtn.title = "Copy link"
-    linkBtn.classList.add("copy-link-btn-page")
-    linkBtn.style.cursor = 'pointer';
-    linkBtn.dataset.url = `#${section.id}`
-    section.prepend(linkBtn)
-  });
-
-  const main = document.querySelector('main');
-
-  main.addEventListener('click', handleCopyClick);
-
-  function handleCopyClick(e) {
-    const btn = e.target.closest('.copy-link-btn-page');
-    if (!btn) return;
-
-    const url = `${location.origin}${location.pathname}${btn.dataset.url}`;
-    navigator.clipboard.writeText(url).then(() => {
-      btn.innerHTML = img_check;
-      setTimeout(() => btn.innerHTML = img, 1200);
-    });
-  }
-
-  if (window.matchMedia('(hover: none)').matches) {
-    sections.forEach(section => {
-      section.addEventListener('click', (e) => {
-        // only toggle if the tap wasn't on the button itself
-        if (!e.target.closest('.copy-link-btn-page')) {
-          section.classList.toggle('show-link-btn');
-        }
-      });
-    });
-  }
 
   // Load available languages and populate the language selection dropdown
   fetch('/MlogDocs/Languages/index.json')
