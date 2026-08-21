@@ -145,7 +145,7 @@ const tokenResolvers = {
     el.textContent = sectionData[name];
     const url = new URL(el.href);
     if (url.hash && url.origin === location.origin && url.pathname === location.pathname) {
-      el.addEventListener('click', triggerGlow);
+      el.addEventListener('click', hashNavigateEvent);
     }
     return el;
   },
@@ -692,6 +692,11 @@ document.querySelectorAll('img').forEach(img => {
 
 
 let tocLinks = document.querySelectorAll('#sidebar a');
+let isLoaded = false;
+
+window.addEventListener('load', function() {
+    isLoaded = true;
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     parseTranspilerDataJSON();
@@ -770,7 +775,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       const link = e.target.closest('a[href^="#"]');
       if (link) {
-        triggerGlow.call(link, e);
+        hashNavigateEvent.call(link, e);
         const swidth = window.innerWidth;
         console.log(swidth)
         if (swidth <= 1670) {
@@ -856,9 +861,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const selfVideos = document.querySelector('#self-promotion').querySelectorAll("video")
 
   selfVideos.forEach(video => lazyVideoObserver.observe(video));
+
+  if (document.location.hash) {
+    const target = document.querySelector(document.location.hash);
+    if (target) {
+      navigateGlow(target);
+    }
+  };
 });
   
-function triggerGlow(event) {
+function hashNavigateEvent(event) {
   event.preventDefault();
 
   const href = this.getAttribute("href");
@@ -866,50 +878,73 @@ function triggerGlow(event) {
   if (!target) return;
 
   history.pushState(null, "", href);
+  navigateGlow(target);
+}
 
-  // not the most elegant solution, but its better than not reaching the destination
-  let scrollInterval = setInterval(() => {
+function navigateGlow(target) {
+
+  const scroll = (behavior = isLoaded ? "smooth" : "auto") => {
     const targetTop = target.getBoundingClientRect().top + window.scrollY;
+
+    // Calculate the scroll position so it scrolls to the center of the target element if it's smaller than the viewport, or to the top if it's larger.
     const scrollToPosition =
       target.offsetHeight > window.innerHeight
-        ? targetTop
-        : targetTop - window.innerHeight / 2 + target.offsetHeight / 2;
+        ? targetTop - 20 : targetTop - window.innerHeight / 2 + target.offsetHeight / 2;
+    console.log(behavior)
 
     window.scrollTo({
       top: scrollToPosition,
-      behavior: "smooth",
+      behavior: behavior,
     });
-  }, 200);
-
-  let stableTimeout = null;
-
-  const abort = () => {
-    clearInterval(scrollInterval);
-    clearTimeout(stableTimeout);
-    observer.disconnect();
-    window.removeEventListener("wheel", abort);
   };
 
-  window.addEventListener("wheel", abort);
+  scroll(); // immediately
+  
+  // Fixes the issue where the target element is not reached due to assets lazy loading changing the layout during smooth scrolling
+  let firstResize = true;
+  const resizeObserver = new ResizeObserver(() => {
+    // negate first call, since we still want smooth scroll, and only auto scroll if the page changes size
+    if (firstResize) {
+      firstResize = false;
+      return;
+    }
+    scroll("auto");
+  });
 
+  resizeObserver.observe(document.querySelector("main"));
+
+  let stableTimeout = null;
   const observer = new IntersectionObserver((entries) => {
     if (entries[0].isIntersecting) {
-      stableTimeout = setTimeout(() => {
-        clearInterval(scrollInterval);
-        triggerGlow1(target);
-        observer.disconnect();
-        window.removeEventListener("wheel", abort);
-      }, 500);
+      if (stableTimeout === null) {
+        stableTimeout = setTimeout(() => {
+          resizeObserver.disconnect();
+          applyGlow(target);
+          observer.disconnect();
+          window.removeEventListener("wheel", abort);
+        }, 500);
+      }
     } else {
       clearTimeout(stableTimeout);
       stableTimeout = null;
     }
   });
 
+  const abort = () => {
+    resizeObserver.disconnect();
+    clearTimeout(stableTimeout);
+
+    window.scrollTo(0, window.scrollY);
+
+    observer.disconnect();
+    window.removeEventListener("wheel", abort);
+  };
+
+  window.addEventListener("wheel", abort);
   observer.observe(target);
 }
 
-function triggerGlow1(section) {
+function applyGlow(section) {
   section.classList.remove('glow-section');
   void section.offsetWidth;
   section.classList.add('glow-section');
