@@ -674,6 +674,11 @@ section {
         width: 95vw;
     }
 
+    .glow-section::after {
+        margin-left: var(--margin-left, -2em) !important;
+        margin-right: var(--margin-right, -2em) !important;
+    }
+
 }
 
 @media (max-width: 1670px) {
@@ -867,7 +872,7 @@ th {
         border: 2px solid var(--accent);
         opacity: 0;
     }
-  }
+}
 
 .glow-section {
     position: relative;
@@ -879,13 +884,12 @@ th {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     border-radius: 20px;
-    margin-left: -50px;
     padding: 2em;
     margin: -1em -2em;
     z-index: -1;
     pointer-events: none;
     animation: backgroundGlow 2s;
-  }
+}
 
 .glow-section > * {
     position: relative;

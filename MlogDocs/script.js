@@ -777,7 +777,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (link) {
         hashNavigateEvent.call(link, e);
         const swidth = window.innerWidth;
-        console.log(swidth)
         if (swidth <= 1670) {
           var sidebar = document.getElementById('sidebar-right');
           if (sidebar.classList.contains('open')) {
@@ -890,7 +889,6 @@ function navigateGlow(target) {
     const scrollToPosition =
       target.offsetHeight > window.innerHeight
         ? targetTop - 20 : targetTop - window.innerHeight / 2 + target.offsetHeight / 2;
-    console.log(behavior)
 
     window.scrollTo({
       top: scrollToPosition,
@@ -945,8 +943,16 @@ function navigateGlow(target) {
 }
 
 function applyGlow(section) {
+  const rect = section.getBoundingClientRect();
+  const viewportWidth = window.innerWidth;
+  
+  const marginLeft = -rect.left + 10; // Add a small offset to the left
+  const marginRight = -(viewportWidth - (rect.right)) + 10; // Add a small offset to the right
+  
   section.classList.remove('glow-section');
   void section.offsetWidth;
+  section.style.setProperty('--margin-left', `${marginLeft}px`);
+  section.style.setProperty('--margin-right', `${marginRight}px`);
   section.classList.add('glow-section');
 }
 
