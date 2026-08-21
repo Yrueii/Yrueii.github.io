@@ -716,6 +716,11 @@ section {
     /* .sidebar ul {
         margin-top: 60px;
     } */
+     
+    .glow-section::after {
+        margin-left: var(--margin-left, -2em) !important;
+        margin-right: var(--margin-right, -2em) !important;
+    }
 
 }
 
