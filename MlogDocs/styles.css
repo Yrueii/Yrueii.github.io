@@ -333,7 +333,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .sidebar.open .sidebar-pull-tab {
-    left: 100%;
+    left: calc(100% - 2px);
     right: 0;
     transform: none;
 }
@@ -406,7 +406,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .sidebar-right .sidebar-pull-tab {
-    right: 100%;
+    right: calc(100% - 2px);
     left: auto;
     transform: scaleX(-1);
 }
@@ -573,14 +573,14 @@ section {
     }
 
     .sidebar-pull-tab {
-        left: 100%;
+        left: calc(100% - 2px);
         right: auto;
         transform: none;
         /* z-index: 10000; */
     }
 
     .sidebar.open .sidebar-pull-tab {
-        left: 100%;
+        left: calc(100% - 2px);
         right: 0;
         transform: scaleX(-1);
     }
@@ -698,7 +698,7 @@ section {
     }
 
     .sidebar-pull-tab {
-        left: 100%;
+        left: calc(100% - 2px);
         right: auto;
         transform: none;
         /* z-index: 10000; */
@@ -706,7 +706,7 @@ section {
 
     .sidebar.open .sidebar-pull-tab {
         left: auto;
-        right: 0;
+        right: -5px;
         transform: scaleX(-1);
     }
 
