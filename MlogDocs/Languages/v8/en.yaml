@@ -2980,6 +2980,57 @@ built_in_vars2:
         block:
             title: "@block"
             content: '-'
+        server: 
+            title: "@server"
+            content: |
+                returns True if the code is running on a server or in singleplayer, false otherwise
+                {br}Only works in World Processor.
+        client: 
+            title: "@client"
+            content: |
+                returns True if the code is running on a client connected to a server
+                {br}Only works in World Processor.
+        clientunit:
+            title: "@clientUnit"
+            content: |
+                {b:title} shows the unit that is currently controlled by the player, 
+                if the player is controlling a unit, {code:title:variable} will be that unit, 
+                also works when the player is controlling a block.
+                Returns object reference.
+                This is a desynced variable, this variable depends on the player (client), meaning on multiplayer games, their respective {code:title:variable} will be different for each player and the server.
+                {br}Only works in World Processor.
+        clientlocale:
+            title: "@clientLocale"
+            content: |
+                {b:title} shows the locale of the player, for example "en_US", returns a string, this is a desynced variable, this variable depends on the player (client), meaning on multiplayer games, their respective {code:title:variable} will be different for each player and the server.
+                {br}Only works in World Processor.
+        clientname:
+            title: "@clientName"
+            content: |
+                {b:title} shows the name of the player, returns a string, this is a desynced variable, this variable depends on the player (client), meaning on multiplayer games, their respective {code:title:variable} will be different for each player and the server.
+                {br}Only works in World Processor.
+        clientteam:
+            title: "@clientTeam"
+            content: |
+                {b:title} shows the team ID of the player, returns a number, this is a desynced variable, this variable depends on the player (client), meaning on multiplayer games, their respective {code:title:variable} will be different for each player and the server.
+                {br}Only works in World Processor.
+        clientmobile:
+            title: "@clientMobile"
+            content: |
+                {b:title} shows if the player is using a mobile device, returns a boolean, this is a desynced variable, this variable depends on the player (client), meaning on multiplayer games, their respective {code:title:variable} will be different for each player and the server.
+                {br}Only works in World Processor.
+        clientMusicPlaying:
+            title: "@clientMusicPlaying"
+            content: |
+                {b:title} shows if the player's client is currently playing music, returns a boolean, this is a desynced variable, this variable depends on the player (client), meaning on multiplayer games, their respective {code:title:variable} will be different for each player and the server.
+                {br}Only works in World Processor.
+        clientCurrentMusic:
+            title: "@clientCurrentMusic"
+            content: |
+                {b:title} shows the current music track being played on the player's client, returns a string, this is a desynced variable, this variable depends on the player (client), meaning on multiplayer games, their respective {code:title:variable} will be different for each player and the server.
+                the strings are file names from {link:httpsgithubcomAnukenMindustrytreemastercoreassetsmusic:https://github.com/Anuken/Mindustry/tree/master/core/assets/music}
+                {br}Only works in World Processor.
+            httpsgithubcomAnukenMindustrytreemastercoreassetsmusic : "https://github.com/Anuken/Mindustry/tree/master/core/assets/music"
         manifold:
             title: "@manifold"
             content: '-'
