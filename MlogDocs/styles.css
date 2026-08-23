@@ -1256,6 +1256,10 @@ iframe {
     background-repeat: no-repeat;
 }
 
+#building-groups li {
+    margin-bottom: 10px;
+}
+
 
 /* Tokens styles */
 

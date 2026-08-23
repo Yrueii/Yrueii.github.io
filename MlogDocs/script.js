@@ -296,143 +296,6 @@ async function fetchYaml(url) {
 }
 
 // ###########################################################################################################
-// Mapping of li classes to hrefs for auto-generating table of contents
-// TODO: Make this mapping dynamic by reading from the YAML file instead of hardcoding it in the script.
-// like:
-// table_of_contents:
-//     title: Table of content
-//     list:
-//         glossary: 
-//            string: "Glossary"
-//         integers:
-//            string: "Integers"
-//            parent: "glossary"
-
-const liClassTolinksMap = {
-  "sub-title": [
-    "foreword",
-    "introduction",
-    "glossary",
-    "basic-concept",
-    "blocks",
-    "instructions",
-    "controlling-units",
-    "simple-logic-examples",
-    "advanced",
-    "world-logic",
-    "bleeding-edge",
-    "extras",
-    "self-promotion",
-    "appendix",
-    "Contributors"
-  ],
-  "indent1": [
-    "integers",
-    "float",
-    "boolean",
-    "strings",
-    "building-reference",
-    "contentname",
-    "processors",
-    "processors-ui",
-    "how-processor-run-its-code",
-    "links",
-    "variables",
-    "built-in-variables",
-    "constants",
-    "buffers",
-    "message",
-    "switch",
-    "display",
-    "cell",
-    "read",
-    "write",
-    "draw",
-    "draw-flush",
-    "print",
-    "print-flush",
-    "get-link",
-    "control",
-    "radar",
-    "sensor",
-    "set",
-    "operation",
-    "select",
-    "lookup",
-    "pack-color",
-    "unpack-color",
-    "wait",
-    "stop",
-    "end",
-    "jump",
-    "unit-bind",
-    "unit-control",
-    "unit-radar",
-    "unit-locate",
-    "universal-switch",
-    "shuttle-logic",
-    "thorium-reactor-fail-safe",
-    "counter-array",
-    "lookup-array",
-    "writing-in-text-editor",
-    "transpiler",
-    "mods",
-    "subframe",
-
-    "how-to-get-world-processor",
-    "query",
-    "get-block",
-    "set-block",
-    "spawn-unit",
-    "apply-status",
-    "weather-sense",
-    "weather-set",
-    "spawn-wave",
-    "set-rule",
-    "flush-message",
-    "cutscene",
-    "effect",
-    "explosion",
-    "set-rate",
-    "fetch",
-    "sync",
-    "get-flag",
-    "set-flag",
-    "set-prop",
-    "make-marker",
-    "set-marker",
-    "locale-print",
-    "play-sound",
-
-    "mindustry-coordinate-system",
-    "configure-turns-to-config",
-    "you-cannot-spawn-scathe-missile",
-    "modded-items-and-draw-image",
-    "ai-chatbot-doenst-understand-mlog",
-    "getting-unit-cap",
-    "v6-unit-control-with-logic",
-    "damage-calculation",
-    "math",
-    "self-linking-processor",
-    "mloginvention",
-    "built-in-variables1",
-    "text-form-instruction",
-    "lookup-ids",
-    "dblockbehaviour"
-  ],
-  "indent2": [
-    "global",
-    "environment",
-    "sensors",
-    "blocks-and-items",
-    "units",
-    "normal-processor",
-    "world-processor"
-  ]
-};
-
-
-
 async function loadLang(version, lang) {
   const copyBtnImg = `<img src="image/assets/link2.svg" alt="Copy link">`
   const copyBtnImgCheck = `<img src="image/assets/check-mark.svg" alt="Link copied">`
@@ -485,6 +348,7 @@ async function loadLang(version, lang) {
 
   document.body.classList.remove("skeleton");
 
+  // Load table of contents from i18n data and add copy link buttons to each entry
   const copyBtn = document.createElement('button');
   copyBtn.className = 'copy-link-btn';
   copyBtn.title = 'Copy link';
@@ -495,22 +359,19 @@ async function loadLang(version, lang) {
   const tableOfContents = document.getElementById('sidebar').querySelector('ul');
   const tableOfContentsObj = data['table_of_contents']['list'];
 
-  for (const [key, value] of Object.entries(tableOfContentsObj)) {
+  for (const [key, entry] of Object.entries(tableOfContentsObj)) {
+    if (entry.title === "{delete}") {
+      continue;
+    }
     const link = document.createElement('a');
     const li = document.createElement('li');
-    if (value == "{delete}"){
-      continue
-    }
     link.href = `#${key}`;
-    link.textContent = value;
+    link.textContent = entry.title;
     link.classList.add('sidebar-link');
     li.appendChild(link);
     li.appendChild(copyBtn.cloneNode(true));
-    for (const [cls, list] of Object.entries(liClassTolinksMap)) {
-      if (list.includes(key)) {
-        li.classList.add(cls);
-        break;
-      }
+    if (entry.class) {
+      li.classList.add(entry.class);
     }
     tableOfContents.appendChild(li);
   }
@@ -518,6 +379,7 @@ async function loadLang(version, lang) {
   // For highlightCurrentSection()
   tocLinks = document.querySelectorAll('#sidebar a');
 
+  // Load environment, blocks, items, liquids, and units tables from static
   mappingTable = {
     "environment-table": "environment",
     "block-table": "blocks",

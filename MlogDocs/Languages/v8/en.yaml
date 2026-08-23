@@ -27,131 +27,359 @@ table_of_contents:
     title: Table of content
     list:
         # the key here is actually used for href (the link) so dont change them
-        foreword: Foreword
-        introduction: Introduction
-        glossary: Glossary
-        integers: Integers
-        float: Float
-        boolean: Boolean
-        strings: Strings
-        building-reference: Block or Unit Reference
-        contentname: Content name
+        foreword:
+            title: Foreword
+            class: sub-title
 
-        basic-concept: Basic Concept
-        processors: Processors
-        processors-ui: Processor's UI
-        how-processor-run-its-code: How Processors run its code
-        links: Links
-        variables: Variables
-        built-in-variables: Built in Variables
-        constants: Constant
-        buffers: Buffers
+        introduction:
+            title: Introduction
+            class: sub-title
 
-        blocks: Blocks
-        message: Message
-        switch: Switch
-        display: Displays
-        cell: Cells/Banks
+        glossary:
+            title: Glossary
+            class: sub-title
+        integers:
+            title: Integers
+            class: indent1
+        float:
+            title: Float
+            class: indent1
+        boolean:
+            title: Boolean
+            class: indent1
+        strings:
+            title: Strings
+            class: indent1
+        building-reference:
+            title: Block or Unit Reference
+            class: indent1
+        contentname:
+            title: Content name
+            class: indent1
 
-        instructions: Instructions
-        read: Read
-        write: Write
-        draw: Draw
-        draw-flush: Draw Flush
-        print: Print
-        print-flush: Print Flush
-        get-link: Get link
-        control: Control
-        radar: Radar
-        sensor: Sensor
-        set: Set
-        operation: Operation
-        select: Select
-        lookup: Lookup
-        pack-color: Pack Color
-        unpack-color: Unpack Color
-        wait: Wait
-        stop: Stop
-        end: End
-        jump: Jump
+        basic-concept:
+            title: Basic Concept
+            class: sub-title
+        processors:
+            title: Processors
+            class: indent1
+        processors-ui:
+            title: Processor's UI
+            class: indent1
+        how-processor-run-its-code:
+            title: How Processors run its code
+            class: indent1
+        links:
+            title: Links
+            class: indent1
+        variables:
+            title: Variables
+            class: indent1
+        built-in-variables:
+            title: Built in Variables
+            class: indent1
+        constants:
+            title: Constant
+            class: indent1
+        buffers:
+            title: Buffers
+            class: indent1
 
-        controlling-units: Controlling Units
-        unit-bind: Unit Bind
-        unit-control: Unit Control
-        unit-radar: Unit Radar
-        unit-locate: Unit Locate
+        blocks:
+            title: Blocks
+            class: sub-title
+        message:
+            title: Message
+            class: indent1
+        switch:
+            title: Switch
+            class: indent1
+        display:
+            title: Displays
+            class: indent1
+        cell:
+            title: Cells/Banks
+            class: indent1
 
-        simple-logic-examples: Simple Logic Examples
-        universal-switch: Universal Switch
-        shuttle-logic: Shuttle Logic
-        thorium-reactor-fail-safe: Thorium Reactor Fail Safe
-        counter-array: counter Array
-        lookup-array: Lookup Array
-        
-        advanced: Advanced
-        writing-in-text-editor: Writing in text editor
-        transpiler: Transpiler
-        mods: Mods
-        subframe: Antithreading / Subframe
+        instructions:
+            title: Instructions
+            class: sub-title
+        read:
+            title: Read
+            class: indent1
+        write:
+            title: Write
+            class: indent1
+        draw:
+            title: Draw
+            class: indent1
+        draw-flush:
+            title: Draw Flush
+            class: indent1
+        print:
+            title: Print
+            class: indent1
+        print-flush:
+            title: Print Flush
+            class: indent1
+        get-link:
+            title: Get link
+            class: indent1
+        control:
+            title: Control
+            class: indent1
+        radar:
+            title: Radar
+            class: indent1
+        sensor:
+            title: Sensor
+            class: indent1
+        set:
+            title: Set
+            class: indent1
+        operation:
+            title: Operation
+            class: indent1
+        select:
+            title: Select
+            class: indent1
+        lookup:
+            title: Lookup
+            class: indent1
+        pack-color:
+            title: Pack Color
+            class: indent1
+        unpack-color:
+            title: Unpack Color
+            class: indent1
+        wait:
+            title: Wait
+            class: indent1
+        stop:
+            title: Stop
+            class: indent1
+        end:
+            title: End
+            class: indent1
+        jump:
+            title: Jump
+            class: indent1
 
-        world-logic: World Logic (WIP)
-        how-to-get-world-processor: How to get World Processor
-        query: Query
-        get-block: Get Block
-        set-block: Set Block
-        spawn-unit: Spawn Unit
-        apply-status: Apply Status
-        weather-sense: Weather Sense
-        weather-set: Weather Set
-        spawn-wave: Spawn Wave(WIP)
-        set-rule: Set Rule(WIP)
-        flush-message: Flush Message
-        cutscene: Cutscene
-        effect: Effect
-        explosion: Explosion
-        set-rate: Set Rate
-        fetch: Fetch
-        sync: Sync(WIP)
-        get-flag: Get Flag
-        set-flag: Set Flag
-        set-prop: Set Prop
-        play-sound: Play Sound
-        make-marker: Make Marker
-        set-marker: Set Marker
-        locale-print: Locale Print
-        
-        bleeding-edge: Bleeding Edge(WIP)
+        controlling-units:
+            title: Controlling Units
+            class: sub-title
+        unit-bind:
+            title: Unit Bind
+            class: indent1
+        unit-control:
+            title: Unit Control
+            class: indent1
+        unit-radar:
+            title: Unit Radar
+            class: indent1
+        unit-locate:
+            title: Unit Locate
+            class: indent1
 
-        extras: Extras
-        mindustry-coordinate-system: Mindustry Coordinate System
-        configure-turns-to-config: The word configure turns to config
-        you-cannot-spawn-scathe-missile: "{delete}"
-        modded-items-and-draw-image: Modded items and Draw Image
-        ai-chatbot-doenst-understand-mlog: AI Chatbot doesn't understand Mlog
-        getting-unit-cap: Getting unit cap
-        v6-unit-control-with-logic: v6 unit control with logic
-        damage-calculation: Damage calculation   
-        math: Math
-        self-linking-processor: Self linking processor
+        simple-logic-examples:
+            title: Simple Logic Examples
+            class: sub-title
+        universal-switch:
+            title: Universal Switch
+            class: indent1
+        shuttle-logic:
+            title: Shuttle Logic
+            class: indent1
+        thorium-reactor-fail-safe:
+            title: Thorium Reactor Fail Safe
+            class: indent1
+        counter-array:
+            title: counter Array
+            class: indent1
+        lookup-array:
+            title: Lookup Array
+            class: indent1
 
-        self-promotion: Self promotion
+        advanced:
+            title: Advanced
+            class: sub-title
+        writing-in-text-editor:
+            title: Writing in text editor
+            class: indent1
+        transpiler:
+            title: Transpiler
+            class: indent1
+        mods:
+            title: Mods
+            class: indent1
+        subframe:
+            title: Antithreading / Subframe
+            class: indent1
 
-        appendix: Appendix
-        mloginvention: Mlog Invention
-        built-in-variables1: Built in Variables
-        global: Global
-        environment: Environment
-        sensors: Sensors
-        blocks-and-items: Blocks and Items
-        units: Units
-        text-form-instruction: Text form instruction
-        normal-processor: Normal Processor
-        world-processor: World Processor
-        lookup-ids: Lookup Id(s)
-        dblockbehaviour: Disabled block behaviour
+        world-logic:
+            title: World Logic (WIP)
+            class: sub-title
+        how-to-get-world-processor:
+            title: How to get World Processor
+            class: indent1
+        query:
+            title: Query
+            class: indent1
+        get-block:
+            title: Get Block
+            class: indent1
+        set-block:
+            title: Set Block
+            class: indent1
+        spawn-unit:
+            title: Spawn Unit
+            class: indent1
+        apply-status:
+            title: Apply Status
+            class: indent1
+        weather-sense:
+            title: Weather Sense
+            class: indent1
+        weather-set:
+            title: Weather Set
+            class: indent1
+        spawn-wave:
+            title: Spawn Wave(WIP)
+            class: indent1
+        set-rule:
+            title: Set Rule(WIP)
+            class: indent1
+        flush-message:
+            title: Flush Message
+            class: indent1
+        cutscene:
+            title: Cutscene
+            class: indent1
+        effect:
+            title: Effect
+            class: indent1
+        explosion:
+            title: Explosion
+            class: indent1
+        set-rate:
+            title: Set Rate
+            class: indent1
+        fetch:
+            title: Fetch
+            class: indent1
+        sync:
+            title: Sync(WIP)
+            class: indent1
+        get-flag:
+            title: Get Flag
+            class: indent1
+        set-flag:
+            title: Set Flag
+            class: indent1
+        set-prop:
+            title: Set Prop
+            class: indent1
+        play-sound:
+            title: Play Sound
+            class: indent1
+        make-marker:
+            title: Make Marker
+            class: indent1
+        set-marker:
+            title: Set Marker
+            class: indent1
+        locale-print:
+            title: Locale Print
+            class: indent1
 
-        Contributors: Contributors
+        bleeding-edge:
+            title: Bleeding Edge(WIP)
+            class: sub-title
 
+        extras:
+            title: Extras
+            class: sub-title
+        mindustry-coordinate-system:
+            title: Mindustry Coordinate System
+            class: indent1
+        configure-turns-to-config:
+            title: The word configure turns to config
+            class: indent1
+        you-cannot-spawn-scathe-missile:
+            title: "{delete}"
+            class: indent1
+        modded-items-and-draw-image:
+            title: Modded items and Draw Image
+            class: indent1
+        ai-chatbot-doenst-understand-mlog:
+            title: AI Chatbot doesn't understand Mlog
+            class: indent1
+        getting-unit-cap:
+            title: Getting unit cap
+            class: indent1
+        v6-unit-control-with-logic:
+            title: v6 unit control with logic
+            class: indent1
+        damage-calculation:
+            title: Damage calculation
+            class: indent1
+        math:
+            title: Math
+            class: indent1
+        self-linking-processor:
+            title: Self linking processor
+            class: indent1
+
+        self-promotion:
+            title: Self promotion
+            class: sub-title
+
+        appendix:
+            title: Appendix
+            class: sub-title
+        mloginvention:
+            title: Mlog Invention
+            class: indent1
+        built-in-variables1:
+            title: Built in Variables
+            class: indent1
+        global:
+            title: Global
+            class: indent2
+        environment:
+            title: Environment
+            class: indent2
+        sensors:
+            title: Sensors
+            class: indent2
+        blocks-and-items:
+            title: Blocks and Items
+            class: indent2
+        units:
+            title: Units
+            class: indent2
+        building-groups:
+            title: Building Groups
+            class: indent1
+        text-form-instruction:
+            title: Text form instruction
+            class: indent1
+        normal-processor:
+            title: Normal Processor
+            class: indent2
+        world-processor:
+            title: World Processor
+            class: indent2
+        lookup-ids:
+            title: Lookup Id(s)
+            class: indent1
+        dblockbehaviour:
+            title: Disabled block behaviour
+            class: indent1
+
+        Contributors:
+            title: Contributors
+            class: sub-title
 foreword:
     title: Foreword
     content1: |
@@ -1635,13 +1863,15 @@ controlling_units:
                 content: |
                     Will locate a building of the selected group, in this case, core,
                     {br}{img:image/unit locate.png:_}
-                    {br}{code:Find:field} what group to find, {span:TOADD:toadd}
+                    {br}{code:Find:field} what type to find
+                    {br}{code:group:field} what group of buildings to find, groups and their exact buildings can be found on {link:building_groups:#building-groups}
                     {br}{code:Enemy:field} is whether to locate enemy building’s or not, true means it will locate enemy’s building, false means it will locate ally building
                     {br}{code:outX:field} and {code:outY:field} are the building’s output coordinates
                     {br}{code:Found:field} is an output on whether the building is found(exist in the map) or not, true means it is found, false means it is not found
                     {br}{code:Building:field} is an output of that building reference, if locating for enemy blocks, will only return if that building is within {hl:formula:yel} of the unit,
                     if locating for ally blocks, will return that building regardless, else will return null instead
                 Find: find
+                group: group
                 TOADD: "TO ADD#"
                 Enemy: Enemy
                 outX: outX
@@ -1649,6 +1879,7 @@ controlling_units:
                 Found: Found
                 Building: Building
                 formula: "max(27.5, {unit's range})"
+                building_groups: Building Groups
             ore: 
                 title: ore
                 content: |
@@ -3339,4 +3570,140 @@ built_in_vars2:
             copper: "@copper"
             lead: "@lead"
                     
-                    
+# Source:
+    # Source code :
+        # core/src/mindustry/world/meta/BlockFlag.java
+    # The console:
+        # let blockList = Vars.content.blocks();
+        # for(let i = 0; i < blockList.size; i++){
+        #   let block = blockList.get(i);
+        #   if(block.flags.contains(BlockFlag.core)){
+        #     print(block.name);
+        #   }
+        # }
+# This technically belongs in static since it doesn't have any translateable contents.
+building_groups:
+    core:
+        title: core
+        list: |
+            @core-shard
+            {br}@core-foundation
+            {br}@core-nucleus
+            {br}@core-bastion
+            {br}@core-citadel
+            {br}@core-acropolis
+    storage:
+        title: storage
+        list: |
+            @container
+            {br}@vault
+            {br}@reinforced-container
+            {br}@reinforced-vault
+    generator:
+        title: generator
+        list: |
+            @combustion-generator
+            {br}@steam-generator
+            {br}@differential-generator
+            {br}@chemical-combustion-chamber
+            {br}@pyrolysis-generator
+            {br}@impact-reactor
+            {br}@thorium-reactor
+            {br}@solar-panel
+            {br}@solar-panel-large
+            {br}@thermal-generator
+            {br}@turbine-condenser
+            {br}@flux-reactor
+    turret:
+        title: turret
+        list: |
+            @build-tower
+            {br}@duo
+            {br}@scatter
+            {br}@scorch
+            {br}@hail
+            {br}@wave
+            {br}@lancer
+            {br}@arc
+            {br}@parallax
+            {br}@swarmer
+            {br}@salvo
+            {br}@segment
+            {br}@tsunami
+            {br}@fuse
+            {br}@ripple
+            {br}@cyclone
+            {br}@foreshadow
+            {br}@spectre
+            {br}@meltdown
+            {br}@breach
+            {br}@diffuse
+            {br}@sublimate
+            {br}@titan
+            {br}@disperse
+            {br}@afflict
+            {br}@lustre
+            {br}@scathe
+            {br}@smite
+            {br}@malign
+    factory:
+        title: factory
+        list: |
+            @graphite-press
+            {br}@multi-press
+            {br}@silicon-smelter
+            {br}@silicon-crucible
+            {br}@kiln
+            {br}@plastanium-compressor
+            {br}@phase-weaver
+            {br}@surge-smelter
+            {br}@cryofluid-mixer
+            {br}@pyratite-mixer
+            {br}@blast-mixer
+            {br}@melter
+            {br}@spore-press
+            {br}@pulverizer
+            {br}@coal-centrifuge
+            {br}@silicon-arc-furnace
+            {br}@electrolyzer
+            {br}@atmospheric-concentrator
+            {br}@carbide-crucible
+            {br}@slag-centrifuge
+            {br}@surge-crucible
+            {br}@Cyanogen-synthesizer
+            {br}@phase-synthesizer
+            {br}@cultivator
+            {br}@vent-condenser
+    repair:
+        title: repair
+        list: |
+            @repair-point
+            {br}@repair-turret
+            {br}@unit-repair-turret
+    battery:
+        title: battery
+        list: |
+            @battery
+            {br}@battery-large
+    reactor:
+        title: reactor
+        list: |
+            @thorium-reactor
+            {br}@impact-reactor
+    drill:
+        title: drill
+        list: |
+            @mechanical-drill
+            {br}@pneumatic-drill
+            {br}@laser-drill
+            {br}@blast-drill
+            {br}@plasma-bore
+            {br}@large-plasma-bore
+            {br}@impact-drill
+            {br}@eruption-drill
+            {br}@cliff-crusher
+            {br}@large-cliff-crusher
+    shield:
+        title: shield
+        list: |
+            @force-projector
