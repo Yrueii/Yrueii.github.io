@@ -2332,7 +2332,7 @@ bleeding_edge:
     to: "to"
     read_result_mindustry_at_0: "read result = \"Mindustry\" at 0"
     null: "null"
-    title3: "Setrule"
+    title3: "Set rule"
     content3: |
         - new rule {code:cangameover:field}
         {br}- new rule {code:unitminespeed:field}
@@ -3355,6 +3355,12 @@ built_in_vars2:
             title: "@payloadType"
             content: |
                 name of payload, will return only the last picked up payload, returns name
+        totalPayload:
+            title: "{delete:0}"
+            content: "{delete:0}"
+        payloadCapacity:
+            title: "{delete:0}"
+            content: "{delete:0}"
         id:
             title: "@id"
             content: |

@@ -955,6 +955,10 @@ instructions:
             align: align
             bottomleft: "@bottomLeft"
             center: "@center"
+        printchar:
+            Title: Print Char
+            content: |
+                print a character and put it in the text buffer like print does, however takes integer (UTF-16) as an input instead of string.
         image:
             title: Image
             content: |
@@ -1432,10 +1436,10 @@ instructions:
     lookup:
         title: Lookup
         content: |
-            Look up an item/liquid/unit/block type by ID.
+            Look up an item/liquid/unit/block/team type by ID.
             {br}Total counts of each type can be accessed with:
             {br}{code:unitcount:content-name} / {code:itemCount:content-name} / {code:liquidCount:content-name} / {code:blockCount:content-name}, which is : 
-            {br}{hl:_56:yel} / {hl:_22:yel} / {hl:_11:yel} / {hl:_254:yel} (as of v146), respectively, they are a constant.
+            {br}{hl:_56:yel} / {hl:_20:yel} / {hl:_11:yel} / {hl:_261:yel} (as of v146), respectively, they are a constant.
             {br}For the inverse operation, sensor {code:id:content-name} of the object
             {br}Example:
             {br}{img:image/lookup1.png:mwidth85vw}
@@ -1449,9 +1453,9 @@ instructions:
         liquidCount: "@liquidCount"
         blockCount: "@blockCount"
         _56: "56"
-        _22: "22"
+        _20: "20"
         _11: "11"
-        _254: "254"
+        _261: "261"
         id: "@id"
         result: result
         lead: "@lead"
@@ -2282,6 +2286,8 @@ world_logic:
             {br}{span:boolean_whether_to_enable_lightning_or_n:spin}
             {br}ambientLight
             {br}{span:set_the_dark_part_of_light_colors_in_oth:spin}
+            {br}cangameover
+            {br}
             {br}solarMultiplier
             {br}{span:set_the_multiplier_solar_panels_produce_:spin}
             {br}dragMultiplier
@@ -2292,6 +2298,8 @@ world_logic:
             {br}
             {br}unitBuildSpeed
             {br}{span:set_the_build_speed_of_units:spin}
+            {br}unitMineSpeed
+            {br}{span:set_the_mine_speed_of_units:spin}
             {br}unitHealth
             {br}{span:set_the_multiplier_of_unit_health_does_n:spin}
             {br}unitCost
@@ -2327,6 +2335,7 @@ world_logic:
         set_the_dark_part_of_light_colors_in_oth: "set the ‘dark’ part of light colors, in other words change colors of shadows"
         set_the_multiplier_solar_panels_produce_: "set the multiplier solar panels produce power"
         set_the_build_speed_of_units: "set the build speed of units"
+        set_the_mine_speed_of_units: "set the mine speed of units"
         set_the_multiplier_of_unit_health_does_n: |
             set the multiplier of unit health, does not actually change unit max health, increase
             resistance instead, actual damage received = (damage received / unitHealth)
@@ -2777,13 +2786,9 @@ bleeding_edge:
     to: "to"
     read_result_mindustry_at_0: "read result = \"Mindustry\" at 0"
     null: "null"
-    title3: "Setrule"
+    title3: "Set rule"
     content3: |
-        - new rule {code:cangameover:field}
-        {br}- new rule {code:unitminespeed:field}
         {br}- new rule {code:dragmultiplier:field}
-    cangameover: "canGameOver"
-    unitminespeed: "unitMineSpeed"
     dragmultiplier: "dragMultiplier"
     title4: "Flush message"
     content4: "- new field {code:success:field}"
@@ -2791,10 +2796,8 @@ bleeding_edge:
     title5: "Lookup"
     content5: "- now supports {code:team:field} lookup"
     team: "team"
-    title6: "Print char"
-    content6: |
-        print a character and put it in the text buffer like print does, however
-        takes integer (UTF-16) as an input instead of string.
+    title6: "{delete:1}"
+    content6: "{delete:0:1}"
     httpswikipediaorgwikiascii: "https://wikipedia.org/wiki/ASCII"
     title7: "Unit Control deconstruct"
     content7: |
@@ -2900,23 +2903,11 @@ bleeding_edge:
         {br}{code:sensor_memory_memorycapacity_in_bank1:control}
         {br}will return the memory capacity of bank1, which is 512
     sensor_memory_memorycapacity_in_bank1: "sensor memory = @memoryCapacity in bank1"
-    title33: "@totalPayload"
-    content35: |
-        return the total payload carried by the unit
-        {br}counted per tile, so a 2x2 block will count as 4
-        {br}example:
-        {br}{code:sensor_result_totalpayload_in_unit:control}
-        {br}when {code:unit:variable} is carrying a copper wall for example, will return 4
-        {br}if carrying a unit will return the unit's size, a mace for example has a size of 1.25 x 1.25, which is 1.5625
-        {br}every payload carried size added together
+    title33: "{delete:1}"
+    content35: "{delete:0:1}"
     sensor_result_totalpayload_in_unit: "sensor result = @totalPayload in @unit"
-    title34: "@payloadCapacity"
-    content36: |
-        return the payload capacity of the unit
-        {br}example:
-        {br}{code:sensor_result_payloadcapacity_in_unit:control}
-        {br}when {code:unit:variable} is an oct will return 30.25
-    sensor_result_payloadcapacity_in_unit: "sensor result = @payloadCapacity in @unit"
+    title34: "{delete:1}"
+    content36: "{delete:0:1}"
     title35: "{delete:1}"
     content37: "{delete}"
     title36: "@displayHeight and @displayWidth"
@@ -3544,6 +3535,27 @@ built_in_vars2:
             title: "@payloadType"
             content: |
                 name of payload, will return only the last picked up payload, returns name
+        totalPayload:
+            title: "@totalPayload"
+            content: |
+                return the total payload carried by the unit
+                {br}counted per tile, so a 2x2 block will count as 4
+                {br}example:
+                {br}{code:sensor_result_totalpayload_in_unit:control}
+                {br}when {code:unit:variable} is carrying a copper wall for example, will return 4
+                {br}if carrying a unit will return the unit's size, a mace for example has a size of 1.25 x 1.25, which is 1.5625
+                {br}every payload carried size added together
+            unit: "@unit"
+            sensor_result_totalpayload_in_unit: "sensor result = @totalPayload in @unit"
+        payloadCapacity: 
+            title: "@payloadCapacity"
+            content: |
+                return the payload capacity of the unit
+                {br}example:
+                {br}{code:sensor_result_payloadcapacity_in_unit:control}
+                {br}when {code:unit:variable} is an oct will return 30.25
+            sensor_result_payloadcapacity_in_unit: "sensor result = @payloadCapacity in @unit"
+            unit: "@unit"
         id:
             title: "@id"
             content: |
@@ -3583,6 +3595,7 @@ built_in_vars2:
         # }
 # This technically belongs in static since it doesn't have any translateable contents.
 building_groups:
+    title: Building Groups
     core:
         title: core
         list: |
