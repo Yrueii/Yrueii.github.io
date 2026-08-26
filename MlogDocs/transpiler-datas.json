@@ -1,4 +1,4 @@
-{"date_updated": "2026-08-21 01:07:41", "repos": [
+{"date_updated": "2026-08-26 01:08:05", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mincode",
@@ -121,7 +121,7 @@
   "short_name": "Mlog Bang Lang",
   "description": "Mindustry logic extension meta-programming language, for zero additional overhead!",
   "owner": "A4-Tacks",
-  "updated_at": "2026-07-25T13:12:26Z",
+  "updated_at": "2026-08-25T11:34:51Z",
   "stargazers_count": 34
 }
 ,
