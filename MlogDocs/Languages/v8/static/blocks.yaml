@@ -260,3 +260,4 @@ blocks:
   - '@landing-pad'
   - '@tile-logic-display'
   - '@large-canvas'
+  - '@target-dummy'
