@@ -243,7 +243,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span class="editable world" contenteditable="true" order="2">${field2 || 'result'}</span>
                     <span>=</span>
                     <span>get</span>
-                    <span class="editable world" contenteditable="true" order="1" onclick="popUpMenu(event,'ulocateFindMenu')" oninput="selectOption(event,'ulocateFindMenu', null, null, 1)">${field1 || 'building'}</span>
+                    <span class="editable world" contenteditable="true" order="1" onclick="popUpMenu(event,'getBlockMenu')" oninput="selectOption(event,'getBlockMenu', null, null, 1)">${field1 || 'building'}</span>
                     <span>at</span>
                     <span class="editable world" contenteditable="true" order="3">${field3 || '0'}</span>
                     <span>,</span>
@@ -1669,8 +1669,21 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'unban':
                     main([11,2], {11: 'block/unit'})
                     break;
+                case 'buildSpeed':
+                case 'unitHealth':
+                case 'unitBuildSpeed':
+                case 'unitMineSpeed':
+                case 'unitCost':
+                case 'unitDamage':
+                case 'blockHealth':
+                case 'blockDamage':
+                case 'rtsMinWeight':
+                case 'rtsMinSquad':
+                    main([11,2,3], {11: 'of', 22: '='})
+                    break;
                 default:
                     main([11,2], {11: '='})
+                    break;
             }
             break;
         case 'effectMenu': 
@@ -1722,6 +1735,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'explosion':
                     main([2, 3, 4, 44], {44: 'size'});
                     break;
+                default:
+                    console.error(`Unhandled effectMenu selection ${option}`);
+                    break;
             }
             break;
         case 'fetchMenu':
@@ -1746,6 +1762,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'buildCount':
                     main([5,55], {55: 'block'})
                     break;
+                default:
+                    console.error(`Unhandled fetchMenu selection ${option}`);
+                    break;
             }
             break;
         case 'controlMenu':
@@ -1760,6 +1779,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                     break;
                 case 'shootp':
                     main([2, 3, 4, 33, 44], {33: 'unit', 44: 'shoot'})
+                    break;
+                default:
+                    console.error(`Unhandled controlMenu selection ${option}`);
                     break;
             }
             break;
@@ -1825,6 +1847,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'colori':
                     main([22, 2, 33, 3, 44, 4], {22: 'of id#', 33: 'index', 44: 'color'})
                     break;
+                default:
+                    console.error(`Unhandled setMarkerMenu selection ${option}`);
+                    break;
             }
             break;
         case 'jumpMenu':
@@ -1841,15 +1866,19 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case '===':
                     main([1,2,3,4])
                     break;
+                default:
+                    console.error(`Unhandled jumpMenu selection ${option}`);
+                    break;
             }
             break;
         case 'drawMenu':
             switch(option){
                 case 'clear':
-                    main([11,22,33,1,2,3])
+                    // field 3 is the only field modified (by draw print)
+                    main([11,22,33,1,2,3], {11:'r',22:'g',33:'b'})
                     break;
                 case 'color':
-                    main([11,22,33,44,1,2,3,4])
+                    main([11,22,33,44,1,2,3,4], {11:'r',22:'g',33:'b',44:'a'})
                     break;
                 case 'col':
                     main([11,1], {11 : 'color'})
@@ -1892,6 +1921,12 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                     break;
                 case 'rotate':
                     main([11,1], {11:'degrees'})
+                    break;
+                case 'reset':
+                    main([-1])
+                    break;
+                default:
+                    console.error(`Unhandled drawMenu selection ${option}`);
                     break;
             }
             break;
@@ -1947,6 +1982,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'within':
                     main([11,22,33,44,1,2,3,4,5], {11:'x',22:'y',33:'radius',44:'result'})
                     break;
+                default:
+                    console.error(`Unhandled ucontrolMenu selection ${option}`);
+                    break;
             }
             break;
         case 'ulocateFindMenu':
@@ -1961,6 +1999,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'spawn':
                     main([-1])
                     break;
+                default:
+                    console.error(`Unhandled ulocateFindMenu selection ${option}`);
+                    break;
             }
             break;
         case 'setBlockMenu':
@@ -1969,6 +2010,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'floor':
                 case 'block':
                     main([5,6])
+                    break;
+                default:
+                    console.error(`Unhandled setBlockMenu selection ${option}`);
                     break;
             }
             break;
@@ -1982,6 +2026,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                 case 'toast':
                     main([1,3])
                     break;
+                default:
+                    console.error(`Unhandled flushMessageMenu selection ${option}`);
+                    break;
             }
             break;
         case 'cutsceneMenu':
@@ -1994,6 +2041,9 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                     break;
                 case 'stop':
                     main([1])
+                    break;
+                default:
+                    console.error(`Unhandled cutsceneMenu selection ${option}`);
                     break;
             }
             break;
