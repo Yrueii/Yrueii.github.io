@@ -125,7 +125,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
             code = `<span class="editable operation" contenteditable="true" order="2">${field2 || 'result'}</span>
                     <span>=</span>
                     <span class="editable operation" contenteditable="true" order="3">${field3 || 'a'}</span>
-                    <span class="editable operation selectionValue" id="operation" order="1" tpmId="opMenu" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event, this.getAttribute('tpmId'), null, null, 1)">${field1 || '*'}</span>
+                    <span class="editable operation selectionValue" id="operation" order="1" tpmId="opMenu" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event, 'opSuggestion', null, null, 1)">${field1 || '*'}</span>
                     <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'b'}</span>`
             break;
         case 'Lookup':
@@ -2674,7 +2674,7 @@ async function importCode(manual,codeSaved){
             ].includes(type);
 
 
-            const inst = addInstruction(type, 0, ...words.slice(1,13), triggerPopupMenu);
+            const inst = addInstruction(type, 0, ...words.slice(1));
             if (triggerPopupMenu) {
                 const selectionSpan = inst.querySelector(".selectionValue");
                 // raw mlog name of the selection
