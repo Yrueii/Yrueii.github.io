@@ -128,6 +128,18 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable operation selectionValue" id="operation" order="1" tpmId="opMenu" contenteditable="true" onclick="popUpMenu(event,'opMenu')" oninput="selectOption(event, 'opSuggestion', null, null, 1)">${field1 || '*'}</span>
                     <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'b'}</span>`
             break;
+        case 'Select':
+            code = `<span class="editable operation" contenteditable="true" style="display:block;" order="1">${field1 || 'result'}</span>
+                    <span>=</span>
+                    <span>if</span>
+                    <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="3">${field3 || 'x'}</span>
+                    <span class="editable operation selectionValue" id="operation" tpmId="selectMenu" contenteditable="true" onclick="popUpMenu(event,'jumpMenu')" oninput="selectOption(event,'jumpMenu', null, null, 1)" order="2">${field2 || 'not'}</span>
+                    <span class="editable operation toggleableField" contenteditable="true" style="display:block;" order="4">${field4 || 'false'}</span>
+                    <span>then</span>
+                    <span class="editable operation" contenteditable="true" style="display:block;" order="5">${field5 || 'a'}</span>
+                    <span>else</span>
+                    <span class="editable operation" contenteditable="true" style="display:block;" order="6">${field6 || 'b'}</span>`
+            break;
         case 'Lookup':
             code = `<span class="editable operation" contenteditable="true" id="field1Value">${field2 || 'result'}</span>
                     <span>=</span>
@@ -144,6 +156,15 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                     <span class="editable operation" contenteditable="true">${field3 || '0'}</span>
                     <span class="editable operation" contenteditable="true">${field4 || '0'}</span>
                     <span class="editable operation" contenteditable="true">${field5 || '1'}</span>`
+            break;
+        case 'Unpack Color':
+            code = `<span class="editable operation" contenteditable="true">${field1 || 'r'}</span>
+                    <span class="editable operation" contenteditable="true">${field2 || 'g'}</span>
+                    <span class="editable operation" contenteditable="true">${field3 || 'b'}</span>
+                    <span class="editable operation" contenteditable="true">${field4 || 'a'}</span>
+                    <span>=</span>
+                    <span>unpack</span>
+                    <span class="editable operation" contenteditable="true">${field5 || 'color'}</span>`
             break;
         case 'Wait':
             code = `<span class="editable flowControl" contenteditable="true">${field1 || 'result'}</span>
@@ -832,8 +853,10 @@ keybindMap = {
     'y': 'Sensor',
     'a': 'Set',
     's': 'Operation',
-    'd': 'Lookup',
-    'f': 'Pack Color',
+    'd': 'Select',
+    'f': 'Lookup',
+    'g': 'Pack Color',
+    'h': 'Unpack Color',
     'z': 'Wait',
     'x': 'Stop',
     'c': 'End',
@@ -1638,6 +1661,25 @@ function selectOption(event,id,isImport,importSelectionValue,isOnInput,from) {
                     break;
             }
             break;
+        case 'selectMenu':
+            switch(option){
+                case 'always':
+                    main([1,2,5,6])
+                    break;
+                case '==':
+                case 'not':
+                case '<':
+                case '<=':
+                case '>':
+                case '>=':
+                case '===':
+                    main([1,2,3,4,5,6])
+                    break;
+                default:
+                    console.error(`Unhandled selectMenu (jumpMenu) selection ${option}`);
+                    break;
+            }
+            break;
         case 'setRuleMenu':
             switch(option){
                 case 'mapArea':
@@ -2411,8 +2453,10 @@ const instTypeMap = {
     // 'Sensor'        : 'sensor',
     'Set'           : 'set',
     'Operation'     : 'op',
+    'Select'        : 'select',
     // 'Lookup'        : 'lookup',
     'Pack Color'    : 'packcolor',
+    'Unpack Color'  : 'unpackcolor',
     'Wait'          : 'wait',
     'Stop'          : 'stop',
     'End'           : 'end',
@@ -2469,6 +2513,7 @@ function exportCode(save){
                     case 'Play Sound':
                     case 'Jump':
                     case 'Operation':
+                    case 'Select':
                         ignoreIgnoreInvisable = 1 
                         break;
                     default:
@@ -2593,14 +2638,21 @@ function exportCode(save){
 }
 
 
-
 const operatorMapR = Object.fromEntries(
     Object.entries(operatorMap).map(([key, val]) => [val, key])
 );
 
-const instTypeMapR = Object.fromEntries(
+let instTypeMapR = Object.fromEntries(
     Object.entries(instTypeMap).map(([key, val]) => [val, key])
 );
+
+instTypeMapR = {
+    ...instTypeMapR,
+    'sensor': 'Sensor',
+    'lookup':'Lookup',
+    'ulocate': 'Unit Locate',
+    'status': 'Apply Status',
+}
 
 // ########################################################################################################################
 // import
@@ -2661,7 +2713,9 @@ async function importCode(manual,codeSaved){
                 'Control', 
                 'Draw', 
                 'Unit Control', 
+                'Unit Locate',
                 'Operation',
+                'Select',
                 'Jump', 
                 'Set Rule', 
                 'Set Block', 
