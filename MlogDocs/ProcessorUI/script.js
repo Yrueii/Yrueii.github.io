@@ -550,13 +550,18 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
 };
 
 //count and update line number on instruction
+//also updates destinations of line number-based jumps
 
 function updateLineNumber() {
+    const lineNumberChanges = {}
+
     let jumpIns = [];
     containers = document.querySelectorAll('.container:not(#exclude)'); //can use :has() but i heard its not supported in older browser
     containers.forEach((containerr, index) => {
         const lineNumberElement = containerr.querySelector('#lineNumber');
-        if (lineNumberElement) {
+        console.log(lineNumberElement,index)
+        if (lineNumberElement.textContent !== index) {
+            lineNumberChanges[lineNumberElement.textContent] = index;
             lineNumberElement.textContent = index;
         }
         if (!containerr.hasDown){
@@ -569,6 +574,11 @@ function updateLineNumber() {
             jumpIns.push(containerr)
         }
     });
+
+    jumpIns.forEach((jumpContainer) => {
+        const destElement = jumpContainer.querySelector('#field1Value');
+        destElement.textContent = lineNumberChanges[destElement.textContent] ?? destElement.textContent;
+    })
 
     labels = document.querySelectorAll('.container#exclude') //i know this is a shitty fix
     labels.forEach(label => {
