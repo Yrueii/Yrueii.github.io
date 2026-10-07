@@ -1298,7 +1298,7 @@ const handleEnd = (e) => {
                 lineNumberElement = container?.querySelector('#lineNumber')
                 lineNumber = lineNumberElement?.textContent
                 if (!lineNumber){
-                    lineNumber = container?.querySelector('#field1').textContent
+                    lineNumber = container?.querySelector('#field1').textContent ?? -1
                 }
                 parent = elementDragged.closest('.container')
                 thisLineNumber = parent.querySelector('#field1Value')
