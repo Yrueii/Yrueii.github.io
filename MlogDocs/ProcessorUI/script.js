@@ -590,28 +590,57 @@ function updateLineNumber() {
     // console.log(jumpIns);
 }
 
+
+function assignLane(jumpSrc, jumpDest, lanes) {
+    const jumpMin = Math.min(jumpSrc, jumpDest);
+    const jumpMax = Math.max(jumpSrc, jumpDest);
+
+    for (const [i, lane] of lanes.entries()) {
+        if (jumpMin > lane.max || lane.dests.has(jumpDest)) {
+            lane.max = Math.max(jumpMax, lane.max);
+            lane.dests.add(jumpDest);
+            return i;
+        }
+    }
+
+    lanes.push({ max: jumpMax, dests: new Set([jumpDest]) });
+    return lanes.length - 1;
+}
+
+const trailColors = ['#ffd700', '#da70d6', '#179fff'];
+const inboundArrowOffset = 16;
+const verticalCanvasPadding = 20;
 function updateJumpArrow(jumpIns) {
-    jumpIns.forEach(jump => {
+    const destinations = document.querySelectorAll('#lineNumber');
+    const labels = document.querySelectorAll('.container#exclude');
+    function getDestTgt (jump) {
+        let destinationTarget = destinations[parseInt(jump.querySelector('#field1Value').textContent)]?.closest('.container')
+        if (!destinationTarget && labels){
+            labels.forEach(label => {
+                if (label.querySelector('#field1').textContent == jump.querySelector('#field1Value').textContent){
+                    return label
+                }
+            })
+        }
+        return destinationTarget
+    }
+
+    const containers = Array.from(document.querySelectorAll('.container'));
+    const indexMap = new Map(containers.map((item, idx) => [item, idx]));
+
+    const lanes = [];
+    jumpIns = jumpIns
+        .map((jump) => [jump.closest('.container'), getDestTgt(jump)])
+        .sort((a, b) => indexMap.get(a[0]) - indexMap.get(b[0]));
+    
+    jumpIns.forEach(([jump, destinationTarget]) => {
         const canvas = jump.querySelector('.jumpArrow');
         // console.log(canvas);
 
         const ctx = canvas.getContext('2d');
-        const containerrRect = (jump.closest('.container')).getBoundingClientRect();
-        const destinations = document.querySelectorAll('#lineNumber');
+        const containerrRect = jump.getBoundingClientRect();
 
-        let destinationTarget = destinations[parseInt(jump.querySelector('#field1Value').textContent)]?.closest('.container')
-        if (!destinationTarget){
-            labels = document.querySelectorAll('.container#exclude')
-            if (labels){
-                labels.forEach(label => {
-                    if (label.querySelector('#field1').textContent == jump.querySelector('#field1Value').textContent){
-                        destinationTarget = label
-                    }
-                })
-            }
-        }
-
-        const desRect = destinationTarget?.getBoundingClientRect(); 
+        const desRect = destinationTarget?.getBoundingClientRect();
         let distance = (containerrRect.top + containerrRect.height / 2) - (desRect?.top + desRect?.height / 2)
         if (distance > 0){
             canvas.style.bottom = `10%`
@@ -622,42 +651,72 @@ function updateJumpArrow(jumpIns) {
         }
         canvas.style.left = ''
         distance = Math.abs(distance)
-        canvas.height = distance+20
-        canvas.width = 100
+        canvas.height = distance + 2 * verticalCanvasPadding
+        canvas.width = 150
 
-        // im so lazy so optimize this, point is it works
-        ctx.strokeStyle = 'white'
-        ctx.lineWidth = 2
-        if (canvas.style.bottom === ''){
+
+        const jumpSrc = indexMap.get(jump);
+        const jumpDest = indexMap.get(destinationTarget);
+
+        const lane = assignLane(jumpSrc, jumpDest, lanes);
+        const laneOffset = 40 + (lane * 10)
+        const dy = (desRect && containerrRect.top === desRect.top) ? 0 : laneOffset/2
+
+        ctx.strokeStyle = trailColors[lane % trailColors.length];
+        ctx.fillStyle = trailColors[lane % trailColors.length];
+        ctx.lineWidth = 4
+        
+        const img = new Image();
+        img.onload = () => {
+            function drawFlippedWithColor(x, y) {
+                ctx.save();
+                ctx.translate(x + img.width, y);
+                ctx.scale(-1, 1);
+                ctx.drawImage(img, 0, 0);
+
+                ctx.globalCompositeOperation = 'source-in';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.globalCompositeOperation = 'source-over';
+
+                ctx.restore();
+            }
+
+            const canvasRect = canvas.getBoundingClientRect();
+
+            const srcArrowRect = jump.querySelector('.jumpArrowTriangle').getBoundingClientRect();
+            const srcArrowMidY = (srcArrowRect.top - canvasRect.top) + srcArrowRect.height / 2;
+
+            const desArrowRect = destinationTarget.querySelector('.jumpArrowTriangle')?.getBoundingClientRect();
+            const desArrowMidY = desArrowRect
+                ? desArrowRect.top - canvasRect.top
+                : null
+            
             ctx.beginPath()
-            ctx.moveTo(10, distance+10)
-            ctx.bezierCurveTo(100, distance/0.95, 100, distance/1024, 0, 10)
-            ctx.stroke()
-            ctx.closePath()
-            ctx.beginPath()
-            const bottom = distance+20
-            ctx.moveTo(15,bottom - 5)
-            ctx.lineTo(15,bottom - 15)
-            ctx.lineTo(5,bottom - 10)
-            ctx.closePath()
-            ctx.fillStyle = 'white';
-            ctx.fill()
+            if (canvas.style.bottom === ''){
+                // going down
+                ctx.moveTo(5, srcArrowMidY) // the 5 is a magic value ¯\_(ツ)_/¯
+                ctx.lineTo(laneOffset, srcArrowMidY + dy)
+
+                const bottom = canvas.height - verticalCanvasPadding;
+                const arrowEndY = desArrowMidY ?? bottom - img.height / 2;
+                ctx.lineTo(laneOffset, arrowEndY - dy)
+                // divide x by 2 cuz the arrow only occupies half the image horizontally
+                ctx.lineTo(img.width / 2, arrowEndY)
+                drawFlippedWithColor(0, arrowEndY - img.height / 2)
+            } else {
+                // going up
+                ctx.moveTo(5, srcArrowMidY)
+                ctx.lineTo(laneOffset, srcArrowMidY - dy)
+
+                const top = verticalCanvasPadding;
+                const arrowEndY = desArrowMidY ?? top - img.height / 2;
+                ctx.lineTo(laneOffset, arrowEndY + dy)
+                ctx.lineTo(img.width / 2, arrowEndY)
+                drawFlippedWithColor(0, arrowEndY - img.height / 2)
+            }
             ctx.stroke();
-        } else {
-            ctx.beginPath()
-            ctx.moveTo(0, distance + 10)
-            ctx.bezierCurveTo(100, distance/1.05, 100, distance/1024, 10, 10)
-            ctx.stroke()
-            ctx.closePath()
-            ctx.beginPath()
-            ctx.moveTo(15,5)
-            ctx.lineTo(15,15)
-            ctx.lineTo(5,10)
-            ctx.closePath()
-            ctx.fillStyle = 'white';
-            ctx.fill()
-            ctx.stroke();
-        }
+        };
+        img.src = "image/logic-node.png";
     // ctx.quadraticCurveTo(100, distance/2, 0, 0);
     })
 }
@@ -1225,6 +1284,7 @@ const handleMove = (e) => {
 
         ctx.beginPath()
         ctx.moveTo(moveTo[0],moveTo[1])
+        // TODO
         ctx.bezierCurveTo(curveTo[0], curveTo[1], 
                         curveTo[2], curveTo[3],
                         curveTo[4], curveTo[5])
