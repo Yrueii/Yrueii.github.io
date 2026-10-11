@@ -559,7 +559,6 @@ function updateLineNumber() {
     containers = document.querySelectorAll('.container:not(#exclude)'); //can use :has() but i heard its not supported in older browser
     containers.forEach((containerr, index) => {
         const lineNumberElement = containerr.querySelector('#lineNumber');
-        console.log(lineNumberElement,index)
         if (lineNumberElement.textContent !== index) {
             lineNumberChanges[lineNumberElement.textContent] = index;
             lineNumberElement.textContent = index;
@@ -576,8 +575,8 @@ function updateLineNumber() {
     });
 
     jumpIns.forEach((jumpContainer) => {
-        const destElement = jumpContainer.querySelector('#field1Value');
-        destElement.textContent = lineNumberChanges[destElement.textContent] ?? destElement.textContent;
+        const destField = jumpContainer.querySelector('#field1Value');
+        destField.textContent = lineNumberChanges[destField.textContent] ?? destField.textContent;
     })
 
     labels = document.querySelectorAll('.container#exclude') //i know this is a shitty fix
