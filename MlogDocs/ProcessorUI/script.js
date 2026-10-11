@@ -2742,17 +2742,19 @@ async function importCode(manual,codeSaved){
             if (triggerPopupMenu) {
                 const selectionSpan = inst.querySelector(".selectionValue");
                 // raw mlog name of the selection
-                const selection = selectionSpan.textContent;
-                const mappedSelection = operatorMapR[selection] ?? selection;
+                if (selectionSpan) {
+                    const selection = selectionSpan.textContent;
+                    const mappedSelection = operatorMapR[selection] ?? selection;
 
-                selectionSpan.textContent = mappedSelection;
-
-                selectOption(
-                    null,
-                    selectionSpan.getAttribute('tpmId'),
-                    inst.querySelector('.code').querySelector('[onclick]'),
-                    mappedSelection,
-                );
+                    selectionSpan.textContent = mappedSelection;
+                
+                    selectOption(
+                        null,
+                        selectionSpan.getAttribute('tpmId'),
+                        inst.querySelector('.code').querySelector('[onclick]'),
+                        mappedSelection,
+                    );
+                }
             }
 
         } else {
