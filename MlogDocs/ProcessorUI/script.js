@@ -2722,7 +2722,6 @@ async function importCode(manual,codeSaved){
                 'Control', 
                 'Draw', 
                 'Unit Control', 
-                'Unit Locate',
                 'Operation',
                 'Select',
                 'Jump', 
@@ -2740,8 +2739,9 @@ async function importCode(manual,codeSaved){
             const inst = addInstruction(type, 0, ...words.slice(1));
             if (triggerPopupMenu) {
                 const selectionSpan = inst.querySelector(".selectionValue");
-                // raw mlog name of the selection
+                
                 if (selectionSpan) {
+                    // raw mlog name of the selection
                     const selection = selectionSpan.textContent;
                     const mappedSelection = operatorMapR[selection] ?? selection;
 
