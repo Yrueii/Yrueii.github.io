@@ -557,20 +557,21 @@ function updateLineNumber() {
 
     let jumpIns = [];
     containers = document.querySelectorAll('.container:not(#exclude)'); //can use :has() but i heard its not supported in older browser
-    containers.forEach((containerr, index) => {
-        const lineNumberElement = containerr.querySelector('#lineNumber');
+    containers.forEach((container, index) => {
+        const lineNumberElement = container.querySelector('#lineNumber');
+        
         if (lineNumberElement.textContent !== index) {
             lineNumberChanges[lineNumberElement.textContent] = index;
             lineNumberElement.textContent = index;
         }
-        if (!containerr.hasDown){
-            MouseDown(containerr.querySelector('.block-header'),containerr)
+        if (!container.hasDown){
+            MouseDown(container.querySelector('.block-header'),container)
         }
-        if (!containerr.hasDownJump && containerr.querySelector('.jumpTo')){
-            MouseDown(containerr.querySelector('.jumpArrowTriangle'),containerr)
+        if (!container.hasDownJump && container.querySelector('.jumpTo')){
+            MouseDown(container.querySelector('.jumpArrowTriangle'),container)
         }
-        if ((containerr.querySelector('.headerText')).textContent == 'Jump'){
-            jumpIns.push(containerr)
+        if ((container.querySelector('.headerText')).textContent == 'Jump'){
+            jumpIns.push(container)
         }
     });
 
@@ -589,30 +590,56 @@ function updateLineNumber() {
     // console.log(jumpIns);
 }
 
-function updateJumpArrow(jumpIns) {
-    jumpIns.forEach(jump => {
-        const canvas = jump.querySelector('.jumpArrow');
-        // console.log(canvas);
 
-        const ctx = canvas.getContext('2d');
-        const containerrRect = (jump.closest('.container')).getBoundingClientRect();
-        const destinations = document.querySelectorAll('#lineNumber');
 
-        let destinationTarget = destinations[parseInt(jump.querySelector('#field1Value').textContent)]?.closest('.container')
-        if (!destinationTarget){
-            labels = document.querySelectorAll('.container#exclude')
-            if (labels){
-                labels.forEach(label => {
-                    if (label.querySelector('#field1').textContent == jump.querySelector('#field1Value').textContent){
-                        destinationTarget = label
-                    }
-                })
-            }
+const waitImgLoad = (img) => new Promise((resolve, reject) => {
+    if (!img) {
+        resolve(img);
+        return;
+    }
+
+    if (img.complete) {
+        if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+            reject(new Error('Image has invalid dimensions.'));
+            return;
         }
+        resolve(img);
+        return;
+    }
 
-        const desRect = destinationTarget?.getBoundingClientRect(); 
-        let distance = (containerrRect.top + containerrRect.height / 2) - (desRect?.top + desRect?.height / 2)
-        if (distance > 0){
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('Image failed to load.'));
+});
+
+const verticalCanvasPadding = 20;
+function updateJumpArrow(jumpIns) {
+    const jumpsWithLanes = assignLanes(jumpIns);
+
+    jumpsWithLanes.forEach(async ({ src: jump, dest: destinationTarget, lane }) => {
+        const srcArrow = await waitImgLoad(jump.querySelector('.jumpArrowTriangle'));
+        const destArrow = await waitImgLoad(
+            destinationTarget?.querySelector('.jumpArrowTriangle')
+        )
+
+        const containerRect = jump.getBoundingClientRect();
+        const destRect = destinationTarget?.getBoundingClientRect();
+
+        const distance = (containerRect.top + containerRect.height / 2)
+            - (destRect?.top + destRect?.height / 2)
+        
+        const laneOffset = 40 + (lane * 10)
+        const slantDeltaY = Math.sign(distance) * laneOffset * 0.5
+
+        const canvas = jump.querySelector('.jumpArrow');
+
+        canvas.height = Math.abs(distance) + 2 * verticalCanvasPadding
+        canvas.width = 150
+        
+        const destVerticalEdge = distance >= 0
+            ? verticalCanvasPadding
+            : canvas.height - verticalCanvasPadding;
+
+        if (distance >= 0){
             canvas.style.bottom = `10%`
             canvas.style.top = ''
         }else {
@@ -620,45 +647,211 @@ function updateJumpArrow(jumpIns) {
             canvas.style.bottom = ''
         }
         canvas.style.left = ''
-        distance = Math.abs(distance)
-        canvas.height = distance+20
-        canvas.width = 100
 
-        // im so lazy so optimize this, point is it works
-        ctx.strokeStyle = 'white'
-        ctx.lineWidth = 2
-        if (canvas.style.bottom === ''){
-            ctx.beginPath()
-            ctx.moveTo(10, distance+10)
-            ctx.bezierCurveTo(100, distance/0.95, 100, distance/1024, 0, 10)
-            ctx.stroke()
-            ctx.closePath()
-            ctx.beginPath()
-            const bottom = distance+20
-            ctx.moveTo(15,bottom - 5)
-            ctx.lineTo(15,bottom - 15)
-            ctx.lineTo(5,bottom - 10)
-            ctx.closePath()
-            ctx.fillStyle = 'white';
-            ctx.fill()
-            ctx.stroke();
-        } else {
-            ctx.beginPath()
-            ctx.moveTo(0, distance + 10)
-            ctx.bezierCurveTo(100, distance/1.05, 100, distance/1024, 10, 10)
-            ctx.stroke()
-            ctx.closePath()
-            ctx.beginPath()
-            ctx.moveTo(15,5)
-            ctx.lineTo(15,15)
-            ctx.lineTo(5,10)
-            ctx.closePath()
-            ctx.fillStyle = 'white';
-            ctx.fill()
-            ctx.stroke();
+        const canvasRect = canvas.getBoundingClientRect();
+
+        const srcArrowRect = srcArrow.getBoundingClientRect();
+        const srcArrowMidY = (srcArrowRect.top - canvasRect.top) + srcArrowRect.height / 2;
+
+        const destArrowRect = destArrow?.getBoundingClientRect();
+        const destArrowMidY = destArrowRect
+            ? destArrowRect.top - canvasRect.top
+            : null
+
+        drawJumpArrow(
+            canvas.getContext('2d'),
+            laneOffset,
+            srcArrowMidY,
+            slantDeltaY,
+            destVerticalEdge,
+            destArrowMidY,
+            lane,
+            srcArrow,
+        );
+    });
+}
+
+// based on
+// https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/logic/LCanvas.java
+function assignLanes(jumpIns) {
+    const destinations = document.querySelectorAll('#lineNumber');
+    const labels = document.querySelectorAll('.container#exclude');
+    function getDestTgt (jump) {
+        let destinationTarget = destinations[parseInt(jump.querySelector('#field1Value').textContent)]?.closest('.container')
+        if (!destinationTarget && labels){
+            labels.forEach(label => {
+                if (label.querySelector('#field1').textContent == jump.querySelector('#field1Value').textContent){
+                    destinationTarget = label;
+                }
+            })
         }
-    // ctx.quadraticCurveTo(100, distance/2, 0, 0);
-    })
+        return destinationTarget
+    }
+
+    const containers = Array.from(document.querySelectorAll('.container'));
+    const indexMap = new Map(containers.map((item, idx) => [item, idx]));
+
+    const allJumps = [];    
+    const jumpsUp = new Map();
+    const jumpsDown = new Map();
+    for (const jumpIn of jumpIns) {
+        const src = jumpIn.closest('.container');
+        const dest = getDestTgt(src);
+
+        const srcLine = indexMap.get(src);
+        const destLine = indexMap.get(dest);
+        
+        const min = Math.min(srcLine, destLine);
+        const max = Math.max(srcLine, destLine);
+
+        const upward = destLine !== undefined && srcLine >= destLine;
+
+        const jump = { src, dest, srcLine, destLine, min, max, upward };
+        allJumps.push(jump);
+
+        if (destLine === undefined) { continue; }
+
+        if (upward) {
+            const prev = jumpsUp.get(destLine);
+            if (prev && srcLine <= prev.srcLine) { continue; }
+            jumpsUp.set(destLine, jump);
+        } else {
+            const prev = jumpsDown.get(destLine);
+            if (prev && srcLine >= prev.srcLine) { continue; }
+            jumpsDown.set(destLine, jump);
+        }
+    };
+
+    const groupedJumps = [...jumpsUp.values(), ...jumpsDown.values()]
+        .sort((a, b) => a.min - b.min);
+
+    const activeJumps = new Map();
+    for (const [i, currJump] of groupedJumps.entries()) {
+        for (const [lane, jump] of activeJumps) {
+            if (jump.max <= currJump.min) { activeJumps.delete(lane); }
+        }
+
+        const currLane = getLane(i, groupedJumps, activeJumps);
+        activeJumps.set(currLane, currJump);
+    }
+
+    for (const jump of allJumps) {
+        if (jump.destLine === undefined) { continue; }
+        jump.lane = (jump.upward ? jumpsUp : jumpsDown).get(jump.destLine).lane;
+    }
+
+    return allJumps;
+}
+
+function getLane(index, groupedJumps, activeJumps) {
+    const jump = groupedJumps[index];
+    if (jump.lane !== undefined) { return jump.lane; }
+
+    const currActiveJumps = new Map(activeJumps);
+
+    let maxLane = -1;
+    for (let i = index + 1; i < groupedJumps.length; i++) {
+        const currJump = groupedJumps[i];
+        if (currJump.max > jump.max) { continue; }
+
+        for (const [lane, jump] of currActiveJumps) {
+            if (jump.max <= currJump.min) { currActiveJumps.delete(lane); }
+        }
+
+        const currLane = getLane(i, groupedJumps, currActiveJumps);
+        currActiveJumps.set(currLane, currJump);
+        maxLane = Math.max(maxLane, currLane);
+    }
+
+    let i = maxLane + 1;
+    while (true) {
+        if (!activeJumps.has(i)) { break; }
+        i += 1;
+    }
+
+    jump.lane = i;
+    return jump.lane;
+}
+
+
+
+const loadImg = (srcString) => new Promise((resolve, reject) => {
+    const img = new Image()
+
+    img.onload = () => {
+        if (img.naturalWidth === 0 || img.naturalHeight === 0) {
+            reject(new Error(`Image '${srcString}' loaded with invalid dimensions.`));
+            return;
+        }
+        resolve(img);
+    };
+    img.onerror = () => reject(new Error('Image failed to load.'));
+
+    img.src = srcString;
+});
+
+const goldenRatioConjugate = 0.6180339887498949;
+async function drawJumpArrow(
+    ctx,
+    laneOffset,
+    srcArrowMidY,
+    slantDeltaY,
+    destVerticalEdge,
+    destArrowMidY,
+    lane,
+    srcArrowElement,
+) {
+    if (lane === null || lane === undefined) {
+        srcArrowElement.src = 'image/logic-node.png';
+        return;
+    }
+
+
+    const arrowColorHue = (lane * goldenRatioConjugate) % 1;
+    const arrowColor = `hsl(${Math.round(arrowColorHue * 360)}, 80%, 80%)`;
+
+    const arrowImage = await loadImg('image/logic-node.png')
+
+    // use a canvas to color the logic-node image
+    // this is used for both the src and dest arrow
+    const coloredArrow = document.createElement('canvas')
+    coloredArrow.width = arrowImage.naturalWidth;
+    coloredArrow.height = arrowImage.naturalHeight;
+
+    const tmpCtx = coloredArrow.getContext('2d');
+    tmpCtx.fillStyle = arrowColor;
+
+    tmpCtx.drawImage(arrowImage, 0, 0);
+    // color the img
+    tmpCtx.globalCompositeOperation = 'source-in';
+    tmpCtx.fillRect(0, 0, coloredArrow.width, coloredArrow.height);
+    tmpCtx.globalCompositeOperation = 'source-over';
+
+
+    srcArrowElement.src = coloredArrow.toDataURL('image/png');
+
+
+    ctx.strokeStyle = arrowColor;
+    ctx.fillStyle = arrowColor;
+    ctx.lineWidth = 4
+
+    const arrowEndY = destArrowMidY ?? destVerticalEdge - coloredArrow.height / 2;
+
+    ctx.beginPath()
+    ctx.moveTo(5, srcArrowMidY) // the 5 is a magic value ¯\_(ツ)_/¯
+    ctx.lineTo(laneOffset, srcArrowMidY - slantDeltaY)
+
+    ctx.lineTo(laneOffset, arrowEndY + slantDeltaY)
+    // divide x by 2 cuz the arrow only occupies half the image horizontally
+    ctx.lineTo(coloredArrow.width / 2, arrowEndY)
+    ctx.stroke();
+
+    // draw flipped icon at (0, arrowEndY - arrowImg.height / 2)
+    ctx.save();
+    ctx.translate(coloredArrow.width, arrowEndY - coloredArrow.height / 2);
+    ctx.scale(-1, 1);
+    ctx.drawImage(coloredArrow, 0, 0);
+    ctx.restore();
 }
 
 //##############
@@ -1224,6 +1417,7 @@ const handleMove = (e) => {
 
         ctx.beginPath()
         ctx.moveTo(moveTo[0],moveTo[1])
+        // TODO
         ctx.bezierCurveTo(curveTo[0], curveTo[1], 
                         curveTo[2], curveTo[3],
                         curveTo[4], curveTo[5])
