@@ -587,7 +587,6 @@ function updateLineNumber() {
         }
     })
     updateJumpArrow(jumpIns)
-    // console.log(jumpIns);
 }
 
 
@@ -658,7 +657,7 @@ function updateJumpArrow(jumpIns) {
             ? destArrowRect.top - canvasRect.top
             : null
 
-        drawJumpArrow(
+        await drawJumpArrow(
             canvas.getContext('2d'),
             laneOffset,
             srcArrowMidY,
@@ -727,10 +726,6 @@ function assignLanes(jumpIns) {
 
     const activeJumps = new Map();
     for (const [i, currJump] of groupedJumps.entries()) {
-        for (const [lane, jump] of activeJumps) {
-            if (jump.max <= currJump.min) { activeJumps.delete(lane); }
-        }
-
         const currLane = getLane(i, groupedJumps, activeJumps);
         activeJumps.set(currLane, currJump);
     }
@@ -752,11 +747,8 @@ function getLane(index, groupedJumps, activeJumps) {
     let maxLane = -1;
     for (let i = index + 1; i < groupedJumps.length; i++) {
         const currJump = groupedJumps[i];
+        if (currJump.min > jump.max) { break; }
         if (currJump.max > jump.max) { continue; }
-
-        for (const [lane, jump] of currActiveJumps) {
-            if (jump.max <= currJump.min) { currActiveJumps.delete(lane); }
-        }
 
         const currLane = getLane(i, groupedJumps, currActiveJumps);
         currActiveJumps.set(currLane, currJump);
@@ -765,7 +757,10 @@ function getLane(index, groupedJumps, activeJumps) {
 
     let i = maxLane + 1;
     while (true) {
-        if (!activeJumps.has(i)) { break; }
+        const currJump = activeJumps.get(i);
+        if (!currJump || currJump.max <= jump.min) {
+            break;
+        }
         i += 1;
     }
 
