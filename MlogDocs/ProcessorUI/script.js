@@ -654,7 +654,7 @@ function updateJumpArrow(jumpIns) {
         const srcArrowMidY = (srcArrowRect.top - canvasRect.top) + srcArrowRect.height / 2;
 
         const destArrowRect = destArrow?.getBoundingClientRect();
-        const destArrowMidY = destArrowRect
+        const arrowHeadMidY = destArrowRect
             ? destArrowRect.top - canvasRect.top
             : null
 
@@ -664,7 +664,7 @@ function updateJumpArrow(jumpIns) {
             srcArrowMidY,
             slantDeltaY,
             destVerticalEdge,
-            destArrowMidY,
+            arrowHeadMidY,
             lane,
             srcArrow,
         );
@@ -679,11 +679,11 @@ function assignLanes(jumpIns) {
     function getDestTgt (jump) {
         let destinationTarget = destinations[parseInt(jump.querySelector('#field1Value').textContent)]?.closest('.container')
         if (!destinationTarget && labels){
-            labels.forEach(label => {
+            for (const label of labels) {
                 if (label.querySelector('#field1').textContent == jump.querySelector('#field1Value').textContent){
-                    destinationTarget = label;
+                    return label;
                 }
-            })
+            }
         }
         return destinationTarget
     }
@@ -797,7 +797,7 @@ async function drawJumpArrow(
     srcArrowMidY,
     slantDeltaY,
     destVerticalEdge,
-    destArrowMidY,
+    arrowHeadMidY,
     lane,
     srcArrowElement,
 ) {
@@ -827,28 +827,26 @@ async function drawJumpArrow(
     tmpCtx.fillRect(0, 0, coloredArrow.width, coloredArrow.height);
     tmpCtx.globalCompositeOperation = 'source-over';
 
-
     srcArrowElement.src = coloredArrow.toDataURL('image/png');
-
 
     ctx.strokeStyle = arrowColor;
     ctx.fillStyle = arrowColor;
     ctx.lineWidth = 4
 
-    const arrowEndY = destArrowMidY ?? destVerticalEdge - coloredArrow.height / 2;
+    arrowHeadMidY ??= destVerticalEdge - coloredArrow.height / 2;
 
     ctx.beginPath()
     ctx.moveTo(5, srcArrowMidY) // the 5 is a magic value ¯\_(ツ)_/¯
     ctx.lineTo(laneOffset, srcArrowMidY - slantDeltaY)
 
-    ctx.lineTo(laneOffset, arrowEndY + slantDeltaY)
+    ctx.lineTo(laneOffset, arrowHeadMidY + slantDeltaY)
     // divide x by 2 cuz the arrow only occupies half the image horizontally
-    ctx.lineTo(coloredArrow.width / 2, arrowEndY)
+    ctx.lineTo(coloredArrow.width / 2, arrowHeadMidY)
     ctx.stroke();
 
-    // draw flipped icon at (0, arrowEndY - arrowImg.height / 2)
+    // draw flipped icon
     ctx.save();
-    ctx.translate(coloredArrow.width, arrowEndY - coloredArrow.height / 2);
+    ctx.translate(coloredArrow.width, arrowHeadMidY - coloredArrow.height / 2);
     ctx.scale(-1, 1);
     ctx.drawImage(coloredArrow, 0, 0);
     ctx.restore();
