@@ -623,20 +623,17 @@ function updateJumpArrow(jumpIns) {
         const containerRect = jump.getBoundingClientRect();
         const destRect = destinationTarget?.getBoundingClientRect();
 
-        const distance = (containerRect.top + containerRect.height / 2)
-            - (destRect?.top + destRect?.height / 2)
+        const destMidY = (destRect?.top + destRect?.height / 2);
+
+        const distance = (containerRect.top + containerRect.height / 2) - destMidY;
         
         const laneOffset = 40 + (lane * 10)
-        const slantDeltaY = Math.sign(distance) * laneOffset * 0.5
+        const slantDeltaY = Math.sign(distance) * laneOffset / 2;
 
         const canvas = jump.querySelector('.jumpArrow');
 
         canvas.height = Math.abs(distance) + 2 * verticalCanvasPadding
         canvas.width = 150
-        
-        const destVerticalEdge = distance >= 0
-            ? verticalCanvasPadding
-            : canvas.height - verticalCanvasPadding;
 
         if (distance >= 0){
             canvas.style.bottom = `10%`
@@ -655,14 +652,13 @@ function updateJumpArrow(jumpIns) {
         const destArrowRect = destArrow?.getBoundingClientRect();
         const arrowHeadMidY = destArrowRect
             ? destArrowRect.top - canvasRect.top
-            : null
+            : destMidY - canvasRect.top
 
         await drawJumpArrow(
             canvas.getContext('2d'),
             laneOffset,
             srcArrowMidY,
             slantDeltaY,
-            destVerticalEdge,
             arrowHeadMidY,
             lane,
             srcArrow,
@@ -791,7 +787,6 @@ async function drawJumpArrow(
     laneOffset,
     srcArrowMidY,
     slantDeltaY,
-    destVerticalEdge,
     arrowHeadMidY,
     lane,
     srcArrowElement,
@@ -827,8 +822,6 @@ async function drawJumpArrow(
     ctx.strokeStyle = arrowColor;
     ctx.fillStyle = arrowColor;
     ctx.lineWidth = 4
-
-    arrowHeadMidY ??= destVerticalEdge - coloredArrow.height / 2;
 
     ctx.beginPath()
     ctx.moveTo(5, srcArrowMidY) // the 5 is a magic value ¯\_(ツ)_/¯
