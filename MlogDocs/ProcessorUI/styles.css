@@ -764,6 +764,17 @@ footer {
     user-select: none;
 }
 
+.jumpArrowHead {
+    visibility: hidden;
+    position: absolute;
+    left: 100%;
+    max-height: 30px;
+    max-width: 30px;
+
+    translate: 0 -50%;
+    scale: -1 1;
+}
+
 .block-header {
     display: flex;
     justify-content: space-between;

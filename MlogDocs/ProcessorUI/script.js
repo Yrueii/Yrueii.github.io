@@ -185,7 +185,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                         <span>Jump To</span>
                         <span class="editable flowControl" id="field1Value" contenteditable="true" draggable="false" onclick="jumpDestination(event)" order="1">${field1 || '-1'}</span>
                     </div>
-                    <canvas class="jumpArrow" width=60></canvas>
+                    <canvas class="jumpArrow" width=150></canvas>
                     <img src="image/logic-node.png" alt="" class="jumpArrowTriangle" draggable="false">`
             break;
         case 'Unit Bind':
@@ -533,6 +533,7 @@ function addInstruction(button, update, field1, field2, field3, field4, field5, 
                 <div class="block-content">
                     <div class="code">
                         ${code}
+                        <img src="image/logic-node.png" alt="" class="jumpArrowHead" draggable="false" data-color-weight='0'>
                     </div>
                 </div>
             </div>
@@ -612,13 +613,29 @@ const waitImgLoad = (img) => new Promise((resolve, reject) => {
 
 const verticalCanvasPadding = 20;
 function updateJumpArrow(jumpIns) {
+    document.querySelectorAll('.container').forEach(container => {
+        const arrowHead = container.querySelector('.jumpArrowHead');
+        arrowHead.dataset.colorWeight = 0;
+        arrowHead.style.visibility = '';
+    });
+
+    jumpIns.forEach(jump => {
+        const canvas = jump.querySelector('.jumpArrow');
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+    });
+
     const jumpsWithLanes = assignLanes(jumpIns);
 
     jumpsWithLanes.forEach(async ({ src: jump, dest: destinationTarget, lane }) => {
+        if (!destinationTarget) {
+            jump.querySelector('.jumpArrowTriangle').src = 'image/logic-node.png';
+            return;
+        }
+
         const srcArrow = await waitImgLoad(jump.querySelector('.jumpArrowTriangle'));
-        const destArrow = await waitImgLoad(
-            destinationTarget?.querySelector('.jumpArrowTriangle')
-        )
+        const arrowHead = await waitImgLoad(
+            destinationTarget?.querySelector('.jumpArrowHead')
+        );
 
         const containerRect = jump.getBoundingClientRect();
         const destRect = destinationTarget?.getBoundingClientRect();
@@ -638,7 +655,7 @@ function updateJumpArrow(jumpIns) {
         if (distance >= 0){
             canvas.style.bottom = `10%`
             canvas.style.top = ''
-        }else {
+        } else {
             canvas.style.top = `10%`
             canvas.style.bottom = ''
         }
@@ -649,22 +666,23 @@ function updateJumpArrow(jumpIns) {
         const srcArrowRect = srcArrow.getBoundingClientRect();
         const srcArrowMidY = (srcArrowRect.top - canvasRect.top) + srcArrowRect.height / 2;
 
-        const destArrowRect = destArrow?.getBoundingClientRect();
-        const arrowHeadMidY = destArrowRect
-            ? destArrowRect.top - canvasRect.top
-            : destMidY - canvasRect.top
+        const arrowHeadRect = arrowHead.getBoundingClientRect();
+        const arrowHeadMidY = (arrowHeadRect.top + arrowHeadRect.bottom) / 2
+            - canvasRect.top;
 
         await drawJumpArrow(
             canvas.getContext('2d'),
             laneOffset,
             srcArrowMidY,
-            slantDeltaY,
             arrowHeadMidY,
+            slantDeltaY,
             lane,
             srcArrow,
+            arrowHead,
         );
     });
 }
+
 
 // based on
 // https://github.com/Anuken/Mindustry/blob/master/core/src/mindustry/logic/LCanvas.java
@@ -765,7 +783,6 @@ function getLane(index, groupedJumps, activeJumps) {
 }
 
 
-
 const loadImg = (srcString) => new Promise((resolve, reject) => {
     const img = new Image()
 
@@ -782,40 +799,71 @@ const loadImg = (srcString) => new Promise((resolve, reject) => {
 });
 
 const goldenRatioConjugate = 0.6180339887498949;
+// offscreen canvas used to convert colors to rgb without math
+const colorConversionCanvas = document.createElement('canvas');
+const colorConversionCtx = colorConversionCanvas.getContext('2d', {
+    willReadFrequently: true
+});
 async function drawJumpArrow(
     ctx,
     laneOffset,
     srcArrowMidY,
-    slantDeltaY,
     arrowHeadMidY,
+    slantDeltaY,
     lane,
     srcArrowElement,
+    arrowHeadElement,
 ) {
     if (lane === null || lane === undefined) {
         srcArrowElement.src = 'image/logic-node.png';
         return;
     }
 
+    function colorImgAsCanvas(img, color) {
+        const coloredCanvas = document.createElement('canvas')
+        coloredCanvas.width = img.naturalWidth;
+        coloredCanvas.height = img.naturalHeight;
+
+        const tmpCtx = coloredCanvas.getContext('2d');
+        tmpCtx.fillStyle = color;
+
+        tmpCtx.drawImage(img, 0, 0);
+        // color the img
+        tmpCtx.globalCompositeOperation = 'source-in';
+        tmpCtx.fillRect(0, 0, coloredCanvas.width, coloredCanvas.height);
+        tmpCtx.globalCompositeOperation = 'source-over';
+
+        return coloredCanvas;
+    }
+
+    function colToRgb(col) {
+        col = col.trim();
+
+        if (col.startsWith('rgb')) {
+            const [r, g, b] = col.match(/[\d.]+/g).map(Number);
+            return {r, g, b};
+        }
+
+        if (col.startsWith('#') && col.length == 7) {
+            const num = parseInt(col.replace('#',''), 16);
+            return {
+                r: (num >> 16) & 255,
+                g: (num >> 8) & 255,
+                b: num & 255,
+            };
+        } else {
+            colorConversionCtx.fillStyle = col;
+            colorConversionCtx.fillRect(0, 0, 1, 1);
+            const [r, g, b] = colorConversionCtx.getImageData(0, 0, 1, 1).data;
+            return {r, g, b};
+        }
+    }
 
     const arrowColorHue = (lane * goldenRatioConjugate) % 1;
-    const arrowColor = `hsl(${Math.round(arrowColorHue * 360)}, 80%, 80%)`;
+    const arrowColor = `hsl(${Math.round(arrowColorHue * 360)} 80% 80%)`;
 
     const arrowImage = await loadImg('image/logic-node.png')
-
-    // use a canvas to color the logic-node image
-    // this is used for both the src and dest arrow
-    const coloredArrow = document.createElement('canvas')
-    coloredArrow.width = arrowImage.naturalWidth;
-    coloredArrow.height = arrowImage.naturalHeight;
-
-    const tmpCtx = coloredArrow.getContext('2d');
-    tmpCtx.fillStyle = arrowColor;
-
-    tmpCtx.drawImage(arrowImage, 0, 0);
-    // color the img
-    tmpCtx.globalCompositeOperation = 'source-in';
-    tmpCtx.fillRect(0, 0, coloredArrow.width, coloredArrow.height);
-    tmpCtx.globalCompositeOperation = 'source-over';
+    const coloredArrow = colorImgAsCanvas(arrowImage, arrowColor);
 
     srcArrowElement.src = coloredArrow.toDataURL('image/png');
 
@@ -832,12 +880,40 @@ async function drawJumpArrow(
     ctx.lineTo(coloredArrow.width / 2, arrowHeadMidY)
     ctx.stroke();
 
-    // draw flipped icon
-    ctx.save();
-    ctx.translate(coloredArrow.width, arrowHeadMidY - coloredArrow.height / 2);
-    ctx.scale(-1, 1);
-    ctx.drawImage(coloredArrow, 0, 0);
-    ctx.restore();
+
+    const colorWeight = Number(arrowHeadElement.dataset.colorWeight);
+    if (colorWeight === 0) {
+        arrowHeadElement.src = coloredArrow.toDataURL('image/png');
+        arrowHeadElement.dataset.color = arrowColor;
+        arrowHeadElement.dataset.lanes = `[${lane}]`;
+        arrowHeadElement.dataset.colorWeight = 1;
+    } else {
+        const lanes = JSON.parse(arrowHeadElement.dataset.lanes);
+
+        if (!lanes.includes(lane)) {
+            lanes.push(lane);
+            arrowHeadElement.dataset.lanes = JSON.stringify(lanes);
+
+            const prevColor = colToRgb(arrowHeadElement.dataset.color);
+            const currColor = colToRgb(arrowColor);
+            const newColor = {
+                r: (prevColor.r * colorWeight + currColor.r) / (colorWeight + 1),
+                g: (prevColor.g * colorWeight + currColor.g) / (colorWeight + 1),
+                b: (prevColor.b * colorWeight + currColor.b) / (colorWeight + 1),
+            };
+
+            arrowHeadElement.dataset.color =
+                `rgb(${newColor.r} ${newColor.g} ${newColor.b})`;
+            arrowHeadElement.dataset.colorWeight = colorWeight + 1;
+
+            arrowHeadElement.src = colorImgAsCanvas(
+                arrowImage,
+                arrowHeadElement.dataset.color
+            ).toDataURL('image/png');
+        }
+    }
+
+    arrowHeadElement.style.visibility = 'visible';
 }
 
 //##############
