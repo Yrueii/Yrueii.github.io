@@ -1,11 +1,11 @@
-{"date_updated": "2026-11-02 04:22:40", "repos": [
+{"date_updated": "2026-11-04 04:48:51", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mindcode",
   "description": "A high level language for Mindustry Logic (mlog) and Mindustry Schematics.",
   "owner": "cardillan",
-  "updated_at": "2026-11-01T20:09:20Z",
-  "stargazers_count": 172
+  "updated_at": "2026-11-03T22:19:16Z",
+  "stargazers_count": 173
 }
 ,
 {
@@ -121,7 +121,7 @@
   "short_name": "MindustryLogicBangLang",
   "description": "Mindustry logic extension meta-programming language, for zero additional overhead!",
   "owner": "A4-Tacks",
-  "updated_at": "2026-10-24T16:33:27Z",
+  "updated_at": "2026-11-03T22:32:06Z",
   "stargazers_count": 35
 }
 ,
