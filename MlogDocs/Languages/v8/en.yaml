@@ -1416,6 +1416,44 @@ instructions:
                 title: atan
                 content: "{link:Atan:https://en.wikipedia.org/wiki/Inverse_trigonometric_functions}, in degrees"
                 Atan: Atan
+            sign:
+                title: sign
+                content: |
+                    Returns 0 only when the operand is strictly equal to 0, -1 for negative and 1 for positive numbers.
+            logn:
+                title: logn
+                content: |
+                    example : {code:op_logn_result_1000_10:op}
+                    {br}Computes the logarithm of 1000 in base 10
+                    {br}result : 3
+                    {br}because 10^3 = 1000
+                op_logn_result_1000_10: "op logn result 1000 10"
+            round:
+                title: round
+                content: |
+                    Rounds the value to the nearest integer.
+            emod:
+                title: emod
+                content: |
+                    {link:euclidian_modulo:https://en.wikipedia.org/wiki/Euclidean_division}
+                    {br}Example : {code:op_emod_result_3_5:op}
+                    {br}Means: compute -3 mod 5, returning a positive result.
+                    {br}Result: result = 2
+                    {br}Because -3 mod 5 = 2 in positive modulo (since -3 ≡ 2 (mod 5)).
+                op_emod_result_3_5: "op emod result -3 5"
+                euclidian_modulo: "Euclidian Modulo"
+            ushr:
+                title: ushr
+                content: |
+                    Example : {code:op_ushr_result_8_1:op}
+                    {br}{hl:_8:yel} >>> {hl:_8bin:yel}
+                    {br}Unsigned right shift by 1:
+                    {br}{hl:_8binshift:yel} = {hl:_2147483644:yel}
+                op_ushr_result_8_1: "op ushr result -8 1"
+                _8: "-8"
+                _8bin: "11111111 11111111 11111111 11111000"
+                _8binshift: "11111111 11111111 11111111 11111000"
+                _2147483644: "2147483644"
     select:
         title: Select
         content: |
@@ -1838,6 +1876,15 @@ controlling_units:
                     {br}a unit can only store 1 numeric flag
                     {br}The largest integer that can be stored in a single flag is related to {link:intlimit:#integers}
                 intlimit: integer limitations
+            deconstruct:
+                title: Deconstruct
+                content: |
+                    {code:ucontrol_deconstruct_0_0_0_0_0:unit}
+                    {br}attempts to tell {code:unit:variable} to deconstructs a block at the specified coordinates, if the unit is in range and able to deconstruct it
+                    {br}else does nothing
+                    {br}note that this instruction will not be available if the rule of "Logic Unit Deconstruction" is disabled in the world/map rule settings
+                ucontrol_deconstruct_0_0_0_0_0: "ucontrol deconstruct 0 0 0 0 0"
+                unit: "@unit"
                 
     unit_radar:
         title: Unit Radar
@@ -2357,10 +2404,12 @@ world_logic:
             {br}{img:image/message 4.png:_}
             {br}{br}{code:mission:field}
             {br}{img:image/message 2.png:_}
+            {br}{br}- new field {code:success:field}
         announce: "announce"
         notify: "notify"
         toast: "toast"
         mission: "mission"
+        success: "success"
     cutscene:
         title: "Cutscene"
         content: |
@@ -2745,7 +2794,7 @@ world_logic:
             {br}here's an example:
             {br}{img:image/localeprintexample.png:_}
             {br}
-            {br}property values supports formatting like normal {code:print:draw} does, like placeholders {code:0}, colors {code:red},
+            {br}property values supports formatting like normal {code:print:draw} does, like placeholders {code:placeholders}, colors {code:red},
             newlines {code:n}
             {br}
             {br}for mobile devices you can add {code:mobile} at the end of the property name, for example {code:welcomemobile}, if players are on mobile
@@ -2766,256 +2815,23 @@ world_logic:
         mobile: ".mobile"
         welcomemobile: "welcome.mobile"
         localename: "???{name}???"
+        placeholders: "{0}"
 
 bleeding_edge:
     title: "Bleeding Edge"
     content: |
-        {span:TOADD:toadd}
-        {br}{br}Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
+        Bleeding edge is the newest test version of mindustry, like Early Access or Beta Build
         {br}BE version can be found and downloaded on
         {link:httpsgithubcomanukenmindustrybuilds:https://github.com/Anuken/MindustryBuilds}
-        {br}
-        {br}BE feature are subject to change, therefore i cannot make sure these information are up to date
-        {br}
-        {br}Some Information are gathered from {link:cardillan:https://github.com/cardillan/mindcode/wiki/Changes-to-Mindustry-Logic} Github Wiki
+        {br}More Information on {link:cardillan:https://github.com/cardillan/mindcode/wiki/Changes-to-Mindustry-Logic} Github Wiki
     TOADD: TOADD
     httpsgithubcomanukenmindustrybuilds: "https://github.com/Anuken/MindustryBuilds"
     cardillan: "Cardillan"
-    title2: "{delete:1}"
-    content2: "{delete:0:1}"
-    at: "at"
-    to: "to"
-    read_result_mindustry_at_0: "read result = \"Mindustry\" at 0"
-    null: "null"
-    title3: "Set rule"
-    content3: |
-        {br}- new rule {code:dragmultiplier:field}
-    dragmultiplier: "dragMultiplier"
-    title4: "Flush message"
-    content4: "- new field {code:success:field}"
-    success: "success"
-    title5: "Lookup"
-    content5: "- now supports {code:team:field} lookup"
-    team: "team"
-    title6: "{delete:1}"
-    content6: "{delete:0:1}"
-    httpswikipediaorgwikiascii: "https://wikipedia.org/wiki/ASCII"
-    title7: "Unit Control deconstruct"
-    content7: |
-        {code:ucontrol_deconstruct_0_0_0_0_0:unit}
-        {br}attempts to tell {code:unit:variable} to deconstructs a block at the specified coordinates, if the unit is in range and able to deconstruct it
-        {br}else does nothing
-        {br}note that this instruction will not be available if the rule of "Logic Unit Deconstruction" is disabled in the world/map rule settings
-    ucontrol_deconstruct_0_0_0_0_0: "ucontrol deconstruct 0 0 0 0 0"
-    unit: "@unit"
-    title8: "{delete:1}"
-    content8: "{delete:0}"
-    content9: "{delete:0:1}"
-    title9: "{delete:1}"
-    content10: "{delete:0:1}"
-    title10: "{delete:1}"
-    content11: "{delete:0:1}"
-    title11: "{delete:1}"
-    content12: "{delete:0:1}"
-    title12: "{delete:1}"
-    content13: "{delete:0:1}"
-    title13: "{delete:1}"
-    content14: "{delete:0:1}"
-    title14: "{delete:1}"
-    content15: "{delete:0:1}"
-    title15: "{delete:1}"
-    content16: "{delete:0:1}"
-    title16: "{delete:1}"
-    content17: "{delete:0:1}"
-    title17: "{delete:1}"
-    content18: "{delete:0:1}"
-    title18: "{delete:1}"
-    content19: "{delete:0:1}"
-    shapetext: "shapeText"
-    point: "point"
-    shape: "shape"
-    text: "text"
-    line: "line"
-    texture: "Texture"
-    setmarker_texture: "setmarker texture"
-    quad: "Quad"
-    setmarker_posi: "setmarker posi"
-    setmarker_uvi: "setmarker uvi"
-    content20: "{delete:0:1}"
-    title19: "{delete:1}"
-    content21: "{delete:0:1}"
-    title20: "{delete:1}"
-    content22: "{delete:0:1}"
-    title21: "{delete:1}"
-    content23: "{delete:0:1}"
-    title22: "op sign"
-    content24: |
-        New operation for {link:operation:#operation}
-        {br}Returns 0 only when the operand is strictly equal to 0, -1 for negative and 1 for positive numbers.
-    operation: "operation"
-    title23: "op logn"
-    content25: |
-        New operation for {link:operation:#operation}
-        {br}example : {code:op_logn_result_1000_10:op}
-        {br}Computes the logarithm of 1000 in base 10
-        {br}result : 3
-        {br}because 10^3 = 1000
-    op_logn_result_1000_10: "op logn result 1000 10"
-    title24: "op round"
-    content26: |
-        New operation for {link:operation:#operation}
-        {br}Rounds the value to the nearest integer.
-    title25: "op emod"
-    content27: |
-        New operation for {link:operation:#operation}
-        {br}{link:euclidian_modulo:https://en.wikipedia.org/wiki/Euclidean_division}
-        {br}Example : {code:op_emod_result_3_5:op}
-        {br}Means: compute -3 mod 5, returning a positive result.
-        {br}Result: result = 2
-        {br}Because -3 mod 5 = 2 in positive modulo (since -3 ≡ 2 (mod 5)).
-    op_emod_result_3_5: "op emod result -3 5"
-    euclidian_modulo: "Euclidian Modulo"
-    title26: "op ushr"
-    content28: |
-        New operation for {link:operation:#operation}
-        {br}Example : {code:op_ushr_result_8_1:op}
-        {br}{hl:_8:yel} >>> {hl:_8bin:yel}
-        {br}Unsigned right shift by 1:
-        {br}{hl:_8binshift:yel} = {hl:_2147483644:yel}
-    op_ushr_result_8_1: "op ushr result -8 1"
-    _8: "-8"
-    _8bin: "11111111 11111111 11111111 11111000"
-    _8binshift: "11111111 11111111 11111111 11111000"
-    _2147483644: "2147483644"
-    title27: "{delete:1}"
-    content29: "{delete:0:1}"
-    title28: "{delete:1}"
-    content30: "{delete:0:1}"
-    title29: "{delete:1}"
-    content31: "{delete:0:1}"
-    title30: "{delete:1}"
-    content32: "{delete:0:1}"
-    title31: "{delete:1}"
-    content33: "{delete:0:1}"
-    title32: "@memoryCapacity"
-    content34: |
-        return the capacity of the selected memory cell/bank
-        {br}example:
-        {br}{code:sensor_memory_memorycapacity_in_bank1:control}
-        {br}will return the memory capacity of bank1, which is 512
-    sensor_memory_memorycapacity_in_bank1: "sensor memory = @memoryCapacity in bank1"
-    title33: "{delete:1}"
-    content35: "{delete:0:1}"
-    sensor_result_totalpayload_in_unit: "sensor result = @totalPayload in @unit"
-    title34: "{delete:1}"
-    content36: "{delete:0:1}"
-    title35: "{delete:1}"
-    content37: "{delete}"
-    title36: "@displayHeight and @displayWidth"
-    content38: "Returns the display height and width of a display, in pixels"
-    title37: "@bufferUsage"
-    content39: |
-        Returns the number of commands currently in that display graphic buffer, useful for checking when to flush
-        {br}
-        Also Returns total string/characters length when used on a message block, but not length of text buffer
-    title38: "@operations"
-    content40: |
-        Returns the number of drawflush operations on a display since map reload (allows detecting the display needs to be redrawn).
-    title39: "@buildX"
-    content41: |
-        Returns the x coordinate of the current building tile of a unit, if the unit is building something, otherwise returns null
-    title40: "@buildY"
-    content42: |
-        Returns the y coordinate of the current building tile of a unit, if the unit is building something, otherwise returns null
-    title41: "@building"
-    content43: |
-        If used on a unit, returns the {link:block_reference:#building-reference} of the building currently being constructed ({code:build11234:field}, {code:build23456:field}, etc), if the unit is building something.
-        {br}If used on a building (a {link:block_reference:#building-reference}, eg {code:build11234:field}), returns {link:content_name:#contentname} of what type the block will become once it's built ({code:conveyor:content-name}, {code:router:content-name}, etc).
-        This is different from @type, which just returns the {link:content_name:#contentname} of the block, if @type is used for build#1234 it will just return {code:build1:content-name}
-        {br}example:
-        {br}{code:sensor_bref_unit_building:control}
-        {br}{code:sensor_btype_bref_building:control}
-        {br}when {code:unit:variable} is building a router, will return the block reference of that building in {code:bref:variable}, and then return {code:router:content-name} in {code:btype:variable}
-    build11234: "build1#1234"
-    build23456: "build2#3456"
-    conveyor: "@conveyor"
-    build1: "@build1"
-    sensor_bref_unit_building: "sensor bRef @unit @building"
-    sensor_btype_bref_building: "sensor bType bRef @building"
-    bref: "bRef"
-    btype: "bType"
-    block_reference: "block reference"
-    content_name: "content name"
-    title42: "@breaking"
-    content44: |
-        If used on a unit, returns the {link:block_reference:#building-reference} of the building currently being deconstructed ({code:build11234:field}, {code:build23456:field}, etc), if the unit is breaking something.
-        {br}If used on a building (a {link:block_reference:#building-reference}, eg {code:build11234:field}), returns boolean of whether the building is currently being deconstructed or not.
-        {br}example:
-        {br}{code:sensor_bref_unit_breaking:control}
-        {br}{code:sensor_isbreaking_building_breaking:control}
-        {br}when {code:unit:variable} is deconstructing a router, will return the block reference of that building in {code:bref:variable}, and then return true in {code:isbreaking:variable}
-    sensor_bref_unit_breaking: "sensor bRef @unit @breaking"
-    sensor_isbreaking_building_breaking: "sensor isBreaking @building @breaking"
-    isbreaking: "isBreaking"
-    maxunits:
-        title: "@maxUnits"
-        content: |
-            Returns the maximum number of units a team can have. Can only be sensed from cores.
-            {br}{code:example:control}
-        example: sensor cap core1 @maxUnits
+    title2: "{delete:2}"
 
-    technical: 
-        title: Technical
-        counter:
-            title: "@counter"
-            content: |
-                The @counter is set back to numeric value at the start of the execution of each instruction. It is now impossible to assign null or an object value to @counter in any way - all such assignments (regardless of the actual assignment mechanism) are effectively ignored.
-        parser:
-            title: "Mlog Parser"
-            content: |
-                The Mlog parser now correctly understands the literal {hl:_0xFFFFFFFF80000000:yel} and can convert it into its binary form. 
-                This hexadecimal value represents the minimum possible 32-bit signed integer ({code:_Integer.MIN_VALUE}), which is {hl:_-2147483648:yel}.
-                However, the parser still fails to interpret the following numbers:
-            _0xFFFFFFFF80000000: "0xFFFFFFFF80000000"
-            _Integer.MIN_VALUE: Integer.MIN_VALUE
-            _-2147483648: "-2147483648"
-
-            item1: 
-                title: "{hl:_-9223372036854775808:yel}"
-                content: |
-                    This is the smallest possible 64-bit signed integer ({code:_Long.MIN_VALUE}).
-                    {br}The parser can't parse this number in any format (decimal, hexadecimal, binary).
-                _-9223372036854775808: "-9223372036854775808"
-                _Long.MIN_VALUE: "Long.MIN_VALUE"
-            
-            item2: 
-                title: Hexadecimal values from {hl:_0x8000000000000001:yel} to {hl:_0x800000000000000F:yel}
-                content: |
-                    These are just above {code:_Long.MIN_VALUE} in value.
-                    {br}The parser can't handle these when they're written in hexadecimal format.
-                _0x8000000000000001: "0x8000000000000001"
-                _0x800000000000000F: "0x800000000000000F"
-                _Long.MIN_VALUE: "Long.MIN_VALUE"
-
-            item3:
-                title: |
-                    Binary value {raw:<span style="color: yellow; word-wrap: break-word;">0b1000000000000000000000000000000000000000000000000000000000000001</span>}
-                content: |
-                    This is a 64-bit binary number slightly larger than {code:_Long.MIN_VALUE}.
-                    {br}The parser can't handle this specific binary literal.
-                _Long.MIN_VALUE: "Long.MIN_VALUE"
-
-        control_instruction:
-            title: control instruction
-            content: the control instruction can control any block in the processor's range, not just blocks directly linked to it
-
-            
-            
-            
-            
 extras:
     title: "Extras"
-    content: "These are niche question that very small number of people might have"
+    content: "These are niche question that very small number of people might have."
     mindustry_coordinate_system:
         title: "Mindustry coordinate system"
         content: |
@@ -3582,6 +3398,80 @@ built_in_variables_full:
             content_item: "@content-item"
             copper: "@copper"
             lead: "@lead"
+        memoryCapacity:
+            title: "@memoryCapacity"
+            content: |
+                return the capacity of the selected memory cell/bank
+                {br}example:
+                {br}{code:sensor_memory_memorycapacity_in_bank1:control}
+                {br}will return the memory capacity of bank1, which is 512
+            sensor_memory_memorycapacity_in_bank1: "sensor memory = @memoryCapacity in bank1"
+        displayHeight:
+            title: "@displayHeight and @displayWidth"
+            content: "Returns the display height and width of a display, in pixels"
+        bufferUsage:
+            title: "@bufferUsage"
+            content: |
+                Returns the number of commands currently in that display graphic buffer, useful for checking when to flush
+                {br}
+                Also Returns total string/characters length when used on a message block, but not length of text buffer
+        operations:
+            title: "@operations"
+            content: |
+                Returns the number of drawflush operations on a display since map reload (allows detecting the display needs to be redrawn).
+        buildX:
+            title: "@buildX"
+            content: |
+                Returns the x coordinate of the current building tile of a unit, if the unit is building something, otherwise returns null
+        buildY:
+            title: "@buildY"
+            content: |
+                Returns the y coordinate of the current building tile of a unit, if the unit is building something, otherwise returns null
+        building:
+            title: "@building"
+            content: |
+                If used on a unit, returns the {link:block_reference:#building-reference} of the building currently being constructed ({code:build11234:field}, {code:build23456:field}, etc), if the unit is building something.
+                {br}If used on a building (a {link:block_reference:#building-reference}, eg {code:build11234:field}), returns {link:content_name:#contentname} of what type the block will become once it's built ({code:conveyor:content-name}, {code:router:content-name}, etc).
+                This is different from @type, which just returns the {link:content_name:#contentname} of the block, if @type is used for build#1234 it will just return {code:build1:content-name}
+                {br}example:
+                {br}{code:sensor_bref_unit_building:control}
+                {br}{code:sensor_btype_bref_building:control}
+                {br}when {code:unit:variable} is building a router, will return the block reference of that building in {code:bref:variable}, and then return {code:router:content-name} in {code:btype:variable}
+            build11234: "build1#1234"
+            build23456: "build2#3456"
+            conveyor: "@conveyor"
+            router: "@router"
+            build1: "@build1"
+            sensor_bref_unit_building: "sensor bRef @unit @building"
+            sensor_btype_bref_building: "sensor bType bRef @building"
+            unit: "@unit"
+            bref: "bRef"
+            btype: "bType"
+            block_reference: "block reference"
+            content_name: "content name"
+        breaking:
+            title: "@breaking"
+            content: |
+                If used on a unit, returns the {link:block_reference:#building-reference} of the building currently being deconstructed ({code:build11234:field}, {code:build23456:field}, etc), if the unit is breaking something.
+                {br}If used on a building (a {link:block_reference:#building-reference}, eg {code:build11234:field}), returns boolean of whether the building is currently being deconstructed or not.
+                {br}example:
+                {br}{code:sensor_bref_unit_breaking:control}
+                {br}{code:sensor_isbreaking_building_breaking:control}
+                {br}when {code:unit:variable} is deconstructing a router, will return the block reference of that building in {code:bref:variable}, and then return true in {code:isbreaking:variable}
+            build11234: "build1#1234"
+            build23456: "build2#3456"
+            sensor_bref_unit_breaking: "sensor bRef @unit @breaking"
+            sensor_isbreaking_building_breaking: "sensor isBreaking @building @breaking"
+            isbreaking: "isBreaking"
+            block_reference: "block reference"
+            unit: "@unit"
+            bref: "bRef"
+        maxUnits:
+            title: "@maxUnits"
+            content: |
+                Returns the maximum number of units a team can have. Can only be sensed from cores.
+                {br}{code:example:control}
+            example: sensor cap core1 @maxUnits
                     
 # Source:
     # Source code :

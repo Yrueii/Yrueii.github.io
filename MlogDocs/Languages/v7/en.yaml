@@ -2896,7 +2896,7 @@ bleeding_edge:
             
 extras:
     title: "Extras"
-    content: "These are niche question that very small number of people might have"
+    content: "These are niche question that very small number of people might have."
     mindustry_coordinate_system:
         title: "Mindustry coordinate system"
         content: |
