@@ -1,4 +1,4 @@
-{"date_updated": "2026-11-10 05:54:38", "repos": [
+{"date_updated": "2026-11-11 04:40:44", "repos": [
 {
   "html_url": "https://github.com/cardillan/mindcode",
   "short_name": "Mindcode",
@@ -121,7 +121,7 @@
   "short_name": "MindustryLogicBangLang",
   "description": "Mindustry logic extension meta-programming language, for zero additional overhead!",
   "owner": "A4-Tacks",
-  "updated_at": "2026-11-10T05:06:07Z",
+  "updated_at": "2026-11-10T09:14:20Z",
   "stargazers_count": 35
 }
 ,
